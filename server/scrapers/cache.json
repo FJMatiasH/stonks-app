@@ -5884,5 +5884,2263 @@
       "mantener": 2,
       "venta": 0
     }
+  },
+  "NYSE:OXY:stockData": {
+    "price": "$58.84",
+    "trailingPE": "9.11",
+    "forwardPE": "9.49",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+10.8%",
+    "netMargins": "28.36%"
+  },
+  "NYSE:ODFL:stockData": {
+    "price": "$173.00",
+    "trailingPE": "33.33",
+    "forwardPE": "29.93",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+31.6%",
+    "netMargins": "19.44%"
+  },
+  "NYSE:OMC:stockData": {
+    "price": "$76.48",
+    "trailingPE": "65.94",
+    "forwardPE": "7.28",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+29.4%",
+    "netMargins": "1.74%"
+  },
+  "NYSE:OMC": {
+    "ticker": "OMC",
+    "name": "Omnicom Group",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 4,
+      "mantener": 5,
+      "venta": 2
+    }
+  },
+  "NYSE:ODFL": {
+    "ticker": "ODFL",
+    "name": "Old Dominion Freight Line",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 11,
+      "mantener": 13,
+      "venta": 2
+    }
+  },
+  "NYSE:OXY": {
+    "ticker": "OXY",
+    "name": "Occidental Petroleum",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 10,
+      "mantener": 17,
+      "venta": 0
+    }
+  },
+  "NYSE:OTIS:stockData": {
+    "price": "$68.55",
+    "trailingPE": "17.62",
+    "forwardPE": "17.01",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+35.5%",
+    "netMargins": "10.17%"
+  },
+  "NYSE:OTIS": {
+    "ticker": "OTIS",
+    "name": "Otis Worldwide",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 4,
+      "mantener": 5,
+      "venta": 1
+    }
+  },
+  "NYSE:ORCL:stockData": {
+    "price": "$147.60",
+    "trailingPE": "23.13",
+    "forwardPE": "22.13",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+71.1%",
+    "netMargins": "26.36%"
+  },
+  "NYSE:OKE:stockData": {
+    "price": "$93.51",
+    "trailingPE": "16.12",
+    "forwardPE": "16.29",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+2.7%",
+    "netMargins": "9.29%"
+  },
+  "NYSE:OKE": {
+    "ticker": "OKE",
+    "name": "ONEOK",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 7,
+      "mantener": 12,
+      "venta": 0
+    }
+  },
+  "NYSE:ORCL": {
+    "ticker": "ORCL",
+    "name": "Oracle",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 32,
+      "mantener": 8,
+      "venta": 1
+    }
+  },
+  "NYSE:PH:stockData": {
+    "price": "$942.62",
+    "trailingPE": "33.09",
+    "forwardPE": "26.97",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+18.2%",
+    "netMargins": "16.97%"
+  },
+  "NYSE:PCAR": {
+    "ticker": "PCAR",
+    "name": "PACCAR",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 3,
+      "mantener": 11,
+      "venta": 0
+    }
+  },
+  "NYSE:PH": {
+    "ticker": "PH",
+    "name": "Parker-Hannifin",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 17,
+      "mantener": 2,
+      "venta": 0
+    }
+  },
+  "NYSE:PCAR:stockData": {
+    "price": "$116.06",
+    "trailingPE": "24.38",
+    "forwardPE": "19.64",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+15.4%",
+    "netMargins": "9.00%"
+  },
+  "NASDAQ:PKI:stockData": {
+    "price": "",
+    "trailingPE": null,
+    "forwardPE": null,
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": null,
+    "netMargins": null
+  },
+  "NASDAQ:PKI": {
+    "ticker": "PKI",
+    "name": "Top NASDAQ Stocks",
+    "exchange": "NASDAQ",
+    "opinions": {
+      "compra": 0,
+      "mantener": 0,
+      "venta": 0
+    }
+  },
+  "NASDAQ:PYPL:stockData": {
+    "price": "$52.41",
+    "trailingPE": "9.91",
+    "forwardPE": "9.74",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+6.9%",
+    "netMargins": "14.36%"
+  },
+  "NASDAQ:PAYX:stockData": {
+    "price": "$116.14",
+    "trailingPE": "23.75",
+    "forwardPE": "19.49",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+9.1%",
+    "netMargins": "27.03%"
+  },
+  "NASDAQ:PAYX": {
+    "ticker": "PAYX",
+    "name": "Paychex",
+    "exchange": "NASDAQ",
+    "opinions": {
+      "compra": 4,
+      "mantener": 11,
+      "venta": 3
+    }
+  },
+  "NASDAQ:PDCO:stockData": {
+    "price": "",
+    "trailingPE": null,
+    "forwardPE": null,
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": null,
+    "netMargins": null
+  },
+  "NASDAQ:PDCO": {
+    "ticker": "PDCO",
+    "name": "Top NASDAQ Stocks",
+    "exchange": "NASDAQ",
+    "opinions": {
+      "compra": 0,
+      "mantener": 0,
+      "venta": 0
+    }
+  },
+  "NYSE:PXD:stockData": {
+    "price": "",
+    "trailingPE": null,
+    "forwardPE": null,
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": null,
+    "netMargins": null
+  },
+  "NYSE:PNW": {
+    "ticker": "PNW",
+    "name": "Pinnacle West Capital",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 3,
+      "mantener": 11,
+      "venta": 0
+    }
+  },
+  "NYSE:PNW:stockData": {
+    "price": "$94.15",
+    "trailingPE": "18.04",
+    "forwardPE": "19.99",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+10.7%",
+    "netMargins": "11.52%"
+  },
+  "NASDAQ:PYPL": {
+    "ticker": "PYPL",
+    "name": "PayPal",
+    "exchange": "NASDAQ",
+    "opinions": {
+      "compra": 9,
+      "mantener": 34,
+      "venta": 4
+    }
+  },
+  "NYSE:PXD": {
+    "ticker": "PXD",
+    "name": "Top NYSE Stocks",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 0,
+      "mantener": 0,
+      "venta": 0
+    }
+  },
+  "NYSE:PPG:stockData": {
+    "price": "$104.53",
+    "trailingPE": "14.98",
+    "forwardPE": "13.25",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+21.0%",
+    "netMargins": "9.57%"
+  },
+  "NYSE:POOL:stockData": {
+    "price": "$167.96",
+    "trailingPE": "15.45",
+    "forwardPE": "15.34",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+37.0%",
+    "netMargins": "7.40%"
+  },
+  "NYSE:PNC": {
+    "ticker": "PNC",
+    "name": "The PNC Financial Services Group",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 17,
+      "mantener": 4,
+      "venta": 0
+    }
+  },
+  "NYSE:PPG": {
+    "ticker": "PPG",
+    "name": "PPG Industries",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 8,
+      "mantener": 9,
+      "venta": 0
+    }
+  },
+  "NYSE:PNC:stockData": {
+    "price": "$232.97",
+    "trailingPE": "12.82",
+    "forwardPE": "12.10",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+15.0%",
+    "netMargins": "21.41%"
+  },
+  "NYSE:POOL": {
+    "ticker": "POOL",
+    "name": "Pool",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 5,
+      "mantener": 7,
+      "venta": 2
+    }
+  },
+  "NYSE:PG:stockData": {
+    "price": "$146.28",
+    "trailingPE": "22.10",
+    "forwardPE": "20.93",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+10.4%",
+    "netMargins": "18.44%"
+  },
+  "NYSE:PG": {
+    "ticker": "PG",
+    "name": "Procter & Gamble",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 13,
+      "mantener": 10,
+      "venta": 0
+    }
+  },
+  "NYSE:PFG:stockData": {
+    "price": "$117.67",
+    "trailingPE": "16.71",
+    "forwardPE": "12.23",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "-7.5%",
+    "netMargins": "9.93%"
+  },
+  "NYSE:PPL": {
+    "ticker": "PPL",
+    "name": "PPL",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 10,
+      "mantener": 4,
+      "venta": 0
+    }
+  },
+  "NYSE:PPL:stockData": {
+    "price": "$33.30",
+    "trailingPE": "19.71",
+    "forwardPE": "17.08",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+21.0%",
+    "netMargins": "13.47%"
+  },
+  "NYSE:PFG": {
+    "ticker": "PFG",
+    "name": "Principal Financial Group",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 3,
+      "mantener": 7,
+      "venta": 3
+    }
+  },
+  "NYSE:PRU:stockData": {
+    "price": "$118.44",
+    "trailingPE": "10.73",
+    "forwardPE": "8.13",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "-7.7%",
+    "netMargins": "6.51%"
+  },
+  "NYSE:PRU": {
+    "ticker": "PRU",
+    "name": "Prudential Financial",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 1,
+      "mantener": 10,
+      "venta": 5
+    }
+  },
+  "NYSE:PGR:stockData": {
+    "price": "$213.15",
+    "trailingPE": "10.69",
+    "forwardPE": "11.94",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+10.7%",
+    "netMargins": "12.84%"
+  },
+  "NYSE:PGR": {
+    "ticker": "PGR",
+    "name": "Progressive",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 7,
+      "mantener": 13,
+      "venta": 2
+    }
+  },
+  "NYSE:PLD:stockData": {
+    "price": "$134.80",
+    "trailingPE": "30.02",
+    "forwardPE": "21.50",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+14.6%",
+    "netMargins": "45.79%"
+  },
+  "NYSE:PLD": {
+    "ticker": "PLD",
+    "name": "Prologis",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 16,
+      "mantener": 7,
+      "venta": 0
+    }
+  },
+  "NYSE:PHM:stockData": {
+    "price": "$117.18",
+    "trailingPE": "11.97",
+    "forwardPE": "11.64",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+20.3%",
+    "netMargins": "11.62%"
+  },
+  "NYSE:PEG:stockData": {
+    "price": "$69.77",
+    "trailingPE": "17.36",
+    "forwardPE": "16.00",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+27.9%",
+    "netMargins": "16.04%"
+  },
+  "NYSE:PHM": {
+    "ticker": "PHM",
+    "name": "PulteGroup",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 14,
+      "mantener": 5,
+      "venta": 0
+    }
+  },
+  "NYSE:PSA:stockData": {
+    "price": "$295.77",
+    "trailingPE": "28.22",
+    "forwardPE": "17.48",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+10.6%",
+    "netMargins": "41.80%"
+  },
+  "NYSE:PEG": {
+    "ticker": "PEG",
+    "name": "Public Service Enterprise Group",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 7,
+      "mantener": 10,
+      "venta": 0
+    }
+  },
+  "NYSE:PSA": {
+    "ticker": "PSA",
+    "name": "Public Storage",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 7,
+      "mantener": 14,
+      "venta": 0
+    }
+  },
+  "NASDAQ:QCOM:stockData": {
+    "price": "$177.72",
+    "trailingPE": "20.57",
+    "forwardPE": "22.96",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+14.8%",
+    "netMargins": "21.01%"
+  },
+  "NASDAQ:QRVO": {
+    "ticker": "QRVO",
+    "name": "Qorvo",
+    "exchange": "NASDAQ",
+    "opinions": {
+      "compra": 3,
+      "mantener": 14,
+      "venta": 1
+    }
+  },
+  "NASDAQ:QCOM": {
+    "ticker": "QCOM",
+    "name": "Qualcomm",
+    "exchange": "NASDAQ",
+    "opinions": {
+      "compra": 14,
+      "mantener": 21,
+      "venta": 3
+    }
+  },
+  "NYSE:PVH:stockData": {
+    "price": "$73.36",
+    "trailingPE": "N/A",
+    "forwardPE": "6.08",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+18.0%",
+    "netMargins": "-1.89%"
+  },
+  "NYSE:PVH": {
+    "ticker": "PVH",
+    "name": "PVH",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 6,
+      "mantener": 5,
+      "venta": 3
+    }
+  },
+  "NASDAQ:QRVO:stockData": {
+    "price": "$117.18",
+    "trailingPE": "27.19",
+    "forwardPE": "18.25",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "-19.8%",
+    "netMargins": "10.95%"
+  },
+  "NYSE:RJF:stockData": {
+    "price": "$164.53",
+    "trailingPE": "14.34",
+    "forwardPE": "13.62",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+10.3%",
+    "netMargins": "13.57%"
+  },
+  "NYSE:RJF": {
+    "ticker": "RJF",
+    "name": "Raymond James Financial",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 5,
+      "mantener": 9,
+      "venta": 0
+    }
+  },
+  "NYSE:RL:stockData": {
+    "price": "$334.34",
+    "trailingPE": "21.07",
+    "forwardPE": "17.79",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+33.3%",
+    "netMargins": "11.76%"
+  },
+  "NYSE:PWR:stockData": {
+    "price": "$636.20",
+    "trailingPE": "72.88",
+    "forwardPE": "41.50",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+20.7%",
+    "netMargins": "4.03%"
+  },
+  "NYSE:RL": {
+    "ticker": "RL",
+    "name": "Ralph Lauren",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 16,
+      "mantener": 2,
+      "venta": 0
+    }
+  },
+  "NYSE:PWR": {
+    "ticker": "PWR",
+    "name": "Quanta Services",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 23,
+      "mantener": 7,
+      "venta": 3
+    }
+  },
+  "NASDAQ:REGN:stockData": {
+    "price": "$784.85",
+    "trailingPE": "19.40",
+    "forwardPE": "17.74",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+2.2%",
+    "netMargins": "27.86%"
+  },
+  "NYSE:REG:stockData": {
+    "price": "$72.95",
+    "trailingPE": "24.73",
+    "forwardPE": "15.01",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+14.8%",
+    "netMargins": "34.38%"
+  },
+  "NASDAQ:REGN": {
+    "ticker": "REGN",
+    "name": "Regeneron Pharmaceuticals",
+    "exchange": "NASDAQ",
+    "opinions": {
+      "compra": 14,
+      "mantener": 10,
+      "venta": 0
+    }
+  },
+  "NYSE:REG": {
+    "ticker": "REG",
+    "name": "Regency Centers",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 9,
+      "mantener": 9,
+      "venta": 0
+    }
+  },
+  "NYSE:RTN:stockData": {
+    "price": "",
+    "trailingPE": null,
+    "forwardPE": null,
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": null,
+    "netMargins": null
+  },
+  "NYSE:RTN": {
+    "ticker": "RTN",
+    "name": "Top NYSE Stocks",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 0,
+      "mantener": 0,
+      "venta": 0
+    }
+  },
+  "NYSE:RMD:stockData": {
+    "price": "$225.35",
+    "trailingPE": "21.61",
+    "forwardPE": "18.75",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+7.3%",
+    "netMargins": "26.94%"
+  },
+  "NYSE:RSG:stockData": {
+    "price": "$217.99",
+    "trailingPE": "30.88",
+    "forwardPE": "29.99",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+12.5%",
+    "netMargins": "12.94%"
+  },
+  "NYSE:RSG": {
+    "ticker": "RSG",
+    "name": "Republic Services",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 12,
+      "mantener": 10,
+      "venta": 0
+    }
+  },
+  "NYSE:RF:stockData": {
+    "price": "$28.50",
+    "trailingPE": "11.63",
+    "forwardPE": "10.83",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+13.3%",
+    "netMargins": "23.33%"
+  },
+  "NYSE:RMD": {
+    "ticker": "RMD",
+    "name": "ResMed",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 7,
+      "mantener": 9,
+      "venta": 0
+    }
+  },
+  "NYSE:RF": {
+    "ticker": "RF",
+    "name": "Regions Financial",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 6,
+      "mantener": 11,
+      "venta": 3
+    }
+  },
+  "NYSE:ROL:stockData": {
+    "price": "$32.49",
+    "trailingPE": "29.53",
+    "forwardPE": "27.53",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+49.9%",
+    "netMargins": "13.55%"
+  },
+  "NYSE:RHI:stockData": {
+    "price": "$37.34",
+    "trailingPE": "32.47",
+    "forwardPE": "29.40",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "-6.9%",
+    "netMargins": "2.17%"
+  },
+  "NYSE:ROK:stockData": {
+    "price": "$415.15",
+    "trailingPE": "38.91",
+    "forwardPE": "31.36",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+13.0%",
+    "netMargins": "13.39%"
+  },
+  "NYSE:ROK": {
+    "ticker": "ROK",
+    "name": "Rockwell Automation",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 9,
+      "mantener": 12,
+      "venta": 0
+    }
+  },
+  "NYSE:ROL": {
+    "ticker": "ROL",
+    "name": "Rollins",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 6,
+      "mantener": 10,
+      "venta": 3
+    }
+  },
+  "NYSE:RHI": {
+    "ticker": "RHI",
+    "name": "Robert Half",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 3,
+      "mantener": 4,
+      "venta": 3
+    }
+  },
+  "NASDAQ:SBAC:stockData": {
+    "price": "$178.59",
+    "trailingPE": "19.24",
+    "forwardPE": "15.65",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+26.3%",
+    "netMargins": "34.51%"
+  },
+  "NYSE:CRM:stockData": {
+    "price": "$237.56",
+    "trailingPE": "21.66",
+    "forwardPE": "18.53",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+15.8%",
+    "netMargins": "21.99%"
+  },
+  "NASDAQ:SBAC": {
+    "ticker": "SBAC",
+    "name": "SBA Communications",
+    "exchange": "NASDAQ",
+    "opinions": {
+      "compra": 7,
+      "mantener": 9,
+      "venta": 0
+    }
+  },
+  "NYSE:ROP:stockData": {
+    "price": "$372.74",
+    "trailingPE": "15.44",
+    "forwardPE": "16.77",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+25.3%",
+    "netMargins": "30.24%"
+  },
+  "NYSE:ROP": {
+    "ticker": "ROP",
+    "name": "Roper Technologies",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 7,
+      "mantener": 9,
+      "venta": 3
+    }
+  },
+  "NYSE:CRM": {
+    "ticker": "CRM",
+    "name": "Salesforce",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 33,
+      "mantener": 14,
+      "venta": 3
+    }
+  },
+  "NYSE:STX:stockData": {
+    "price": "$858.79",
+    "trailingPE": "61.87",
+    "forwardPE": "24.06",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+14.8%",
+    "netMargins": "26.11%"
+  },
+  "NYSE:STX": {
+    "ticker": "STX",
+    "name": "Seagate Technology",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 23,
+      "mantener": 4,
+      "venta": 0
+    }
+  },
+  "NYSE:SLB": {
+    "ticker": "SLB",
+    "name": "SLB",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 20,
+      "mantener": 2,
+      "venta": 1
+    }
+  },
+  "NYSE:SLB:stockData": {
+    "price": "$51.14",
+    "trailingPE": "24.70",
+    "forwardPE": "20.46",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+20.8%",
+    "netMargins": "8.53%"
+  },
+  "NYSE:SNI:stockData": {
+    "price": "",
+    "trailingPE": null,
+    "forwardPE": null,
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": null,
+    "netMargins": null
+  },
+  "NYSE:SNI": {
+    "ticker": "SNI",
+    "name": "Top NYSE Stocks",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 0,
+      "mantener": 0,
+      "venta": 0
+    }
+  },
+  "NYSE:NOW:stockData": {
+    "price": "$135.21",
+    "trailingPE": "84.50",
+    "forwardPE": "60.90",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+7.8%",
+    "netMargins": "11.34%"
+  },
+  "NYSE:SRE": {
+    "ticker": "SRE",
+    "name": "Sempra Energy",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 11,
+      "mantener": 4,
+      "venta": 0
+    }
+  },
+  "NYSE:SEE": {
+    "ticker": "SEE",
+    "name": "Sealed Air",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 0,
+      "mantener": 0,
+      "venta": 0
+    }
+  },
+  "NYSE:NOW": {
+    "ticker": "NOW",
+    "name": "ServiceNow",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 37,
+      "mantener": 3,
+      "venta": 2
+    }
+  },
+  "NYSE:SRE:stockData": {
+    "price": "$81.27",
+    "trailingPE": "23.56",
+    "forwardPE": "15.87",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+25.1%",
+    "netMargins": "16.70%"
+  },
+  "NYSE:SEE:stockData": {
+    "price": "",
+    "trailingPE": "12.29",
+    "forwardPE": "13.82",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+4.6%",
+    "netMargins": "9.43%"
+  },
+  "NASDAQ:SWKS:stockData": {
+    "price": "$88.76",
+    "trailingPE": "45.99",
+    "forwardPE": "24.38",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "-16.6%",
+    "netMargins": "7.23%"
+  },
+  "NASDAQ:SWKS": {
+    "ticker": "SWKS",
+    "name": "Skyworks Solutions",
+    "exchange": "NASDAQ",
+    "opinions": {
+      "compra": 4,
+      "mantener": 18,
+      "venta": 2
+    }
+  },
+  "NYSE:SPG": {
+    "ticker": "SPG",
+    "name": "Simon Property Group",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 5,
+      "mantener": 12,
+      "venta": 0
+    }
+  },
+  "NYSE:SHW": {
+    "ticker": "SHW",
+    "name": "Sherwin-Williams",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 11,
+      "mantener": 7,
+      "venta": 0
+    }
+  },
+  "NYSE:SHW:stockData": {
+    "price": "$320.71",
+    "trailingPE": "29.56",
+    "forwardPE": "26.53",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+20.4%",
+    "netMargins": "11.01%"
+  },
+  "NYSE:SPG:stockData": {
+    "price": "$205.16",
+    "trailingPE": "14.47",
+    "forwardPE": "15.51",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+11.3%",
+    "netMargins": "66.56%"
+  },
+  "NYSE:SO": {
+    "ticker": "SO",
+    "name": "Southern",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 7,
+      "mantener": 11,
+      "venta": 2
+    }
+  },
+  "NYSE:SLG": {
+    "ticker": "SLG",
+    "name": "SL Green Realty",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 7,
+      "mantener": 10,
+      "venta": 2
+    }
+  },
+  "NYSE:SNA": {
+    "ticker": "SNA",
+    "name": "Snap-On",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 5,
+      "mantener": 1,
+      "venta": 0
+    }
+  },
+  "NYSE:SO:stockData": {
+    "price": "$85.52",
+    "trailingPE": "20.51",
+    "forwardPE": "18.63",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+16.8%",
+    "netMargins": "15.43%"
+  },
+  "NYSE:SNA:stockData": {
+    "price": "$372.16",
+    "trailingPE": "18.98",
+    "forwardPE": "18.89",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+14.5%",
+    "netMargins": "21.25%"
+  },
+  "NYSE:SLG:stockData": {
+    "price": "$52.16",
+    "trailingPE": "N/A",
+    "forwardPE": "9.38",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+9.7%",
+    "netMargins": "-16.92%"
+  },
+  "NYSE:LUV:stockData": {
+    "price": "$41.02",
+    "trailingPE": "25.17",
+    "forwardPE": "12.51",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+17.8%",
+    "netMargins": "2.78%"
+  },
+  "NYSE:SWK:stockData": {
+    "price": "$89.52",
+    "trailingPE": "21.83",
+    "forwardPE": "16.07",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+3.8%",
+    "netMargins": "4.07%"
+  },
+  "NYSE:SPGI:stockData": {
+    "price": "$404.99",
+    "trailingPE": "24.72",
+    "forwardPE": "22.82",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+29.3%",
+    "netMargins": "31.37%"
+  },
+  "NYSE:SWK": {
+    "ticker": "SWK",
+    "name": "Stanley Black & Decker",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 3,
+      "mantener": 6,
+      "venta": 1
+    }
+  },
+  "NYSE:SPGI": {
+    "ticker": "SPGI",
+    "name": "S&P Global",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 18,
+      "mantener": 2,
+      "venta": 0
+    }
+  },
+  "NYSE:LUV": {
+    "ticker": "LUV",
+    "name": "Southwest Airlines",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 9,
+      "mantener": 10,
+      "venta": 3
+    }
+  },
+  "NYSE:STE:stockData": {
+    "price": "$205.14",
+    "trailingPE": "25.08",
+    "forwardPE": "18.45",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+32.3%",
+    "netMargins": "13.34%"
+  },
+  "NYSE:STE": {
+    "ticker": "STE",
+    "name": "STERIS",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 3,
+      "mantener": 1,
+      "venta": 0
+    }
+  },
+  "NASDAQ:SBUX:stockData": {
+    "price": "$95.83",
+    "trailingPE": "55.07",
+    "forwardPE": "36.30",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+15.1%",
+    "netMargins": "5.17%"
+  },
+  "NASDAQ:SBUX": {
+    "ticker": "SBUX",
+    "name": "Starbucks",
+    "exchange": "NASDAQ",
+    "opinions": {
+      "compra": 19,
+      "mantener": 11,
+      "venta": 4
+    }
+  },
+  "NYSE:STT": {
+    "ticker": "STT",
+    "name": "State Street",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 11,
+      "mantener": 5,
+      "venta": 0
+    }
+  },
+  "NYSE:STT:stockData": {
+    "price": "$182.56",
+    "trailingPE": "16.10",
+    "forwardPE": "13.27",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+1.5%",
+    "netMargins": "15.02%"
+  },
+  "NYSE:SYF:stockData": {
+    "price": "$75.00",
+    "trailingPE": "7.68",
+    "forwardPE": "8.00",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+17.7%",
+    "netMargins": "15.44%"
+  },
+  "NASDAQ:SIVB:stockData": {
+    "price": "",
+    "trailingPE": "0.00",
+    "forwardPE": "N/A",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": null,
+    "netMargins": "N/A"
+  },
+  "NASDAQ:SIVB": {
+    "ticker": "SIVB",
+    "name": "SVB Financial Group",
+    "exchange": "NASDAQ",
+    "opinions": {
+      "compra": 0,
+      "mantener": 0,
+      "venta": 0
+    }
+  },
+  "NYSE:SYK": {
+    "ticker": "SYK",
+    "name": "Stryker",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 18,
+      "mantener": 5,
+      "venta": 0
+    }
+  },
+  "NYSE:SYK:stockData": {
+    "price": "$274.80",
+    "trailingPE": "28.48",
+    "forwardPE": "18.32",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+37.6%",
+    "netMargins": "14.43%"
+  },
+  "NYSE:SYF": {
+    "ticker": "SYF",
+    "name": "Synchrony Financial",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 11,
+      "mantener": 7,
+      "venta": 0
+    }
+  },
+  "NASDAQ:SNPS": {
+    "ticker": "SNPS",
+    "name": "Synopsys",
+    "exchange": "NASDAQ",
+    "opinions": {
+      "compra": 13,
+      "mantener": 4,
+      "venta": 1
+    }
+  },
+  "NASDAQ:SNPS:stockData": {
+    "price": "$384.97",
+    "trailingPE": "68.02",
+    "forwardPE": "35.09",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+46.2%",
+    "netMargins": "11.43%"
+  },
+  "NYSE:SYY": {
+    "ticker": "SYY",
+    "name": "Sysco",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 9,
+      "mantener": 6,
+      "venta": 1
+    }
+  },
+  "NYSE:SYY:stockData": {
+    "price": "$79.13",
+    "trailingPE": "21.62",
+    "forwardPE": "15.61",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+13.1%",
+    "netMargins": "2.08%"
+  },
+  "NYSE:TMUS:stockData": {
+    "price": "$168.18",
+    "trailingPE": "17.61",
+    "forwardPE": "15.54",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+49.9%",
+    "netMargins": "11.45%"
+  },
+  "NASDAQ:TTWO:stockData": {
+    "price": "$205.45",
+    "trailingPE": "N/A",
+    "forwardPE": "39.13",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+44.5%",
+    "netMargins": "-4.79%"
+  },
+  "NASDAQ:TTWO": {
+    "ticker": "TTWO",
+    "name": "Take-Two Interactive Software",
+    "exchange": "NASDAQ",
+    "opinions": {
+      "compra": 20,
+      "mantener": 1,
+      "venta": 1
+    }
+  },
+  "NYSE:TROW:stockData": {
+    "price": "$104.16",
+    "trailingPE": "10.45",
+    "forwardPE": "10.25",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+1.9%",
+    "netMargins": "29.26%"
+  },
+  "NYSE:TMUS": {
+    "ticker": "TMUS",
+    "name": "T-Mobile US",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 22,
+      "mantener": 8,
+      "venta": 0
+    }
+  },
+  "NYSE:TROW": {
+    "ticker": "TROW",
+    "name": "T. Rowe Price Group",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 1,
+      "mantener": 9,
+      "venta": 4
+    }
+  },
+  "NYSE:TEL:stockData": {
+    "price": "$205.68",
+    "trailingPE": "20.16",
+    "forwardPE": "17.92",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+22.5%",
+    "netMargins": "15.61%"
+  },
+  "NYSE:TPR": {
+    "ticker": "TPR",
+    "name": "Tapestry",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 17,
+      "mantener": 4,
+      "venta": 0
+    }
+  },
+  "NYSE:TEL": {
+    "ticker": "TEL",
+    "name": "TE Connectivity",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 9,
+      "mantener": 5,
+      "venta": 1
+    }
+  },
+  "NYSE:TPR:stockData": {
+    "price": "$115.14",
+    "trailingPE": "15.79",
+    "forwardPE": "14.50",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+52.1%",
+    "netMargins": "19.09%"
+  },
+  "NYSE:TGT:stockData": {
+    "price": "$158.09",
+    "trailingPE": "16.42",
+    "forwardPE": "17.86",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+0.9%",
+    "netMargins": "4.08%"
+  },
+  "NYSE:TGT": {
+    "ticker": "TGT",
+    "name": "Target",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 11,
+      "mantener": 18,
+      "venta": 3
+    }
+  },
+  "NYSE:TER:stockData": {
+    "price": "$371.47",
+    "trailingPE": "50.96",
+    "forwardPE": "40.82",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+6.8%",
+    "netMargins": "25.77%"
+  },
+  "NYSE:TER": {
+    "ticker": "TER",
+    "name": "Teradyne",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 11,
+      "mantener": 5,
+      "venta": 0
+    }
+  },
+  "NASDAQ:TFX": {
+    "ticker": "TFX",
+    "name": "Teleflex",
+    "exchange": "NASDAQ",
+    "opinions": {
+      "compra": 5,
+      "mantener": 6,
+      "venta": 1
+    }
+  },
+  "NASDAQ:TDY:stockData": {
+    "price": "$603.79",
+    "trailingPE": "29.15",
+    "forwardPE": "24.46",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+19.8%",
+    "netMargins": "15.29%"
+  },
+  "NASDAQ:TFX:stockData": {
+    "price": "$124.49",
+    "trailingPE": "N/A",
+    "forwardPE": "17.15",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+22.8%",
+    "netMargins": "-39.67%"
+  },
+  "NASDAQ:TDY": {
+    "ticker": "TDY",
+    "name": "Teledyne Technologies",
+    "exchange": "NASDAQ",
+    "opinions": {
+      "compra": 4,
+      "mantener": 4,
+      "venta": 0
+    }
+  },
+  "NYSE:TXT:stockData": {
+    "price": "$79.79",
+    "trailingPE": "15.05",
+    "forwardPE": "12.28",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+28.4%",
+    "netMargins": "6.12%"
+  },
+  "NASDAQ:TSLA": {
+    "ticker": "TSLA",
+    "name": "Tesla",
+    "exchange": "NASDAQ",
+    "opinions": {
+      "compra": 22,
+      "mantener": 19,
+      "venta": 5
+    }
+  },
+  "NASDAQ:TXN:stockData": {
+    "price": "$266.64",
+    "trailingPE": "40.58",
+    "forwardPE": "31.56",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+17.1%",
+    "netMargins": "31.11%"
+  },
+  "NYSE:TXT": {
+    "ticker": "TXT",
+    "name": "Textron",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 3,
+      "mantener": 7,
+      "venta": 0
+    }
+  },
+  "NASDAQ:TXN": {
+    "ticker": "TXN",
+    "name": "Texas Instruments",
+    "exchange": "NASDAQ",
+    "opinions": {
+      "compra": 17,
+      "mantener": 8,
+      "venta": 4
+    }
+  },
+  "NASDAQ:TSLA:stockData": {
+    "price": "$364.27",
+    "trailingPE": "337.29",
+    "forwardPE": "413.94",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+13.2%",
+    "netMargins": "3.67%"
+  },
+  "NYSE:TT:stockData": {
+    "price": "$428.86",
+    "trailingPE": "32.49",
+    "forwardPE": "28.01",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+21.6%",
+    "netMargins": "13.28%"
+  },
+  "NYSE:TMO": {
+    "ticker": "TMO",
+    "name": "Thermo Fisher Scientific",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 19,
+      "mantener": 5,
+      "venta": 2
+    }
+  },
+  "NYSE:TT": {
+    "ticker": "TT",
+    "name": "Trane Technologies",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 12,
+      "mantener": 2,
+      "venta": 1
+    }
+  },
+  "NASDAQ:TSCO:stockData": {
+    "price": "$32.21",
+    "trailingPE": "16.78",
+    "forwardPE": "16.69",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+22.0%",
+    "netMargins": "6.42%"
+  },
+  "NASDAQ:TSCO": {
+    "ticker": "TSCO",
+    "name": "Tractor Supply",
+    "exchange": "NASDAQ",
+    "opinions": {
+      "compra": 13,
+      "mantener": 12,
+      "venta": 3
+    }
+  },
+  "NYSE:TMO:stockData": {
+    "price": "$650.82",
+    "trailingPE": "35.01",
+    "forwardPE": "25.90",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "-4.0%",
+    "netMargins": "15.04%"
+  },
+  "NYSE:UDR": {
+    "ticker": "UDR",
+    "name": "United Dominion Realty Trust",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 6,
+      "mantener": 10,
+      "venta": 2
+    }
+  },
+  "NYSE:USB:stockData": {
+    "price": "$60.08",
+    "trailingPE": "11.99",
+    "forwardPE": "11.51",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+11.6%",
+    "netMargins": "18.49%"
+  },
+  "NYSE:UDR:stockData": {
+    "price": "$33.89",
+    "trailingPE": "21.59",
+    "forwardPE": "13.40",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+21.1%",
+    "netMargins": "30.43%"
+  },
+  "NASDAQ:ULTA": {
+    "ticker": "ULTA",
+    "name": "Ulta Beauty",
+    "exchange": "NASDAQ",
+    "opinions": {
+      "compra": 24,
+      "mantener": 8,
+      "venta": 0
+    }
+  },
+  "NASDAQ:ULTA:stockData": {
+    "price": "$540.98",
+    "trailingPE": "19.72",
+    "forwardPE": "18.69",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+16.1%",
+    "netMargins": "9.34%"
+  },
+  "NYSE:USB": {
+    "ticker": "USB",
+    "name": "U.S. Bancorp",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 17,
+      "mantener": 8,
+      "venta": 0
+    }
+  },
+  "NYSE:UNP:stockData": {
+    "price": "$279.19",
+    "trailingPE": "22.61",
+    "forwardPE": "21.46",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+17.4%",
+    "netMargins": "28.85%"
+  },
+  "NYSE:UA:stockData": {
+    "price": "$4.78",
+    "trailingPE": "N/A",
+    "forwardPE": "N/A",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+14.9%",
+    "netMargins": "-9.99%"
+  },
+  "NYSE:UAA": {
+    "ticker": "UAA",
+    "name": "Under Armour",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 2,
+      "mantener": 10,
+      "venta": 4
+    }
+  },
+  "NYSE:UAA:stockData": {
+    "price": "$4.88",
+    "trailingPE": "N/A",
+    "forwardPE": "44.41",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+18.1%",
+    "netMargins": "-9.99%"
+  },
+  "NYSE:UA": {
+    "ticker": "UA",
+    "name": "Under Armour",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 0,
+      "mantener": 1,
+      "venta": 2
+    }
+  },
+  "NYSE:UNP": {
+    "ticker": "UNP",
+    "name": "Union Pacific",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 17,
+      "mantener": 4,
+      "venta": 0
+    }
+  },
+  "NYSE:UPS:stockData": {
+    "price": "$99.01",
+    "trailingPE": "18.40",
+    "forwardPE": "13.71",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+18.6%",
+    "netMargins": "5.08%"
+  },
+  "NYSE:UPS": {
+    "ticker": "UPS",
+    "name": "United Parcel Service",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 9,
+      "mantener": 11,
+      "venta": 1
+    }
+  },
+  "NASDAQ:UAL:stockData": {
+    "price": "$108.71",
+    "trailingPE": "10.17",
+    "forwardPE": "10.97",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+45.6%",
+    "netMargins": "5.56%"
+  },
+  "NASDAQ:UAL": {
+    "ticker": "UAL",
+    "name": "United Airlines",
+    "exchange": "NASDAQ",
+    "opinions": {
+      "compra": 16,
+      "mantener": 2,
+      "venta": 0
+    }
+  },
+  "NYSE:UNH": {
+    "ticker": "UNH",
+    "name": "UnitedHealth Group",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 20,
+      "mantener": 7,
+      "venta": 0
+    }
+  },
+  "NYSE:UNH:stockData": {
+    "price": "$377.06",
+    "trailingPE": "24.26",
+    "forwardPE": "19.00",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+21.1%",
+    "netMargins": "3.14%"
+  },
+  "NYSE:UHS:stockData": {
+    "price": "$176.73",
+    "trailingPE": "7.20",
+    "forwardPE": "7.70",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+16.0%",
+    "netMargins": "8.42%"
+  },
+  "NYSE:UTX": {
+    "ticker": "UTX",
+    "name": "United Technologies",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 0,
+      "mantener": 0,
+      "venta": 0
+    }
+  },
+  "NYSE:UHS": {
+    "ticker": "UHS",
+    "name": "Universal Health Services",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 6,
+      "mantener": 12,
+      "venta": 0
+    }
+  },
+  "NYSE:URI:stockData": {
+    "price": "$1,014.58",
+    "trailingPE": "24.37",
+    "forwardPE": "20.83",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+21.3%",
+    "netMargins": "15.67%"
+  },
+  "NYSE:URI": {
+    "ticker": "URI",
+    "name": "United Rentals",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 16,
+      "mantener": 1,
+      "venta": 1
+    }
+  },
+  "NYSE:UTX:stockData": {
+    "price": "",
+    "trailingPE": "31.74",
+    "forwardPE": "26.43",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": null,
+    "netMargins": "7.19%"
+  },
+  "NYSE:VAR:stockData": {
+    "price": "",
+    "trailingPE": null,
+    "forwardPE": null,
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": null,
+    "netMargins": null
+  },
+  "NYSE:VAR": {
+    "ticker": "VAR",
+    "name": "Top NYSE Stocks",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 0,
+      "mantener": 0,
+      "venta": 0
+    }
+  },
+  "NYSE:UNM:stockData": {
+    "price": "$95.11",
+    "trailingPE": "22.17",
+    "forwardPE": "11.01",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+4.5%",
+    "netMargins": "5.26%"
+  },
+  "NYSE:UNM": {
+    "ticker": "UNM",
+    "name": "Unum Group",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 8,
+      "mantener": 6,
+      "venta": 0
+    }
+  },
+  "NYSE:VLO": {
+    "ticker": "VLO",
+    "name": "Valero Energy",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 12,
+      "mantener": 7,
+      "venta": 1
+    }
+  },
+  "NYSE:VLO:stockData": {
+    "price": "$412.55",
+    "trailingPE": "17.12",
+    "forwardPE": "8.49",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "-21.1%",
+    "netMargins": "5.17%"
+  },
+  "NYSE:VRSK:stockData": {
+    "price": "$175.41",
+    "trailingPE": "26.94",
+    "forwardPE": "22.75",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+29.2%",
+    "netMargins": "28.24%"
+  },
+  "NASDAQ:VRSN": {
+    "ticker": "VRSN",
+    "name": "VeriSign",
+    "exchange": "NASDAQ",
+    "opinions": {
+      "compra": 5,
+      "mantener": 1,
+      "venta": 0
+    }
+  },
+  "NYSE:VRSK": {
+    "ticker": "VRSK",
+    "name": "Verisk Analytics",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 7,
+      "mantener": 8,
+      "venta": 0
+    }
+  },
+  "NYSE:VTR": {
+    "ticker": "VTR",
+    "name": "Ventas",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 14,
+      "mantener": 3,
+      "venta": 0
+    }
+  },
+  "NYSE:VTR:stockData": {
+    "price": "$86.70",
+    "trailingPE": "160.55",
+    "forwardPE": "22.29",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+14.3%",
+    "netMargins": "4.08%"
+  },
+  "NASDAQ:VRSN:stockData": {
+    "price": "$303.12",
+    "trailingPE": "32.88",
+    "forwardPE": "31.61",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+9.9%",
+    "netMargins": "49.76%"
+  },
+  "NASDAQ:VRTX": {
+    "ticker": "VRTX",
+    "name": "Vertex Pharmaceuticals",
+    "exchange": "NASDAQ",
+    "opinions": {
+      "compra": 21,
+      "mantener": 2,
+      "venta": 0
+    }
+  },
+  "NYSE:VIAC:stockData": {
+    "price": "",
+    "trailingPE": null,
+    "forwardPE": null,
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": null,
+    "netMargins": null
+  },
+  "NYSE:VZ:stockData": {
+    "price": "$48.07",
+    "trailingPE": "12.52",
+    "forwardPE": "9.56",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+6.0%",
+    "netMargins": "11.64%"
+  },
+  "NASDAQ:VRTX:stockData": {
+    "price": "$508.34",
+    "trailingPE": "29.59",
+    "forwardPE": "30.46",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+12.3%",
+    "netMargins": "35.00%"
+  },
+  "NYSE:VZ": {
+    "ticker": "VZ",
+    "name": "Verizon Communications",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 8,
+      "mantener": 12,
+      "venta": 0
+    }
+  },
+  "NYSE:VIAC": {
+    "ticker": "VIAC",
+    "name": "Top NYSE Stocks",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 0,
+      "mantener": 0,
+      "venta": 0
+    }
+  },
+  "NYSE:VMC:stockData": {
+    "price": "$240.90",
+    "trailingPE": "28.44",
+    "forwardPE": "25.93",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+34.9%",
+    "netMargins": "13.75%"
+  },
+  "NYSE:V:stockData": {
+    "price": "$367.32",
+    "trailingPE": "31.23",
+    "forwardPE": "27.91",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+13.4%",
+    "netMargins": "50.78%"
+  },
+  "NYSE:VNO:stockData": {
+    "price": "$34.90",
+    "trailingPE": "1,746.12",
+    "forwardPE": "14.48",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+14.3%",
+    "netMargins": "3.71%"
+  },
+  "NYSE:VNO": {
+    "ticker": "VNO",
+    "name": "Vornado Realty Trust",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 4,
+      "mantener": 5,
+      "venta": 4
+    }
+  },
+  "NYSE:V": {
+    "ticker": "V",
+    "name": "Visa",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 31,
+      "mantener": 0,
+      "venta": 0
+    }
+  },
+  "NYSE:VMC": {
+    "ticker": "VMC",
+    "name": "Vulcan Materials",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 8,
+      "mantener": 6,
+      "venta": 2
+    }
+  },
+  "NYSE:WAB:stockData": {
+    "price": "$280.23",
+    "trailingPE": "37.66",
+    "forwardPE": "25.80",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+11.8%",
+    "netMargins": "10.59%"
+  },
+  "NYSE:WAB": {
+    "ticker": "WAB",
+    "name": "Wabtec",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 10,
+      "mantener": 2,
+      "venta": 0
+    }
+  },
+  "NYSE:WRB": {
+    "ticker": "WRB",
+    "name": "W.R. Berkley",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 3,
+      "mantener": 9,
+      "venta": 6
+    }
+  },
+  "NYSE:WRB:stockData": {
+    "price": "$69.89",
+    "trailingPE": "14.35",
+    "forwardPE": "14.35",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+1.3%",
+    "netMargins": "12.94%"
+  },
+  "NYSE:WDC:stockData": {
+    "price": "$441.36",
+    "trailingPE": "18.23",
+    "forwardPE": "22.46",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+21.1%",
+    "netMargins": "72.95%"
+  },
+  "NYSE:WDC": {
+    "ticker": "WDC",
+    "name": "Western Digital",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 19,
+      "mantener": 6,
+      "venta": 0
+    }
+  },
+  "NYSE:WMT:stockData": {
+    "price": "$106.73",
+    "trailingPE": "38.53",
+    "forwardPE": "37.19",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+23.6%",
+    "netMargins": "3.00%"
+  },
+  "NYSE:WBA": {
+    "ticker": "WBA",
+    "name": "Top NYSE Stocks",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 0,
+      "mantener": 0,
+      "venta": 0
+    }
+  },
+  "NYSE:WMT": {
+    "ticker": "WMT",
+    "name": "Walmart",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 35,
+      "mantener": 4,
+      "venta": 0
+    }
+  },
+  "NYSE:WBA:stockData": {
+    "price": "",
+    "trailingPE": null,
+    "forwardPE": null,
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": null,
+    "netMargins": null
+  },
+  "NYSE:WU": {
+    "ticker": "WU",
+    "name": "Western Union",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 0,
+      "mantener": 6,
+      "venta": 8
+    }
+  },
+  "NYSE:WY:stockData": {
+    "price": "$21.22",
+    "trailingPE": "32.65",
+    "forwardPE": "64.32",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+35.1%",
+    "netMargins": "6.89%"
+  },
+  "NYSE:WU:stockData": {
+    "price": "$6.18",
+    "trailingPE": "5.02",
+    "forwardPE": "4.79",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+22.1%",
+    "netMargins": "9.79%"
+  },
+  "NYSE:WRK:stockData": {
+    "price": "",
+    "trailingPE": null,
+    "forwardPE": null,
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": null,
+    "netMargins": null
+  },
+  "NYSE:WHR:stockData": {
+    "price": "$31.98",
+    "trailingPE": "10.95",
+    "forwardPE": "14.21",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+42.1%",
+    "netMargins": "1.17%"
+  },
+  "NYSE:WY": {
+    "ticker": "WY",
+    "name": "Weyerhaeuser",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 7,
+      "mantener": 4,
+      "venta": 0
+    }
+  },
+  "NYSE:WHR": {
+    "ticker": "WHR",
+    "name": "Whirlpool",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 1,
+      "mantener": 8,
+      "venta": 3
+    }
+  },
+  "NYSE:WRK": {
+    "ticker": "WRK",
+    "name": "Top NYSE Stocks",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 0,
+      "mantener": 0,
+      "venta": 0
+    }
+  },
+  "NYSE:WYNN:stockData": {
+    "price": "$81.68",
+    "trailingPE": "20.27",
+    "forwardPE": "17.95",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+63.3%",
+    "netMargins": "6.05%"
+  },
+  "NYSE:WYNN": {
+    "ticker": "WYNN",
+    "name": "Wynn Resorts",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 18,
+      "mantener": 2,
+      "venta": 0
+    }
+  },
+  "NYSE:WLTW:stockData": {
+    "price": "",
+    "trailingPE": null,
+    "forwardPE": null,
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": null,
+    "netMargins": null
+  },
+  "NYSE:WLTW": {
+    "ticker": "WLTW",
+    "name": "Top NYSE Stocks",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 0,
+      "mantener": 0,
+      "venta": 0
+    }
+  },
+  "NYSE:XYL:stockData": {
+    "price": "$107.58",
+    "trailingPE": "25.61",
+    "forwardPE": "19.01",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+44.1%",
+    "netMargins": "11.15%"
+  },
+  "NYSE:XEL:stockData": {
+    "price": "$72.30",
+    "trailingPE": "19.81",
+    "forwardPE": "17.55",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+27.3%",
+    "netMargins": "15.28%"
+  },
+  "NYSE:XYL": {
+    "ticker": "XYL",
+    "name": "Xylem",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 9,
+      "mantener": 7,
+      "venta": 0
+    }
+  },
+  "NASDAQ:XLNX": {
+    "ticker": "XLNX",
+    "name": "Top NASDAQ Stocks",
+    "exchange": "NASDAQ",
+    "opinions": {
+      "compra": 0,
+      "mantener": 0,
+      "venta": 0
+    }
+  },
+  "NASDAQ:XLNX:stockData": {
+    "price": "",
+    "trailingPE": null,
+    "forwardPE": null,
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": null,
+    "netMargins": null
+  },
+  "NYSE:YUM:stockData": {
+    "price": "$138.03",
+    "trailingPE": "17.36",
+    "forwardPE": "21.33",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+26.5%",
+    "netMargins": "25.42%"
+  },
+  "NASDAQ:ZBRA:stockData": {
+    "price": "$346.63",
+    "trailingPE": "31.71",
+    "forwardPE": "20.13",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+10.5%",
+    "netMargins": "9.22%"
+  },
+  "NYSE:YUM": {
+    "ticker": "YUM",
+    "name": "Yum! Brands",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 14,
+      "mantener": 6,
+      "venta": 1
+    }
+  },
+  "NASDAQ:ZBRA": {
+    "ticker": "ZBRA",
+    "name": "Zebra Technologies",
+    "exchange": "NASDAQ",
+    "opinions": {
+      "compra": 10,
+      "mantener": 3,
+      "venta": 0
+    }
+  },
+  "NYSE:ZBH:stockData": {
+    "price": "$95.43",
+    "trailingPE": "23.22",
+    "forwardPE": "11.17",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+7.9%",
+    "netMargins": "9.48%"
+  },
+  "NYSE:ZION:stockData": {
+    "price": "$65.23",
+    "trailingPE": "8.31",
+    "forwardPE": "9.88",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+11.2%",
+    "netMargins": "23.92%"
+  },
+  "NYSE:ZBH": {
+    "ticker": "ZBH",
+    "name": "Zimmer Biomet",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 6,
+      "mantener": 14,
+      "venta": 2
+    }
+  },
+  "NYSE:ZION": {
+    "ticker": "ZION",
+    "name": "Zions Bancorporation, N.A.",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 6,
+      "mantener": 11,
+      "venta": 3
+    }
+  },
+  "NASDAQ:ABMD:stockData": {
+    "price": "",
+    "trailingPE": null,
+    "forwardPE": null,
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": null,
+    "netMargins": null
+  },
+  "NASDAQ:ABMD": {
+    "ticker": "ABMD",
+    "name": "Top NASDAQ Stocks",
+    "exchange": "NASDAQ",
+    "opinions": {
+      "compra": 0,
+      "mantener": 0,
+      "venta": 0
+    }
+  },
+  "NYSE:ZTS:stockData": {
+    "price": "$71.53",
+    "trailingPE": "11.78",
+    "forwardPE": "11.54",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+41.3%",
+    "netMargins": "27.49%"
+  },
+  "NYSE:ZTS": {
+    "ticker": "ZTS",
+    "name": "Zoetis",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 8,
+      "mantener": 9,
+      "venta": 2
+    }
   }
 }
