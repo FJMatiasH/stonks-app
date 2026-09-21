@@ -9,68 +9,64 @@ import { AlphaVantageService } from '../../services/api.service';
   standalone: true,
   imports: [CommonModule, FormsModule],
   template: `
-    <div class="search-box">
-      <input 
-        type="text" 
-        [(ngModel)]="symbol" 
-        placeholder="Ticket: IBM, AAPL, MSFT..."
-        (input)="onInputChange()"
-        (keyup.enter)="handleSearch()"
-      >
-      <button (click)="handleSearch()">Buscar</button>
+    <div class="relative w-full max-w-2xl mx-auto mb-6">
+      <div class="flex items-center gap-3">
+        <div class="relative flex-1">
+          <input 
+            type="text" 
+            [(ngModel)]="symbol" 
+            placeholder="Buscar ticker: AAPL, MSFT, TSLA, NVDA..."
+            (input)="onInputChange()"
+            (keyup.enter)="handleSearch()"
+            class="w-full px-4 py-3 bg-card border border-slate-700 rounded-xl text-text-main placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all shadow-inner font-sans text-base"
+          >
+          @if (symbol) {
+            <button 
+              (click)="symbol = ''; suggestions = []" 
+              class="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-text-main p-1"
+              title="Limpiar"
+            >
+              ✕
+            </button>
+          }
+        </div>
+        <button 
+          (click)="handleSearch()" 
+          class="px-6 py-3 bg-primary hover:bg-indigo-500 text-white font-semibold rounded-xl transition-all shadow-lg hover:shadow-indigo-500/20 active:scale-95 cursor-pointer whitespace-nowrap"
+        >
+          Buscar
+        </button>
+      </div>
+
+      <!-- Autocomplete Dropdown -->
+      @if (suggestions.length) {
+        <ul class="absolute z-50 left-0 right-0 mt-2 bg-dropdown border border-slate-700 rounded-xl shadow-2xl overflow-hidden divide-y divide-slate-800/60 max-h-72 overflow-y-auto">
+          @for (suggestion of suggestions; track suggestion.symbol) {
+            <li 
+              (click)="selectSymbol(suggestion)"
+              class="px-4 py-3 flex items-center justify-between hover:bg-slate-700/60 cursor-pointer transition-colors group"
+            >
+              <span class="font-mono font-bold text-bullish group-hover:text-emerald-400">
+                {{ suggestion.symbol }}
+              </span>
+              <span class="text-sm text-text-muted group-hover:text-text-main text-right truncate max-w-md ml-4">
+                {{ suggestion.name }}
+              </span>
+            </li>
+          }
+        </ul>
+      }
     </div>
-    <ul class="suggestions" *ngIf="suggestions.length">
-      <li *ngFor="let suggestion of suggestions" (click)="selectSymbol(suggestion)">
-        {{ suggestion.symbol }} - {{ suggestion.name }}
-      </li>
-    </ul>
   `,
-  styles: [`
-    .search-box { text-align: center; margin-bottom: 1rem; }
-    input { 
-      padding: 0.625rem;
-      width: 30rem;
-      border: 0.125rem solid #333;
-      border-radius: 0.25rem;
-      font-size: 1rem;
-      margin-right: 0.625rem; 
-    }
-    button { 
-      padding: 0.625rem 1.25rem;
-      background-color: #555;
-      border: 0.125rem solid #333;
-      border-radius: 0.25rem;
-      font-size: 1rem;
-      cursor: pointer;
-      color: white; 
-    }
-    button:hover { background-color: #777; }
-    .suggestions {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      list-style: none;
-      padding: 0;
-      margin: 0 auto;
-      width: fit-content;
-    }
-    .suggestions li { 
-      padding: 0.5rem; 
-      cursor: pointer;
-      width: 36rem;
-    }
-    .suggestions li:hover { background: #f0f0f0; }
-  `]
+  styles: []
 })
 export class SearchComponent {
-  // Se emite un objeto con symbol y name
   @Output() search = new EventEmitter<{ symbol: string; name: string }>();
   symbol = '';
   suggestions: { symbol: string; name: string }[] = [];
 
   constructor(private stockService: AlphaVantageService) {}
 
-  //Finhub
   onInputChange() {
     if (this.symbol.length > 0) {
       this.stockService.searchSymbols(this.symbol).subscribe(response => {
@@ -84,21 +80,6 @@ export class SearchComponent {
     }
   }
 
-  //AlphaVantage
-  // onInputChange() {
-  //   if (this.symbol.length > 0) {
-  //     this.stockService.searchSymbols(this.symbol).subscribe(response => {
-  //       this.suggestions = response.bestMatches?.map((match: any) => ({
-  //         symbol: match['1. symbol'],
-  //         name: match['2. name']
-  //       })) || [];
-  //     });
-  //   } else {
-  //     this.suggestions = [];
-  //   }
-  // }
-
-  // Se emite el objeto completo al seleccionar una sugerencia
   selectSymbol(suggestion: { symbol: string; name: string }) {
     this.search.emit({
       symbol: suggestion.symbol.toUpperCase(),
@@ -108,7 +89,6 @@ export class SearchComponent {
     this.symbol = '';
   }
 
-  // Al presionar Enter se emite el símbolo (en este caso sin nombre)
   handleSearch() {
     if (this.symbol.trim()) {
       this.search.emit({

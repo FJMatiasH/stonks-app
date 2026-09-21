@@ -4,40 +4,32 @@ import { CommonModule } from '@angular/common';
 import { HistoricalData } from '../stock-chart/stock-chart.component';
 
 @Component({
-selector: 'app-historical-data',
-standalone: true,
-imports: [CommonModule],
-template: `
-    <div class="historical" *ngIf="recentData.length">
-    <h2>Últimos días</h2>
-    <ng-container *ngIf="recentData.length; else noDataTpl">
-        <div *ngFor="let data of recentData">
-        <p>{{ data.date }} - Cierre: {{ data.close | number:'1.2-2' }}</p>
-        <hr />
-        </div>
-    </ng-container>
-    <ng-template #noDataTpl>
-        <p>No hay datos disponibles.</p>
-    </ng-template>
+  selector: 'app-historical-data',
+  standalone: true,
+  imports: [CommonModule],
+  template: `
+    <div class="bg-card border border-slate-700/60 rounded-2xl p-6 shadow-xl w-full max-w-xs flex flex-col justify-between" *ngIf="recentData.length">
+      <h2 class="text-lg font-bold font-mono tracking-tight text-text-main text-center mb-4">
+        Últimos Cierres
+      </h2>
+      <div class="divide-y divide-slate-800/80">
+        @for (data of recentData; track data.date) {
+          <div class="flex justify-between items-center py-2.5 font-mono text-xs">
+            <span class="text-text-muted">{{ data.date }}</span>
+            <span class="text-text-main font-bold">{{ data.close | number:'1.2-2' }}</span>
+          </div>
+        }
+      </div>
     </div>
-`,
-styles: [`
-    .historical {
-    padding: 0.5rem;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    width: 18rem;
-    height: 20rem;
-    }
-    h2 { text-align: center; }
-`]
+  `,
+  styles: []
 })
 export class HistoricalDataComponent {
-@Input() historicalData: HistoricalData[] = [];
+  @Input() historicalData: HistoricalData[] = [];
 
-get recentData(): HistoricalData[] {
+  get recentData(): HistoricalData[] {
     return this.historicalData.length < 5
-    ? [...this.historicalData].reverse()
-    : this.historicalData.slice(-5).reverse();
-}
+      ? [...this.historicalData].reverse()
+      : this.historicalData.slice(-5).reverse();
+  }
 }

@@ -62,109 +62,125 @@ template: `
         </div>
     </div>
     </div>
-`,
-styles: [`
+  `,
+  styles: [`
     .chart-wrapper { display: flex; justify-content: center; }
     .chart-container { position: relative; width: 71.88rem; }
-    .chart { display: block; border: 0.0625rem solid #333; }
+    .chart { display: block; border: 0.0625rem solid #334155; border-radius: 0.5rem; background: #0b1120; }
     
     /* Contenedor para fechas (eje X) */
     .chart-dates {
-    position: relative;
-    width: 71.88rem;
-    height: 1.5rem;
-    margin: 0 auto;
+      position: relative;
+      width: 71.88rem;
+      height: 1.5rem;
+      margin: 0.5rem auto 0;
     }
     .date-label { 
-    position: absolute; 
-    top: 0; 
-    font-size: 0.75rem; 
+      position: absolute; 
+      top: 0; 
+      font-size: 0.75rem; 
+      color: #94a3b8;
+      font-family: monospace;
     }
     .date-label:not(:first-child):not(:last-child) { 
-    transform: translateX(-50%); 
+      transform: translateX(-50%); 
     }
     .date-label:first-child { 
-    transform: translateX(0%); 
+      transform: translateX(0%); 
     }
     .date-label:last-child { 
-    transform: translateX(-100%); 
+      transform: translateX(-100%); 
     }
     
     /* Tooltip styling */
     .tooltip {
-    position: absolute;
-    pointer-events: none;
-    transform: translate(-50%, -100%);
-    z-index: 10;
+      position: absolute;
+      pointer-events: none;
+      transform: translate(-50%, -100%);
+      z-index: 10;
     }
     .tooltip-content {
-    background: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 0.5rem;
-    font-size: 0.75rem;
-    border-radius: 0.25rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    white-space: nowrap;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid #334155;
+      color: #f8fafc;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.75rem;
+      font-family: monospace;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+      white-space: nowrap;
     }
     
     /* Estilos para los botones de selección */
     .mode-selector {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 20;
-    display: flex;
-    gap: 0.25rem;
-    background-color: #f8f9fa;
-    padding: 0.25rem;
-    border: 1px solid black;
-    border-bottom-right-radius: 0.5rem;
-    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 20;
+      display: flex;
+      gap: 0.25rem;
+      background-color: rgba(30, 41, 59, 0.9);
+      backdrop-filter: blur(8px);
+      padding: 0.35rem;
+      border: 1px solid #334155;
+      border-bottom-right-radius: 0.75rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     }
     .mode-selector button {
-    background-color: white;
-    color: #333;
-    padding: 0.25rem 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 0.25rem;
-    font-size: 0.75rem;
-    cursor: pointer;
+      background-color: #0f172a;
+      color: #94a3b8;
+      padding: 0.25rem 0.6rem;
+      border: 1px solid #334155;
+      border-radius: 0.375rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
     }
     .mode-selector button:hover {
-    background-color: #f8f9fa;
+      background-color: #334155;
+      color: #f8fafc;
     }
     .mode-selector button.active {
-    background-color: #28a745;
-    color: white;
-    border-color: #28a745;
+      background-color: #10B981;
+      color: white;
+      border-color: #10B981;
+      font-weight: 600;
     }
     
     /* Estilos para mostrar los valores máximos y mínimos */
     .chart-values {
-    font-family: Arial, sans-serif;
-    height: 19rem;
-    position: absolute;
-    left: -50px; 
-    top: 0;
-    bottom: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    font-size: 0.75rem;
-    color: #333;
+      font-family: monospace;
+      height: 19rem;
+      position: absolute;
+      left: -65px; 
+      top: 0;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: #94a3b8;
+      text-align: right;
     }
+    .chart-max { color: #10B981; }
+    .chart-min { color: #EF4444; }
     
     /* Estilos para la etiqueta del valor actual en el final del gráfico */
     .current-value-label {
-    position: absolute;
-    font-family: Arial, sans-serif;
-    font-size: 0.75rem;
-    color: #333;
-    /* Opcional: un pequeño margen para separarlo del gráfico */
-    transform: translate(5px, -50%);
-    white-space: nowrap;
+      position: absolute;
+      font-family: monospace;
+      font-size: 0.75rem;
+      font-weight: bold;
+      color: #10B981;
+      background: rgba(15, 23, 42, 0.85);
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      transform: translate(8px, -50%);
+      white-space: nowrap;
     }
-`]
+  `]
 })
 export class StockChartComponent {
 @Input() historicalData: HistoricalData[] = [];

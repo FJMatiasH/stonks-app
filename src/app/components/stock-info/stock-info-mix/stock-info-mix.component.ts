@@ -15,14 +15,26 @@ selector: 'app-stock-info-mix',
 standalone: true,
 imports: [CommonModule, FormsModule, StockChartComponent, HistoricalDataComponent, AnalystRecommendationsComponent, FundamentalsComponent],
 template: `
-    <h1 class="title">{{ stockName || 'Apple Inc.' }}</h1>
+  <div class="flex flex-col items-center gap-6 max-w-7xl mx-auto my-6">
+    <div class="text-center">
+      <h1 class="text-2xl md:text-3xl font-bold font-mono tracking-tight text-text-main">
+        {{ stockName || 'Apple Inc.' }}
+      </h1>
+      <span class="text-sm font-mono text-bullish tracking-wider font-semibold">
+        {{ ticker || 'AAPL' }}
+      </span>
+    </div>
+
     <!-- Gráfico -->
-    <app-stock-chart [historicalData]="historicalData"></app-stock-chart>
-    <!-- Columnas de datos -->
-    <div class="data-columns">
-    <app-historical-data [historicalData]="historicalData"></app-historical-data>
-    <app-analyst-recommendations [recommendation]="analystRecommendation"></app-analyst-recommendations>
-    <app-fundamentals
+    <div class="w-full flex justify-center overflow-x-auto py-2">
+      <app-stock-chart [historicalData]="historicalData"></app-stock-chart>
+    </div>
+
+    <!-- Columnas de datos / Cards -->
+    <div class="flex flex-wrap items-stretch justify-center gap-6 w-full max-w-6xl mt-2">
+      <app-historical-data [historicalData]="historicalData"></app-historical-data>
+      <app-analyst-recommendations [recommendation]="analystRecommendation"></app-analyst-recommendations>
+      <app-fundamentals
         [incomeStatementData]="incomeStatementData"
         [computedEPS]="computedEPS"
         [computedYearEPS]="computedYearEPS"
@@ -34,24 +46,17 @@ template: `
         [lastQuarterNetIncome]="lastQuarterNetIncome"
         [lastYearRevenue]="lastYearRevenue"
         [lastYearNetIncome]="lastYearNetIncome"
-    ></app-fundamentals>
+      ></app-fundamentals>
     </div>
-    <ng-container *ngIf="errorMessage">
-    <p class="error">{{ errorMessage }}</p>
-    </ng-container>
-`,
-styles: [`
-    h1 { text-align: center; font-family: Arial, sans-serif;}
-    .title { text-align: center; }
-    .data-columns {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin-top: 1rem;
-    font-family: Arial, sans-serif;
+
+    @if (errorMessage) {
+      <p class="text-bearish font-semibold text-center bg-rose-500/10 border border-rose-500/20 px-4 py-2 rounded-xl mt-4">
+        {{ errorMessage }}
+      </p>
     }
-    .error { color: red; font-weight: bold; text-align: center; }
-`]
+  </div>
+`,
+styles: []
 })
 export class StockInfoMixComponent implements OnInit, OnChanges {
 

@@ -6,14 +6,24 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        background: '#0f172a', // slate-900 for dark mode bg
-        card: '#1e293b', // slate-800 for cards
-        bullish: '#10B981', // emerald-500
-        bearish: '#EF4444', // rose-500
-        primary: '#4f46e5', // indigo-600
+        surface: '#0f172a',
+        card: {
+          DEFAULT: '#1e293b',
+          hover: '#334155',
+        },
+        dropdown: {
+          DEFAULT: '#1e293b',
+          hover: '#334155',
+        },
+        'border-subtle': '#334155',
+        'text-main': '#f8fafc',
+        'text-muted': '#94a3b8',
+        bullish: '#10B981',
+        bearish: '#EF4444',
+        primary: '#6366f1',
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
+        sans: ['Inter', 'system-ui', 'sans-serif'],
         mono: ['Roboto Mono', 'monospace'],
       }
     },
