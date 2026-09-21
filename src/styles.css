@@ -1,3 +1,20 @@
-/* You can add global styles to this file, and also import other style files */
-html, body {
-    background-color: #f8f9fa;}
+@import "tailwindcss";
+
+@theme {
+  --color-background: #0f172a;
+  --color-card: #1e293b;
+  --color-bullish: #10B981;
+  --color-bearish: #EF4444;
+  --color-primary: #4f46e5;
+  --font-sans: 'Inter', sans-serif;
+  --font-mono: 'Roboto Mono', monospace;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-background);
+    color: #e2e8f0;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+}

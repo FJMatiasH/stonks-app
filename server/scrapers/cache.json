@@ -8142,5 +8142,15 @@
       "mantener": 9,
       "venta": 2
     }
+  },
+  "NYSE:XEL": {
+    "ticker": "XEL",
+    "name": "Xcel Energy",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 16,
+      "mantener": 1,
+      "venta": 0
+    }
   }
 }

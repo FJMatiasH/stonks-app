@@ -1,11 +1,6 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { provideHttpClient } from '@angular/common/http';
-import { APP_INITIALIZER } from '@angular/core';
 import { AppComponent } from './app/app.component';
-import { CarteraService } from './app/services/server.service';
+import { appConfig } from './app/app.config';
 
-bootstrapApplication(AppComponent, {
-  providers: [
-    provideHttpClient()
-  ]
-});
+bootstrapApplication(AppComponent, appConfig)
+  .catch((err) => console.error(err));
