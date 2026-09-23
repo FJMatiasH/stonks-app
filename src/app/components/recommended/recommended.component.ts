@@ -15,7 +15,7 @@ interface SortEvent {
   template: `
     <div class="bg-card border border-slate-700/60 rounded-2xl p-6 shadow-xl max-w-7xl mx-auto my-8">
       <h1 class="text-xl md:text-2xl font-bold font-mono tracking-tight text-text-main text-center mb-6">
-        ACCIONES MÁS RECOMENDADAS DEL S&P 500
+        ACCIONES MÁS RECOMENDADAS
       </h1>
 
       @if (loading) {

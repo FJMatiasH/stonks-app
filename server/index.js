@@ -3,6 +3,7 @@ import cors from 'cors';
 import { getHoldings, getManagers, getHomeLists } from './scrapers/dataroma-scraper.js';
 import { getMarketBeatAnalystOpinions, getMarketBeatStockData } from './scrapers/marketbeat-scraper.js';
 import { sp500 } from './diccionarios/tickets-s&p.js';
+import { nonSp500Relevant } from './diccionarios/tickets-eeuu.js';
 import { europeanStocks } from './diccionarios/tickets-europeos.js';
 import { globalStocks } from './diccionarios/tickets-globales.js';
 import pLimit from 'p-limit';
@@ -54,13 +55,19 @@ app.get('/api/full-analysts-stream', (req, res) => {
   res.setHeader('Connection', 'keep-alive');
   res.flushHeaders();
 
+  // Combinar S&P 500 y Non-S&P Relevant eliminando posibles duplicados por ticker
+  const combinedList = [...sp500, ...nonSp500Relevant];
+  const stocksToScrape = Array.from(
+    new Map(combinedList.map(stock => [stock.ticker, stock])).values()
+  );
+
   const limit = pLimit(3);
   let completed = 0;
-  const total = sp500.length;
+  const total = stocksToScrape.length;
 
   res.write(`data: ${JSON.stringify({ type: 'start', total })}\n\n`);
 
-  const promises = sp500.map(stock => {
+  const promises = stocksToScrape.map(stock => {
     return limit(async () => {
       try {
         console.log(`Scrapeando datos para: ${stock.ticker} en ${stock.exchange}`);
