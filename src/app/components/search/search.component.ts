@@ -9,7 +9,7 @@ import { AlphaVantageService } from '../../services/api.service';
   standalone: true,
   imports: [CommonModule, FormsModule],
   template: `
-    <div class="relative w-full max-w-2xl mx-auto mb-6">
+    <div class="relative w-full max-w-2xl mx-auto mb-2">
       <div class="flex items-center gap-3">
         <div class="relative flex-1">
           <input 

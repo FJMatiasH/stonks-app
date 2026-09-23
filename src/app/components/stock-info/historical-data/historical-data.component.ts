@@ -8,15 +8,15 @@ import { HistoricalData } from '../stock-chart/stock-chart.component';
   standalone: true,
   imports: [CommonModule],
   template: `
-    <div class="bg-card border border-slate-700/60 rounded-2xl p-6 shadow-xl w-full max-w-xs flex flex-col justify-between" *ngIf="recentData.length">
-      <h2 class="text-lg font-bold font-mono tracking-tight text-text-main text-center mb-4">
+    <div class="bg-card border border-slate-700/60 rounded-xl p-4 shadow-lg flex flex-col min-w-0 flex-1 basis-44" *ngIf="recentData.length">
+      <h2 class="text-xs font-bold font-mono tracking-wider text-text-muted uppercase text-center mb-3">
         Últimos Cierres
       </h2>
-      <div class="divide-y divide-slate-800/80">
+      <div class="divide-y divide-slate-800/80 flex-1">
         @for (data of recentData; track data.date) {
-          <div class="flex justify-between items-center py-2.5 font-mono text-xs">
-            <span class="text-text-muted">{{ data.date }}</span>
-            <span class="text-text-main font-bold">{{ data.close | number:'1.2-2' }}</span>
+          <div class="flex justify-between items-center py-1.5 font-mono text-[11px] min-w-0">
+            <span class="text-text-muted truncate mr-2">{{ data.date }}</span>
+            <span class="text-text-main font-bold shrink-0">{{ data.close | number:'1.2-2' }}</span>
           </div>
         }
       </div>

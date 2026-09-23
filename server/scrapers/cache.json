@@ -233,24 +233,6 @@
       "venta": 2
     }
   },
-  "NYSE:ALK": {
-    "ticker": "ALK",
-    "name": "Alaska Air Group",
-    "exchange": "NYSE",
-    "opinions": {
-      "compra": 9,
-      "mantener": 2,
-      "venta": 0
-    }
-  },
-  "NYSE:ALK:stockData": {
-    "price": "$37.96",
-    "trailingPE": "43.63",
-    "forwardPE": "6.30",
-    "averageStockPriceTarget": null,
-    "potentialUpsideDownside": "+85.7%",
-    "netMargins": "0.70%"
-  },
   "NYSE:ALB:stockData": {
     "price": "$158.00",
     "trailingPE": "N/A",
@@ -475,14 +457,6 @@
     "potentialUpsideDownside": "+30.3%",
     "netMargins": "3.04%"
   },
-  "NASDAQ:AMZN:stockData": {
-    "price": "$207.67",
-    "trailingPE": "28.96",
-    "forwardPE": "32.91",
-    "averageStockPriceTarget": null,
-    "potentialUpsideDownside": "+38.2%",
-    "netMargins": "10.83%"
-  },
   "NYSE:AMCR": {
     "ticker": "AMCR",
     "name": "Amcor",
@@ -490,16 +464,6 @@
     "opinions": {
       "compra": 8,
       "mantener": 5,
-      "venta": 0
-    }
-  },
-  "NASDAQ:AMZN": {
-    "ticker": "AMZN",
-    "name": "Amazon.com",
-    "exchange": "NASDAQ",
-    "opinions": {
-      "compra": 54,
-      "mantener": 4,
       "venta": 0
     }
   },
@@ -3321,24 +3285,6 @@
       "venta": 2
     }
   },
-  "NASDAQ:FB": {
-    "ticker": "FB",
-    "name": "Meta Platforms",
-    "exchange": "NASDAQ",
-    "opinions": {
-      "compra": 42,
-      "mantener": 7,
-      "venta": 0
-    }
-  },
-  "NASDAQ:FB:stockData": {
-    "price": "$613.71",
-    "trailingPE": "26.12",
-    "forwardPE": "22.99",
-    "averageStockPriceTarget": null,
-    "potentialUpsideDownside": "+37.6%",
-    "netMargins": "30.08%"
-  },
   "NYSE:FAST:stockData": {
     "price": "$45.46",
     "trailingPE": "41.33",
@@ -5309,14 +5255,6 @@
       "venta": 0
     }
   },
-  "NASDAQ:MSFT:stockData": {
-    "price": "$395.55",
-    "trailingPE": "24.74",
-    "forwardPE": "30.24",
-    "averageStockPriceTarget": null,
-    "potentialUpsideDownside": "+49.7%",
-    "netMargins": "39.04%"
-  },
   "NASDAQ:MU:stockData": {
     "price": "$426.13",
     "trailingPE": "40.51",
@@ -5324,16 +5262,6 @@
     "averageStockPriceTarget": null,
     "potentialUpsideDownside": "-8.6%",
     "netMargins": "28.15%"
-  },
-  "NASDAQ:MSFT": {
-    "ticker": "MSFT",
-    "name": "Microsoft",
-    "exchange": "NASDAQ",
-    "opinions": {
-      "compra": 42,
-      "mantener": 4,
-      "venta": 0
-    }
   },
   "NYSE:MA": {
     "ticker": "MA",
@@ -5848,14 +5776,6 @@
       "mantener": 5,
       "venta": 0
     }
-  },
-  "NASDAQ:NVDA:stockData": {
-    "price": "$180.25",
-    "trailingPE": "36.79",
-    "forwardPE": "65.07",
-    "averageStockPriceTarget": null,
-    "potentialUpsideDownside": "+52.1%",
-    "netMargins": "55.60%"
   },
   "NASDAQ:NXPI:stockData": {
     "price": "$190.86",
@@ -7773,16 +7693,6 @@
       "venta": 4
     }
   },
-  "NYSE:V": {
-    "ticker": "V",
-    "name": "Visa",
-    "exchange": "NYSE",
-    "opinions": {
-      "compra": 31,
-      "mantener": 0,
-      "venta": 0
-    }
-  },
   "NYSE:VMC": {
     "ticker": "VMC",
     "name": "Vulcan Materials",
@@ -7952,24 +7862,6 @@
     "opinions": {
       "compra": 0,
       "mantener": 0,
-      "venta": 0
-    }
-  },
-  "NYSE:WYNN:stockData": {
-    "price": "$81.68",
-    "trailingPE": "20.27",
-    "forwardPE": "17.95",
-    "averageStockPriceTarget": null,
-    "potentialUpsideDownside": "+63.3%",
-    "netMargins": "6.05%"
-  },
-  "NYSE:WYNN": {
-    "ticker": "WYNN",
-    "name": "Wynn Resorts",
-    "exchange": "NYSE",
-    "opinions": {
-      "compra": 18,
-      "mantener": 2,
       "venta": 0
     }
   },
@@ -8150,6 +8042,114 @@
     "opinions": {
       "compra": 16,
       "mantener": 1,
+      "venta": 0
+    }
+  },
+  "NYSE:ALK:stockData": {
+    "price": "$41.86",
+    "trailingPE": "N/A",
+    "forwardPE": "N/A",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+44.0%",
+    "netMargins": "-1.19%"
+  },
+  "NASDAQ:AMZN:stockData": {
+    "price": "$254.98",
+    "trailingPE": "20.51",
+    "forwardPE": "31.83",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+26.0%",
+    "netMargins": "17.44%"
+  },
+  "NASDAQ:AMZN": {
+    "ticker": "AMZN",
+    "name": "Amazon.com",
+    "exchange": "NASDAQ",
+    "opinions": {
+      "compra": 56,
+      "mantener": 3,
+      "venta": 0
+    }
+  },
+  "NASDAQ:FB:stockData": {
+    "price": "$736.59",
+    "trailingPE": "27.74",
+    "forwardPE": "26.37",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+7.2%",
+    "netMargins": "29.83%"
+  },
+  "NYSE:ALK": {
+    "ticker": "ALK",
+    "name": "Alaska Air Group",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 10,
+      "mantener": 1,
+      "venta": 2
+    }
+  },
+  "NASDAQ:FB": {
+    "ticker": "FB",
+    "name": "Meta Platforms",
+    "exchange": "NASDAQ",
+    "opinions": {
+      "compra": 38,
+      "mantener": 9,
+      "venta": 0
+    }
+  },
+  "NYSE:V": {
+    "ticker": "V",
+    "name": "Visa",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 31,
+      "mantener": 0,
+      "venta": 0
+    }
+  },
+  "NASDAQ:MSFT:stockData": {
+    "price": "$498.00",
+    "trailingPE": "27.73",
+    "forwardPE": "25.40",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+14.3%",
+    "netMargins": "40.31%"
+  },
+  "NASDAQ:NVDA:stockData": {
+    "price": "$228.87",
+    "trailingPE": "28.93",
+    "forwardPE": "24.74",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+41.7%",
+    "netMargins": "63.66%"
+  },
+  "NASDAQ:MSFT": {
+    "ticker": "MSFT",
+    "name": "Microsoft",
+    "exchange": "NASDAQ",
+    "opinions": {
+      "compra": 42,
+      "mantener": 5,
+      "venta": 0
+    }
+  },
+  "NYSE:WYNN:stockData": {
+    "price": "$82.51",
+    "trailingPE": "20.47",
+    "forwardPE": "18.13",
+    "averageStockPriceTarget": null,
+    "potentialUpsideDownside": "+61.6%",
+    "netMargins": "6.05%"
+  },
+  "NYSE:WYNN": {
+    "ticker": "WYNN",
+    "name": "Wynn Resorts",
+    "exchange": "NYSE",
+    "opinions": {
+      "compra": 18,
+      "mantener": 2,
       "venta": 0
     }
   }

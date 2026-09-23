@@ -11,27 +11,28 @@ import { AnalystRecommendationsComponent } from '../analyst-recommendations/anal
 import { FundamentalsComponent } from '../fundamental-data/fundamentals.component';
 
 @Component({
-selector: 'app-stock-info-mix',
-standalone: true,
-imports: [CommonModule, FormsModule, StockChartComponent, HistoricalDataComponent, AnalystRecommendationsComponent, FundamentalsComponent],
-template: `
-  <div class="flex flex-col items-center gap-6 max-w-7xl mx-auto my-6">
-    <div class="text-center">
-      <h1 class="text-2xl md:text-3xl font-bold font-mono tracking-tight text-text-main">
+  selector: 'app-stock-info-mix',
+  standalone: true,
+  imports: [CommonModule, FormsModule, StockChartComponent, HistoricalDataComponent, AnalystRecommendationsComponent, FundamentalsComponent],
+  template: `
+  <div class="flex flex-col w-full min-w-0 gap-2">
+    <!-- Header compacto -->
+    <div class="text-center py-1">
+      <h1 class="text-base font-bold font-mono tracking-tight text-text-main leading-tight">
         {{ stockName || 'Apple Inc.' }}
       </h1>
-      <span class="text-sm font-mono text-bullish tracking-wider font-semibold">
+      <span class="text-xs font-mono text-bullish tracking-widest font-semibold">
         {{ ticker || 'AAPL' }}
       </span>
     </div>
 
-    <!-- Gráfico -->
-    <div class="w-full flex justify-center overflow-x-auto py-2">
+    <!-- Gráfico centrado -->
+    <div class="w-full max-w-[71.88rem] mx-auto overflow-hidden">
       <app-stock-chart [historicalData]="historicalData"></app-stock-chart>
     </div>
 
-    <!-- Columnas de datos / Cards -->
-    <div class="flex flex-wrap items-stretch justify-center gap-6 w-full max-w-6xl mt-2">
+    <!-- Cards centradas y alineadas con el gráfico -->
+    <div class="w-full max-w-[71.88rem] mx-auto flex flex-wrap justify-center items-stretch gap-6 min-w-0">
       <app-historical-data [historicalData]="historicalData"></app-historical-data>
       <app-analyst-recommendations [recommendation]="analystRecommendation"></app-analyst-recommendations>
       <app-fundamentals
@@ -50,50 +51,50 @@ template: `
     </div>
 
     @if (errorMessage) {
-      <p class="text-bearish font-semibold text-center bg-rose-500/10 border border-rose-500/20 px-4 py-2 rounded-xl mt-4">
+      <p class="text-bearish font-semibold text-center bg-rose-500/10 border border-rose-500/20 px-3 py-1.5 rounded-lg text-xs">
         {{ errorMessage }}
       </p>
     }
   </div>
 `,
-styles: []
+  styles: []
 })
 export class StockInfoMixComponent implements OnInit, OnChanges {
 
-    @Input() ticker: string = '';
-    @Input() stockName: string = '';
+  @Input() ticker: string = '';
+  @Input() stockName: string = '';
 
-historicalData: HistoricalData[] = [];
-errorMessage = '';
-analystRecommendation: any = null;
+  historicalData: HistoricalData[] = [];
+  errorMessage = '';
+  analystRecommendation: any = null;
 
-// Datos fundamentales
-incomeStatementData: any;
-computedEPS = 0;
-computedYearEPS = 0;
-perRatio = 0;
-forwardPerRatio = 0;
-profitMargin = 0;
-yearProfitMargin = 0;
-lastQuarterRevenue = 0;
-lastQuarterNetIncome = 0;
-lastYearRevenue = 0;
-lastYearNetIncome = 0;
+  // Datos fundamentales
+  incomeStatementData: any;
+  computedEPS = 0;
+  computedYearEPS = 0;
+  perRatio = 0;
+  forwardPerRatio = 0;
+  profitMargin = 0;
+  yearProfitMargin = 0;
+  lastQuarterRevenue = 0;
+  lastQuarterNetIncome = 0;
+  lastYearRevenue = 0;
+  lastYearNetIncome = 0;
 
-constructor(private stockService: AlphaVantageService) {}
+  constructor(private stockService: AlphaVantageService) { }
 
-ngOnInit(): void {
-    }
+  ngOnInit(): void {
+  }
 
-ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(changes: SimpleChanges): void {
     if (changes['ticker'] && changes['ticker'].currentValue) {
-        const nuevoTicker = changes['ticker'].currentValue.trim();
-        this.ticker = nuevoTicker || '';
-        this.onSearch();
-}
-}
+      const nuevoTicker = changes['ticker'].currentValue.trim();
+      this.ticker = nuevoTicker || '';
+      this.onSearch();
+    }
+  }
 
-onSearch(): void {
+  onSearch(): void {
     // Reiniciar datos
     this.errorMessage = '';
     this.historicalData = [];
@@ -117,27 +118,27 @@ onSearch(): void {
 
     const historical$ = this.stockService.getHistoricalDailyData(this.ticker, startDate, endDate);
     const fundamentals$ = forkJoin({
-    incomeStatement: this.stockService.getIncomeStatement(this.ticker),
-    epsHistorical: this.stockService.getEPSHistorical(this.ticker),
-    epsTrends: this.stockService.getEPSTrends(this.ticker)
+      incomeStatement: this.stockService.getIncomeStatement(this.ticker),
+      epsHistorical: this.stockService.getEPSHistorical(this.ticker),
+      epsTrends: this.stockService.getEPSTrends(this.ticker)
     });
     const recommendations$ = this.stockService.getAnalystRecommendations(this.ticker);
 
     forkJoin({
-    historical: historical$,
-    fundamentals: fundamentals$,
-    recommendations: recommendations$
+      historical: historical$,
+      fundamentals: fundamentals$,
+      recommendations: recommendations$
     }).subscribe({
-    next: (data) => {
+      next: (data) => {
         // Datos históricos
         if (Array.isArray(data.historical) && data.historical.length > 0) {
-        this.historicalData = data.historical.map(item => ({
+          this.historicalData = data.historical.map(item => ({
             date: new Date(item.t * 1000).toISOString().split('T')[0],
             close: item.c,
-        }));
-        this.historicalData.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+          }));
+          this.historicalData.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
         } else {
-        this.errorMessage = 'No hay datos históricos disponibles';
+          this.errorMessage = 'No hay datos históricos disponibles';
         }
 
         // Fundamentales
@@ -147,8 +148,8 @@ onSearch(): void {
         // Recomendaciones
         const recData = data.recommendations;
         if (recData && recData.records && Array.isArray(recData.records) && recData.records.length > 0) {
-        const record = recData.records[0];
-        this.analystRecommendation = {
+          const record = recData.records[0];
+          this.analystRecommendation = {
             sentiment: recData.sentiment || 'N/A',
             recommendation: recData.recommendation || 'N/A',
             sri: recData.sri,
@@ -158,70 +159,70 @@ onSearch(): void {
             strong_buy: record.strong_buy,
             strong_sell: record.strong_sell,
             period: record.period
-        };
+          };
         } else {
-        this.analystRecommendation = null;
+          this.analystRecommendation = null;
         }
-    },
-    error: (err) => {
+      },
+      error: (err) => {
         console.error('Error al obtener datos', err);
         this.errorMessage = 'Error al cargar los datos.';
-    }
+      }
     });
-}
+  }
 
-calculateFundamentals(epsHistoricalData: any, epsTrendsData: any): void {
+  calculateFundamentals(epsHistoricalData: any, epsTrendsData: any): void {
     const epsArray = Array.isArray(epsHistoricalData)
-    ? epsHistoricalData : Object.values(epsHistoricalData || {});
+      ? epsHistoricalData : Object.values(epsHistoricalData || {});
     if (epsArray.length > 0) {
-    const latestEPS = epsArray[2];
-    this.computedEPS = latestEPS.epsActual;
-    if (epsArray.length >= 6) {
+      const latestEPS = epsArray[2];
+      this.computedEPS = latestEPS.epsActual;
+      if (epsArray.length >= 6) {
         this.computedYearEPS = epsArray[2].epsActual + epsArray[3].epsActual +
-                            epsArray[4].epsActual + epsArray[5].epsActual;
-    }
-    const currentPrice = this.historicalData[this.historicalData.length - 1].close;
-    this.perRatio = this.computedYearEPS !== 0 ? currentPrice / this.computedYearEPS : 0;
+          epsArray[4].epsActual + epsArray[5].epsActual;
+      }
+      const currentPrice = this.historicalData[this.historicalData.length - 1].close;
+      this.perRatio = this.computedYearEPS !== 0 ? currentPrice / this.computedYearEPS : 0;
     }
 
     const currentPrice = this.historicalData[this.historicalData.length - 1].close;
     const epsTrendsArray = Array.isArray(epsTrendsData) ? epsTrendsData : Object.values(epsTrendsData || {});
     const fourthRecord = epsTrendsArray[3];
     if (fourthRecord) {
-    const entries = Object.entries(fourthRecord);
-    const sortedEntries = entries.sort(
+      const entries = Object.entries(fourthRecord);
+      const sortedEntries = entries.sort(
         ([a], [b]) => new Date(b).getTime() - new Date(a).getTime()
-    );
-    const fourMostRecent = sortedEntries.slice(0, 4).map(([, rec]) => rec);
-    const forwardEPS: number = fourMostRecent.reduce(
+      );
+      const fourMostRecent = sortedEntries.slice(0, 4).map(([, rec]) => rec);
+      const forwardEPS: number = fourMostRecent.reduce(
         (sum: number, item: any) => sum + (item.epsTrendCurrent || 0),
         0
-    );
-    this.forwardPerRatio = forwardEPS !== 0 ? currentPrice / forwardEPS : 0;
+      );
+      this.forwardPerRatio = forwardEPS !== 0 ? currentPrice / forwardEPS : 0;
     }
 
     if (this.incomeStatementData && this.incomeStatementData.quarterly) {
-    const quarterly = Array.isArray(this.incomeStatementData.quarterly)
-                        ? this.incomeStatementData.quarterly
-                        : Object.values(this.incomeStatementData.quarterly);
-    if (quarterly.length > 0) {
+      const quarterly = Array.isArray(this.incomeStatementData.quarterly)
+        ? this.incomeStatementData.quarterly
+        : Object.values(this.incomeStatementData.quarterly);
+      if (quarterly.length > 0) {
         const latestQuarter = quarterly[quarterly.length - 1];
         this.lastQuarterRevenue = latestQuarter.totalRevenue || 0;
         this.lastQuarterNetIncome = latestQuarter.netIncome || 0;
         this.profitMargin = this.lastQuarterRevenue ? this.lastQuarterNetIncome / this.lastQuarterRevenue : 0;
-    }
+      }
     }
 
     if (this.incomeStatementData && this.incomeStatementData.yearly) {
-    const yearly = Array.isArray(this.incomeStatementData.yearly)
-                    ? this.incomeStatementData.yearly
-                    : Object.values(this.incomeStatementData.yearly);
-    if (yearly.length > 0) {
+      const yearly = Array.isArray(this.incomeStatementData.yearly)
+        ? this.incomeStatementData.yearly
+        : Object.values(this.incomeStatementData.yearly);
+      if (yearly.length > 0) {
         const latestYear = yearly[yearly.length - 1];
         this.lastYearRevenue = latestYear.totalRevenue || 0;
         this.lastYearNetIncome = latestYear.netIncome || 0;
         this.yearProfitMargin = this.lastYearRevenue ? this.lastYearNetIncome / this.lastYearRevenue : 0;
+      }
     }
-    }
-}
+  }
 }

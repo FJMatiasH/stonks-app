@@ -9,7 +9,7 @@ import { AlphaVantageService } from '../../services/api.service';
   standalone: true,
   imports: [CommonModule, SearchComponent, StockInfoMixComponent],
   template: `
-    <div class="flex flex-col gap-6">
+    <div class="flex flex-col gap-2 w-full">
       <app-search (search)="onSearch($event)"></app-search>
       <app-stock-info-mix 
         [ticker]="selectedSymbol" 

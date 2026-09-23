@@ -14,15 +14,15 @@ export interface DonutSegment {
   standalone: true,
   imports: [CommonModule],
   template: `
-    <div class="bg-card border border-slate-700/60 rounded-2xl p-6 shadow-xl w-full max-w-sm flex flex-col justify-between" *ngIf="recommendation">
-      <h2 class="text-lg font-bold font-mono tracking-tight text-text-main text-center mb-4">
-        Opinión de Analistas
+    <div class="bg-card border border-slate-700/60 rounded-xl p-4 shadow-lg flex flex-col min-w-0 flex-1 basis-52" *ngIf="recommendation">
+      <h2 class="text-xs font-bold font-mono tracking-wider text-text-muted uppercase text-center mb-3">
+        Analistas
       </h2>
 
-      <div class="flex items-center justify-around gap-4" *ngIf="recommendation; else noRecTpl">
-        <!-- Donut Chart -->
-        <div class="relative w-36 h-36 flex-shrink-0">
-          <svg width="144" height="144" viewBox="0 0 42 42" class="transform -rotate-90">
+      <div class="flex items-center justify-around gap-3 flex-1" *ngIf="recommendation; else noRecTpl">
+        <!-- Donut Chart (compacto) -->
+        <div class="relative flex-shrink-0">
+          <svg width="90" height="90" viewBox="0 0 42 42" class="transform -rotate-90">
             <circle cx="21" cy="21" r="16" fill="#0f172a"></circle>
             <circle cx="21" cy="21" r="16" fill="transparent" stroke="#334155" stroke-width="3"></circle>
             @for (segment of donutData; track segment.label; let i = $index) {
@@ -32,45 +32,45 @@ export interface DonutSegment {
                 [attr.stroke-dashoffset]="calculateDonutOffset(i)">
               </circle>
             }
-            <text x="50%" y="42%" text-anchor="middle" dy=".3em" class="fill-slate-400 text-[0.35rem] font-bold uppercase tracking-widest" transform="rotate(90 21 21)">
+            <text x="50%" y="42%" text-anchor="middle" class="fill-slate-500" style="font-size:0.3rem;letter-spacing:0.05em" transform="rotate(90 21 21)">
               SRI
             </text>
-            <text x="50%" y="62%" text-anchor="middle" dy=".3em" class="fill-white text-[0.45rem] font-bold font-mono" transform="rotate(90 21 21)">
+            <text x="50%" y="62%" text-anchor="middle" class="fill-white" style="font-size:0.4rem;font-weight:bold" transform="rotate(90 21 21)">
               {{ recommendation.sri | number:'1.2-2' }}
             </text>
           </svg>
         </div>
 
-        <!-- Breakdown de opiniones -->
-        <div class="flex flex-col gap-1.5 flex-1 font-mono text-xs">
-          <div class="flex justify-between items-center">
-            <span class="text-emerald-400 font-medium">Strong Buy</span>
-            <span class="text-text-main font-bold">{{ recommendation.strong_buy }}</span>
+        <!-- Stats compactas -->
+        <div class="flex flex-col gap-1 flex-1 font-mono text-[11px] min-w-0">
+          <div class="flex justify-between items-center min-w-0 gap-1">
+            <span class="text-emerald-400 truncate">Str. Buy</span>
+            <span class="text-text-main font-bold shrink-0">{{ recommendation.strong_buy }}</span>
           </div>
-          <div class="flex justify-between items-center">
-            <span class="text-emerald-300 font-medium">Buy</span>
-            <span class="text-text-main font-bold">{{ recommendation.buy }}</span>
+          <div class="flex justify-between items-center min-w-0 gap-1">
+            <span class="text-emerald-300 truncate">Buy</span>
+            <span class="text-text-main font-bold shrink-0">{{ recommendation.buy }}</span>
           </div>
-          <div class="flex justify-between items-center">
-            <span class="text-amber-400 font-medium">Hold</span>
-            <span class="text-text-main font-bold">{{ recommendation.hold }}</span>
+          <div class="flex justify-between items-center min-w-0 gap-1">
+            <span class="text-amber-400 truncate">Hold</span>
+            <span class="text-text-main font-bold shrink-0">{{ recommendation.hold }}</span>
           </div>
-          <div class="flex justify-between items-center">
-            <span class="text-rose-400 font-medium">Sell</span>
-            <span class="text-text-main font-bold">{{ recommendation.sell }}</span>
+          <div class="flex justify-between items-center min-w-0 gap-1">
+            <span class="text-rose-400 truncate">Sell</span>
+            <span class="text-text-main font-bold shrink-0">{{ recommendation.sell }}</span>
           </div>
-          <div class="flex justify-between items-center">
-            <span class="text-rose-600 font-medium">Strong Sell</span>
-            <span class="text-text-main font-bold">{{ recommendation.strong_sell }}</span>
+          <div class="flex justify-between items-center min-w-0 gap-1">
+            <span class="text-rose-600 truncate">Str. Sell</span>
+            <span class="text-text-main font-bold shrink-0">{{ recommendation.strong_sell }}</span>
           </div>
-          <div class="text-[0.7rem] text-text-muted mt-2 font-sans text-right">
-            Periodo: {{ recommendation.period * 1000 | date:'dd/MM/yyyy' }}
+          <div class="text-[9px] text-text-muted mt-1 font-sans text-right truncate">
+            {{ recommendation.period * 1000 | date:'MM/yyyy' }}
           </div>
         </div>
       </div>
 
       <ng-template #noRecTpl>
-        <p class="text-center py-6 text-text-muted text-sm font-medium">No hay recomendaciones disponibles.</p>
+        <p class="text-center py-4 text-text-muted text-xs font-medium">Sin datos</p>
       </ng-template>
     </div>
   `,

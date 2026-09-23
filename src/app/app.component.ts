@@ -14,18 +14,14 @@ import { Subscription } from 'rxjs';
     HeaderComponent
   ],
   template: `
-    <app-header></app-header>
-    <main class="container">
-      <router-outlet></router-outlet>
-    </main>
+    <div class="flex flex-col h-screen overflow-hidden bg-surface">
+      <app-header></app-header>
+      <main class="flex-1 overflow-y-auto px-4 py-3">
+        <router-outlet></router-outlet>
+      </main>
+    </div>
   `,
-  styles: [`
-    .container {
-      max-width: 1200px;
-      margin: 2rem auto;
-      padding: 0 1rem;
-    }
-  `]
+  styles: []
 })
 export class AppComponent implements OnInit {
   scrapperLoaded: boolean = false;
