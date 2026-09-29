@@ -43,12 +43,15 @@ interface MetricWeight {
             <h3 class="font-bold text-text-main">Ponderación del Algoritmo (Suma: {{ getTotalWeight() | number:'1.0-0' }}%)</h3>
             <button (click)="resetMetrics()" class="text-xs text-text-muted hover:text-text-main underline">Restablecer por defecto</button>
           </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
             @for(m of metrics; track m.id; let i = $index) {
               <div class="flex items-center gap-3">
-                <label class="w-1/2 text-xs truncate" [title]="m.name">{{ m.name }}</label>
-                <input type="range" min="0" max="100" step="1" [value]="m.weight" (input)="onWeightChange(i, $event)" class="w-1/3 accent-primary">
-                <span class="w-1/6 text-right text-xs font-mono">{{ m.weight | number:'1.0-0' }}%</span>
+                <label class="w-1/3 text-xs truncate" [title]="m.name">{{ m.name }}</label>
+                <input type="range" min="0" max="100" step="1" [value]="m.weight" (input)="onWeightChange(i, $event)" class="w-1/2 accent-primary">
+                <div class="w-1/6 flex justify-end items-center gap-1">
+                    <input type="number" min="0" max="100" step="1" [value]="m.weight" (input)="onWeightChange(i, $event)" class="w-12 bg-slate-900 border border-slate-700 text-xs text-right p-1 rounded font-mono focus:outline-none focus:border-primary">
+                    <span class="text-xs font-mono text-text-muted">%</span>
+                </div>
               </div>
             }
           </div>
@@ -110,8 +113,11 @@ interface MetricWeight {
                 <th (click)="sortBy('forwardPE')" class="w-16 px-2 py-1.5 cursor-pointer hover:text-text-main transition-colors text-right" title="Forward P/E">
                   F. PE {{ getSortIcon('forwardPE') }}
                 </th>
-                <th (click)="sortBy('averagePriceTarget')" class="w-16 px-2 py-1.5 cursor-pointer hover:text-text-main transition-colors text-right" title="Precio Objetivo">
-                  P. Obj {{ getSortIcon('averagePriceTarget') }}
+                <th (click)="sortBy('debtToEquity')" class="w-16 px-2 py-1.5 cursor-pointer hover:text-text-main transition-colors text-right" title="Debt-to-Equity Ratio">
+                  D/E {{ getSortIcon('debtToEquity') }}
+                </th>
+                <th (click)="sortBy('priceToCashFlow')" class="w-16 px-2 py-1.5 cursor-pointer hover:text-text-main transition-colors text-right" title="Price / Cash Flow">
+                  P/CF {{ getSortIcon('priceToCashFlow') }}
                 </th>
                 <th (click)="sortBy('potentialUpside')" class="w-16 px-2 py-1.5 cursor-pointer hover:text-text-main transition-colors text-right" title="Potencial Upside">
                   Up {{ getSortIcon('potentialUpside') }}
@@ -153,8 +159,11 @@ interface MetricWeight {
                   <td class="px-2 py-1.5 text-right text-text-muted">
                     {{ stock.stockData?.forwardPE != null ? (stock.stockData!.forwardPE | number:'1.1-1') : '-' }}
                   </td>
-                  <td class="px-2 py-1.5 text-right text-text-main">
-                    {{ stock.stockData?.averagePriceTarget != null ? (stock.stockData!.averagePriceTarget | number:'1.1-2') : '-' }}
+                  <td class="px-2 py-1.5 text-right text-text-muted">
+                    {{ stock.stockData?.debtToEquity != null ? (stock.stockData!.debtToEquity | number:'1.2-2') : '-' }}
+                  </td>
+                  <td class="px-2 py-1.5 text-right text-text-muted">
+                    {{ stock.stockData?.priceToCashFlow != null ? (stock.stockData!.priceToCashFlow | number:'1.2-2') : '-' }}
                   </td>
                   <td class="px-2 py-1.5 text-right font-bold" 
                       [ngClass]="(stock.stockData?.potentialUpside ?? 0) >= 0 ? 'text-bullish' : 'text-bearish'">
@@ -201,15 +210,20 @@ export class RecommendedStocksComponent implements OnInit, OnDestroy {
 
   resetMetrics() {
     this.metrics = [
-      { id: 'superInvestor', name: 'Superinversores Dataroma', weight: 20 },
-      { id: 'ana', name: 'Opinión de Analistas', weight: 10 },
-      { id: 'val', name: 'Valoración y Ganancias', weight: 10 },
-      { id: 'ic', name: 'Interés Corto', weight: 10 },
-      { id: 'div', name: 'Rendimiento por Dividendo', weight: 10 },
-      { id: 'news', name: 'Sentimiento en Noticias', weight: 10 },
-      { id: 'ins', name: 'Transacciones Insider', weight: 10 },
-      { id: 'analystRatio', name: 'Consenso de Compra/Venta', weight: 10 },
-      { id: 'upside', name: 'Potencial Upside', weight: 10 }
+      { id: 'superInvestor', name: 'Superinversores Dataroma', weight: 0 },
+      { id: 'ana', name: 'Opinión de Analistas (MB)', weight: 50 },
+      { id: 'val', name: 'Valoración y Ganancias (MB)', weight: 0 },
+      { id: 'ic', name: 'Interés Corto (MB)', weight: 0 },
+      { id: 'div', name: 'Rendimiento por Dividendo (MB)', weight: 0 },
+      { id: 'news', name: 'Sentimiento en Noticias (MB)', weight: 0 },
+      { id: 'ins', name: 'Transacciones Insider (MB)', weight: 0 },
+      { id: 'analystRatio', name: 'Consenso de Compra/Venta', weight: 0 },
+      { id: 'upside', name: 'Potencial Upside', weight: 50 },
+      { id: 'trailingPE', name: 'Trailing P/E', weight: 0 },
+      { id: 'forwardPE', name: 'Forward P/E', weight: 0 },
+      { id: 'debtToEquity', name: 'Debt-to-Equity Ratio', weight: 0 },
+      { id: 'priceToCashFlow', name: 'Price / Cash Flow', weight: 0 },
+      { id: 'netMargins', name: 'Margen Neto', weight: 0 }
     ];
     this.recalculateRatings();
   }
@@ -240,7 +254,11 @@ export class RecommendedStocksComponent implements OnInit, OnDestroy {
   }
 
   onWeightChange(index: number, event: any) {
-    const newVal = parseInt(event.target.value, 10);
+    let newVal = parseInt(event.target.value, 10);
+    if(isNaN(newVal)) newVal = 0;
+    if(newVal < 0) newVal = 0;
+    if(newVal > 100) newVal = 100;
+    
     const oldVal = this.metrics[index].weight;
     const diff = newVal - oldVal;
     if(diff === 0) return;
@@ -263,8 +281,39 @@ export class RecommendedStocksComponent implements OnInit, OnDestroy {
     if(Math.abs(total - 100) > 0.001) {
       others[0].m.weight += (100 - total);
     }
+    
+    // Clean up floats for input display
+    this.metrics.forEach(m => m.weight = Math.round(m.weight));
   
     this.recalculateRatings();
+  }
+
+  private normalizePE(pe: number | undefined | null): number {
+      if (pe == null || pe <= 0) return 0;
+      if (pe <= 15) return 100;
+      if (pe >= 80) return 0;
+      return 100 - ((pe - 15) / (80 - 15) * 100);
+  }
+
+  private normalizeDebtToEquity(de: number | undefined | null): number {
+      if (de == null) return 0;
+      if (de <= 0) return 100;
+      if (de >= 3) return 0;
+      return 100 - ((de / 3) * 100);
+  }
+
+  private normalizePriceToCashFlow(pcf: number | undefined | null): number {
+      if (pcf == null || pcf <= 0) return 0;
+      if (pcf <= 10) return 100;
+      if (pcf >= 50) return 0;
+      return 100 - ((pcf - 10) / (50 - 10) * 100);
+  }
+
+  private normalizeMargin(margin: number | undefined | null): number {
+      if (margin == null) return 0;
+      if (margin <= 0) return 0;
+      if (margin >= 40) return 100;
+      return (margin / 40) * 100;
   }
 
   private recalculateRatings() {
@@ -272,6 +321,8 @@ export class RecommendedStocksComponent implements OnInit, OnDestroy {
     
     this.tempStocks.forEach(s => {
         let score = 0;
+        
+        // Basic metrics
         score += (s.superInvestorScore || 0) * m['superInvestor'];
         score += (s.stockData?.marketBeatScores?.analystsOpinionScore || 0) * m['ana'];
         score += (s.stockData?.marketBeatScores?.earningsValuationScore || 0) * m['val'];
@@ -280,19 +331,28 @@ export class RecommendedStocksComponent implements OnInit, OnDestroy {
         score += (s.stockData?.marketBeatScores?.newsSocialMediaScore || 0) * m['news'];
         score += (s.stockData?.marketBeatScores?.companyOwnershipScore || 0) * m['ins'];
         
+        // Consenso
         const { compra = 0, mantener = 0, venta = 0 } = s.opinions || {};
         const total = compra + mantener + venta;
         const analystRatio = total ? (compra - venta) / total : 0;
         const safeAnalyst = Math.max(0, Math.min(analystRatio, 1));
         score += (safeAnalyst * 100) * m['analystRatio'];
         
+        // Upside
         const upsideVal = s.stockData?.potentialUpside ?? 0;
         let upsidePts = 0;
         if (upsideVal > 0) {
           if (upsideVal <= 10) upsidePts = (upsideVal / 10) * 100;
-          else upsidePts = 100; // max score for > 10% upside
+          else upsidePts = 100; 
         }
         score += upsidePts * m['upside'];
+
+        // Advanced Metrics (Normalized)
+        score += this.normalizePE(s.stockData?.trailingPE) * m['trailingPE'];
+        score += this.normalizePE(s.stockData?.forwardPE) * m['forwardPE'];
+        score += this.normalizeDebtToEquity(s.stockData?.debtToEquity) * m['debtToEquity'];
+        score += this.normalizePriceToCashFlow(s.stockData?.priceToCashFlow) * m['priceToCashFlow'];
+        score += this.normalizeMargin(s.stockData?.netMargins) * m['netMargins'];
         
         s.rating = score;
     });
@@ -345,7 +405,9 @@ export class RecommendedStocksComponent implements OnInit, OnDestroy {
       s.stockData.averagePriceTarget = this.parseNumber(avgRaw);
       const upRaw = raw.potentialUpside ?? raw.potentialUpsideDownside;
       s.stockData.potentialUpside = this.parseNumber(upRaw);
-      s.stockData.netMargins = raw.netMargins;
+      s.stockData.netMargins = this.parseNumber(raw.netMargins);
+      s.stockData.debtToEquity = this.parseNumber(raw.debtToEquity);
+      s.stockData.priceToCashFlow = this.parseNumber(raw.priceToCashFlow);
     }
 
     const existingIndex = this.tempStocks.findIndex(st => st.ticker === s.ticker);
@@ -404,9 +466,11 @@ export class RecommendedStocksComponent implements OnInit, OnDestroy {
       case 'venta': return stock.opinions?.venta;
       case 'trailingPE': return stock.stockData?.trailingPE;
       case 'forwardPE': return stock.stockData?.forwardPE;
+      case 'debtToEquity': return stock.stockData?.debtToEquity;
+      case 'priceToCashFlow': return stock.stockData?.priceToCashFlow;
       case 'averagePriceTarget': return stock.stockData?.averagePriceTarget;
       case 'potentialUpside': return stock.stockData?.potentialUpside;
-      case 'netMargins': return this.parseNumber(stock.stockData?.netMargins);
+      case 'netMargins': return stock.stockData?.netMargins;
       default: return undefined;
     }
   }

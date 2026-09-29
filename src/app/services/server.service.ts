@@ -32,6 +32,8 @@ export interface StockData {
   averagePriceTarget?: number;
   potentialUpside?: number;
   netMargins?: number;
+  debtToEquity?: number;
+  priceToCashFlow?: number;
   price?: number;
   marketBeatScores?: MarketBeatScores;
 }

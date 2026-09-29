@@ -173,6 +173,8 @@ while (attempts < retryCount) {
         averageStockPriceTarget: null,
         potentialUpsideDownside: null,
         netMargins: null,
+        debtToEquity: null,
+        priceToCashFlow: null,
         marketBeatScores: {
           analystsOpinionScore: null,
           earningsValuationScore: null,
@@ -188,6 +190,12 @@ while (attempts < retryCount) {
       if (!scoreText) return null;
       const num = parseFloat(scoreText.split('/')[0]);
       return isNaN(num) ? null : num;
+    };
+
+    const parseNumberStrict = (str) => {
+        if (!str || str === '-') return null;
+        const num = parseFloat(str.replace(/[^0-9.-]/g, ''));
+        return isNaN(num) ? null : num;
     };
 
     stockData.marketBeatScores.analystsOpinionScore = extractScore('questionAnalystsOpinion');
@@ -225,6 +233,26 @@ while (attempts < retryCount) {
             stockData.potentialUpsideDownside = dd;
             }
         });
+        }
+
+        if (title.includes("Debt")) {
+            dl.find('.price-data').each((j, el) => {
+                const dt = $(el).find('dt').text().trim();
+                const dd = $(el).find('dd').text().trim();
+                if (dt.includes("Debt-to-Equity Ratio")) {
+                    stockData.debtToEquity = parseNumberStrict(dd);
+                }
+            });
+        }
+
+        if (title.includes("Sales & Book Value") || title.includes("Sales &amp; Book Value")) {
+            dl.find('.price-data').each((j, el) => {
+                const dt = $(el).find('dt').text().trim();
+                const dd = $(el).find('dd').text().trim();
+                if (dt.includes("Price / Cash Flow")) {
+                    stockData.priceToCashFlow = parseNumberStrict(dd);
+                }
+            });
         }
     });
 
