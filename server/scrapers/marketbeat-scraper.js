@@ -168,8 +168,30 @@ while (attempts < retryCount) {
         forwardPE: null,
         averageStockPriceTarget: null,
         potentialUpsideDownside: null,
-        netMargins: null
+        netMargins: null,
+        marketBeatScores: {
+          analystsOpinionScore: null,
+          earningsValuationScore: null,
+          shortInterestScore: null,
+          dividendScore: null,
+          newsSocialMediaScore: null,
+          companyOwnershipScore: null
+        }
     };
+
+    const extractScore = (id) => {
+      const scoreText = $(`#${id} .mr-score`).first().text().trim();
+      if (!scoreText) return null;
+      const num = parseFloat(scoreText.split('/')[0]);
+      return isNaN(num) ? null : num;
+    };
+
+    stockData.marketBeatScores.analystsOpinionScore = extractScore('questionAnalystsOpinion');
+    stockData.marketBeatScores.earningsValuationScore = extractScore('questionEarningsandValuation');
+    stockData.marketBeatScores.shortInterestScore = extractScore('questionShortInterest');
+    stockData.marketBeatScores.dividendScore = extractScore('questionDividend');
+    stockData.marketBeatScores.newsSocialMediaScore = extractScore('questionNewsandSocialMedia');
+    stockData.marketBeatScores.companyOwnershipScore = extractScore('questionCompanyOwnership');
 
     $('h2.section-h').each((i, h2) => {
         const title = $(h2).text().trim();
@@ -193,7 +215,7 @@ while (attempts < retryCount) {
         dl.find('.price-data').each((j, el) => {
             const dt = $(el).find('dt').text().trim();
             const dd = $(el).find('dd').text().trim();
-            if (dt.includes("Average Stock Price Target")) {
+            if (dt.includes("Average Price Target")) {
             stockData.averageStockPriceTarget = dd;
             } else if (dt.includes("Potential Upside/Downside")) {
             stockData.potentialUpsideDownside = dd;

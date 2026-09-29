@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { getHoldings, getManagers, getHomeLists } from './scrapers/dataroma-scraper.js';
+import { getHoldings, getManagers, getHomeLists, getDataromaStockScore } from './scrapers/dataroma-scraper.js';
 import { getMarketBeatAnalystOpinions, getMarketBeatStockData } from './scrapers/marketbeat-scraper.js';
 import { sp500 } from './diccionarios/tickets-s&p.js';
 import { nonSp500Relevant } from './diccionarios/tickets-eeuu.js';
@@ -71,16 +71,18 @@ app.get('/api/full-analysts-stream', (req, res) => {
     return limit(async () => {
       try {
         console.log(`Scrapeando datos para: ${stock.ticker} en ${stock.exchange}`);
-        const [opinions, stockData] = await Promise.all([
+        const [opinions, stockData, superInvestorScore] = await Promise.all([
           getMarketBeatAnalystOpinions(stock.exchange, stock.ticker),
-          getMarketBeatStockData(stock.exchange, stock.ticker)
+          getMarketBeatStockData(stock.exchange, stock.ticker),
+          getDataromaStockScore(stock.ticker)
         ]);
 
         const result = {
           ticker: stock.ticker,
           exchange: stock.exchange,
           opinions,
-          stockData
+          stockData,
+          superInvestorScore
         };
         completed++;
         res.write(`data: ${JSON.stringify({ type: 'data', result, completed, total })}\n\n`);

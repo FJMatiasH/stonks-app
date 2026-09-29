@@ -33,76 +33,91 @@ interface SortEvent {
 
       @if (!loading && recommendedStocks.length) {
         <div class="overflow-x-auto rounded-xl border border-slate-700/80 shadow-lg">
-          <table class="w-full text-left border-collapse text-sm">
-            <thead class="bg-slate-900/90 text-text-muted text-xs font-semibold uppercase tracking-wider border-b border-slate-700 select-none">
+          <table class="w-full text-left border-collapse text-xs">
+            <thead class="bg-slate-900/90 text-text-muted text-[10px] md:text-xs font-semibold uppercase tracking-wider border-b border-slate-700 select-none">
               <tr>
-                <th (click)="sortBy('ticker')" class="px-4 py-3.5 cursor-pointer hover:text-text-main transition-colors">
-                  Ticker {{ getSortIcon('ticker') }}
+                <th (click)="sortBy('ticker')" class="px-2 py-1.5 cursor-pointer hover:text-text-main transition-colors" title="Ticker">
+                  Tick {{ getSortIcon('ticker') }}
                 </th>
-                <th (click)="sortBy('exchange')" class="px-4 py-3.5 cursor-pointer hover:text-text-main transition-colors">
-                  Exchange {{ getSortIcon('exchange') }}
+                <th (click)="sortBy('superInvestorScore')" class="px-2 py-1.5 cursor-pointer hover:text-text-main transition-colors text-center" title="Superinversor Score (0-100)">
+                  S.Inv {{ getSortIcon('superInvestorScore') }}
                 </th>
-                <th (click)="sortBy('price')" class="px-4 py-3.5 cursor-pointer hover:text-text-main transition-colors text-right">
+                <th (click)="sortBy('price')" class="px-2 py-1.5 cursor-pointer hover:text-text-main transition-colors text-right" title="Precio">
                   Precio {{ getSortIcon('price') }}
                 </th>
-                <th (click)="sortBy('rating')" class="px-4 py-3.5 cursor-pointer hover:text-text-main transition-colors text-center">
-                  Rating {{ getSortIcon('rating') }}
+                <th (click)="sortBy('rating')" class="px-2 py-1.5 cursor-pointer hover:text-text-main transition-colors text-center" title="Rating">
+                  Rat. {{ getSortIcon('rating') }}
                 </th>
-                <th (click)="sortBy('compra')" class="px-4 py-3.5 cursor-pointer hover:text-text-main transition-colors text-center text-emerald-400">
-                  Compra {{ getSortIcon('compra') }}
+                <th (click)="sortBy('compra')" class="px-2 py-1.5 cursor-pointer hover:text-text-main transition-colors text-center text-emerald-400" title="Comprar">
+                  C {{ getSortIcon('compra') }}
                 </th>
-                <th (click)="sortBy('mantener')" class="px-4 py-3.5 cursor-pointer hover:text-text-main transition-colors text-center text-amber-400">
-                  Mantener {{ getSortIcon('mantener') }}
+                <th (click)="sortBy('mantener')" class="px-2 py-1.5 cursor-pointer hover:text-text-main transition-colors text-center text-amber-400" title="Mantener">
+                  M {{ getSortIcon('mantener') }}
                 </th>
-                <th (click)="sortBy('venta')" class="px-4 py-3.5 cursor-pointer hover:text-text-main transition-colors text-center text-rose-400">
-                  Venta {{ getSortIcon('venta') }}
+                <th (click)="sortBy('venta')" class="px-2 py-1.5 cursor-pointer hover:text-text-main transition-colors text-center text-rose-400" title="Vender">
+                  V {{ getSortIcon('venta') }}
                 </th>
-                <th (click)="sortBy('trailingPE')" class="px-4 py-3.5 cursor-pointer hover:text-text-main transition-colors text-right">
+                <th class="px-2 py-1.5 text-center" title="MarketBeat Scores (Analysts, Earnings, Short, Div, News, Ownership)">
+                  MB Scores
+                </th>
+                <th (click)="sortBy('trailingPE')" class="px-2 py-1.5 cursor-pointer hover:text-text-main transition-colors text-right" title="Trailing P/E">
                   P/E {{ getSortIcon('trailingPE') }}
                 </th>
-                <th (click)="sortBy('forwardPE')" class="px-4 py-3.5 cursor-pointer hover:text-text-main transition-colors text-right">
-                  Fwd P/E {{ getSortIcon('forwardPE') }}
+                <th (click)="sortBy('forwardPE')" class="px-2 py-1.5 cursor-pointer hover:text-text-main transition-colors text-right" title="Forward P/E">
+                  Fwd PE {{ getSortIcon('forwardPE') }}
                 </th>
-                <th (click)="sortBy('averagePriceTarget')" class="px-4 py-3.5 cursor-pointer hover:text-text-main transition-colors text-right">
-                  Target ($) {{ getSortIcon('averagePriceTarget') }}
+                <th (click)="sortBy('averagePriceTarget')" class="px-2 py-1.5 cursor-pointer hover:text-text-main transition-colors text-right" title="Precio Objetivo">
+                  P. Obj {{ getSortIcon('averagePriceTarget') }}
                 </th>
-                <th (click)="sortBy('potentialUpside')" class="px-4 py-3.5 cursor-pointer hover:text-text-main transition-colors text-right">
+                <th (click)="sortBy('potentialUpside')" class="px-2 py-1.5 cursor-pointer hover:text-text-main transition-colors text-right" title="Potencial Upside">
                   Upside {{ getSortIcon('potentialUpside') }}
                 </th>
-                <th (click)="sortBy('netMargins')" class="px-4 py-3.5 cursor-pointer hover:text-text-main transition-colors text-right">
-                  Margen Neto {{ getSortIcon('netMargins') }}
+                <th (click)="sortBy('netMargins')" class="px-2 py-1.5 cursor-pointer hover:text-text-main transition-colors text-right" title="Margen Neto">
+                  M. Neto {{ getSortIcon('netMargins') }}
                 </th>
               </tr>
             </thead>
-            <tbody class="divide-y divide-slate-800 text-text-main font-mono text-xs md:text-sm">
+            <tbody class="divide-y divide-slate-800 text-text-main font-mono text-[10px] md:text-xs">
               @for (stock of recommendedStocks; track stock.ticker) {
                 <tr class="hover:bg-slate-700/40 transition-colors">
-                  <td class="px-4 py-3 font-bold text-bullish">{{ stock.ticker }}</td>
-                  <td class="px-4 py-3 text-text-muted font-sans">{{ stock.exchange }}</td>
-                  <td class="px-4 py-3 text-right">
-                    {{ stock.stockData?.price != null ? (stock.stockData!.price | number:'1.2-2') : 'N/A' }}
+                  <td class="px-2 py-1.5 font-bold text-bullish">{{ stock.ticker }}</td>
+                  <td class="px-2 py-1.5 text-center">
+                    <span class="px-1.5 py-0.5 rounded font-bold text-[10px]" [ngClass]="getSuperInvColor(stock.superInvestorScore || 0)">
+                      {{ stock.superInvestorScore || 0 }}
+                    </span>
                   </td>
-                  <td class="px-4 py-3 text-center font-bold text-primary">
-                    {{ stock.rating | number:'1.2-2' }}
+                  <td class="px-2 py-1.5 text-right">
+                    {{ stock.stockData?.price != null ? (stock.stockData!.price | number:'1.2-2') : '-' }}
                   </td>
-                  <td class="px-4 py-3 text-center text-emerald-400 font-semibold">{{ stock.opinions?.compra || 0 }}</td>
-                  <td class="px-4 py-3 text-center text-amber-400">{{ stock.opinions?.mantener || 0 }}</td>
-                  <td class="px-4 py-3 text-center text-rose-400 font-semibold">{{ stock.opinions?.venta || 0 }}</td>
-                  <td class="px-4 py-3 text-right text-text-muted">
-                    {{ stock.stockData?.trailingPE != null ? (stock.stockData!.trailingPE | number:'1.2-2') : 'N/A' }}
+                  <td class="px-2 py-1.5 text-center font-bold text-primary">
+                    {{ stock.rating | number:'1.0-1' }}
                   </td>
-                  <td class="px-4 py-3 text-right text-text-muted">
-                    {{ stock.stockData?.forwardPE != null ? (stock.stockData!.forwardPE | number:'1.2-2') : 'N/A' }}
+                  <td class="px-2 py-1.5 text-center text-emerald-400 font-semibold">{{ stock.opinions?.compra || 0 }}</td>
+                  <td class="px-2 py-1.5 text-center text-amber-400">{{ stock.opinions?.mantener || 0 }}</td>
+                  <td class="px-2 py-1.5 text-center text-rose-400 font-semibold">{{ stock.opinions?.venta || 0 }}</td>
+                  <td class="px-2 py-1.5 text-center flex flex-wrap justify-center gap-1">
+                    <span title="Analysts Opinion" class="text-[9px] bg-slate-800 px-1 rounded">{{ stock.stockData?.marketBeatScores?.analystsOpinionScore || '-' }}</span>
+                    <span title="Earnings & Valuation" class="text-[9px] bg-slate-800 px-1 rounded">{{ stock.stockData?.marketBeatScores?.earningsValuationScore || '-' }}</span>
+                    <span title="Short Interest" class="text-[9px] bg-slate-800 px-1 rounded">{{ stock.stockData?.marketBeatScores?.shortInterestScore || '-' }}</span>
+                    <span title="Dividend" class="text-[9px] bg-slate-800 px-1 rounded">{{ stock.stockData?.marketBeatScores?.dividendScore || '-' }}</span>
+                    <span title="News & Social" class="text-[9px] bg-slate-800 px-1 rounded">{{ stock.stockData?.marketBeatScores?.newsSocialMediaScore || '-' }}</span>
+                    <span title="Ownership" class="text-[9px] bg-slate-800 px-1 rounded">{{ stock.stockData?.marketBeatScores?.companyOwnershipScore || '-' }}</span>
                   </td>
-                  <td class="px-4 py-3 text-right text-text-main">
-                    {{ stock.stockData?.averagePriceTarget != null ? (stock.stockData!.averagePriceTarget | number:'1.2-2') : 'N/A' }}
+                  <td class="px-2 py-1.5 text-right text-text-muted">
+                    {{ stock.stockData?.trailingPE != null ? (stock.stockData!.trailingPE | number:'1.1-1') : '-' }}
                   </td>
-                  <td class="px-4 py-3 text-right font-bold" 
+                  <td class="px-2 py-1.5 text-right text-text-muted">
+                    {{ stock.stockData?.forwardPE != null ? (stock.stockData!.forwardPE | number:'1.1-1') : '-' }}
+                  </td>
+                  <td class="px-2 py-1.5 text-right text-text-main">
+                    {{ stock.stockData?.averagePriceTarget != null ? (stock.stockData!.averagePriceTarget | number:'1.1-2') : '-' }}
+                  </td>
+                  <td class="px-2 py-1.5 text-right font-bold" 
                       [ngClass]="(stock.stockData?.potentialUpside ?? 0) >= 0 ? 'text-bullish' : 'text-bearish'">
-                    {{ stock.stockData?.potentialUpside != null ? ((stock.stockData!.potentialUpside! / 100) | percent:'1.0-2') : 'N/A' }}
+                    {{ stock.stockData?.potentialUpside != null ? ((stock.stockData!.potentialUpside! / 100) | percent:'1.0-1') : '-' }}
                   </td>
-                  <td class="px-4 py-3 text-right text-text-muted font-sans">
-                    {{ stock.stockData?.netMargins || 'N/A' }}
+                  <td class="px-2 py-1.5 text-right text-text-muted font-sans text-[10px]">
+                    {{ stock.stockData?.netMargins || '-' }}
                   </td>
                 </tr>
               }
@@ -244,6 +259,7 @@ export class RecommendedStocksComponent implements OnInit, OnDestroy {
   private getFieldValue(stock: AnalystData, field: string): string | number | undefined {
     switch (field) {
       case 'ticker': return stock.ticker;
+      case 'superInvestorScore': return stock.superInvestorScore;
       case 'exchange': return stock.exchange;
       case 'price': return stock.stockData?.price;
       case 'rating': return stock.rating;
@@ -257,6 +273,12 @@ export class RecommendedStocksComponent implements OnInit, OnDestroy {
       case 'netMargins': return this.parseNumber(stock.stockData?.netMargins);
       default: return undefined;
     }
+  }
+
+  getSuperInvColor(score: number): string {
+    if (score >= 70) return 'bg-emerald-500/20 text-emerald-400';
+    if (score >= 40) return 'bg-amber-500/20 text-amber-400';
+    return 'bg-rose-500/20 text-rose-400';
   }
 
   private parseNumber(value: any): number | undefined {

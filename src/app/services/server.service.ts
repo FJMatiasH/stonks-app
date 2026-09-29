@@ -17,6 +17,15 @@ export interface Manager {
   ticker: string;
 }
 
+export interface MarketBeatScores {
+  analystsOpinionScore?: number | null;
+  earningsValuationScore?: number | null;
+  shortInterestScore?: number | null;
+  dividendScore?: number | null;
+  newsSocialMediaScore?: number | null;
+  companyOwnershipScore?: number | null;
+}
+
 export interface StockData {
   trailingPE?: number;
   forwardPE?: number;
@@ -24,7 +33,7 @@ export interface StockData {
   potentialUpside?: number;
   netMargins?: number;
   price?: number;
-  // otros campos...
+  marketBeatScores?: MarketBeatScores;
 }
 
 export interface AnalystData {
@@ -38,6 +47,7 @@ export interface AnalystData {
       venta?: number;
   };
   stockData?: StockData;
+  superInvestorScore?: number;
 }
 
 

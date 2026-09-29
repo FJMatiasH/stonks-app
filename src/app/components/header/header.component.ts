@@ -19,8 +19,8 @@ import { RouterModule } from '@angular/router';
         <!-- Desktop Nav -->
         <nav class="hidden md:flex gap-1.5 items-center">
           <a routerLink="/stocks" routerLinkActive="bg-slate-800 text-white font-semibold border border-slate-700" class="text-sm font-medium text-text-muted hover:text-text-main hover:bg-slate-800/60 px-4 py-2 rounded-xl transition-all duration-200">BUSCADOR</a>
-          <a routerLink="/recommended" routerLinkActive="bg-slate-800 text-white font-semibold border border-slate-700" class="text-sm font-medium text-text-muted hover:text-text-main hover:bg-slate-800/60 px-4 py-2 rounded-xl transition-all duration-200">TOP S&P500</a>
-          <a routerLink="/portfolios" routerLinkActive="bg-slate-800 text-white font-semibold border border-slate-700" class="text-sm font-medium text-text-muted hover:text-text-main hover:bg-slate-800/60 px-4 py-2 rounded-xl transition-all duration-200">CARTERAS</a>
+          <a routerLink="/recommended" routerLinkActive="bg-slate-800 text-white font-semibold border border-slate-700" class="text-sm font-medium text-text-muted hover:text-text-main hover:bg-slate-800/60 px-4 py-2 rounded-xl transition-all duration-200">TOP ACCIONES</a>
+          <a routerLink="/portfolios" routerLinkActive="bg-slate-800 text-white font-semibold border border-slate-700" class="text-sm font-medium text-text-muted hover:text-text-main hover:bg-slate-800/60 px-4 py-2 rounded-xl transition-all duration-200">CARTERAS ILUSTRES</a>
           <a routerLink="/markets" routerLinkActive="bg-slate-800 text-white font-semibold border border-slate-700" class="text-sm font-medium text-text-muted hover:text-text-main hover:bg-slate-800/60 px-4 py-2 rounded-xl transition-all duration-200">MERCADOS</a>
           <a routerLink="/about" routerLinkActive="bg-slate-800 text-white font-semibold border border-slate-700" class="text-sm font-medium text-text-muted hover:text-text-main hover:bg-slate-800/60 px-4 py-2 rounded-xl transition-all duration-200">SOBRE MÍ</a>
         </nav>

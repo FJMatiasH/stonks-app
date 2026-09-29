@@ -135,4 +135,59 @@ const getHomeLists = async () => {
   }
 };
 
-export { getHoldings, getManagers, getHomeLists };
+const getDataromaStockScore = async (ticker) => {
+  try {
+    const url = `https://www.dataroma.com/m/stock.php?sym=${ticker}`;
+    const { data } = await axios.get(url, { validateStatus: () => true });
+    if (!data || !data.includes('<table id="grid"')) return 0;
+    
+    const $ = load(data);
+    const holdings = [];
+    
+    $('table#grid tbody tr').each((i, el) => {
+      const tds = $(el).find('td');
+      if (tds.length >= 4) {
+        const percentageStr = tds.eq(2).text().trim();
+        const activityStr = tds.eq(3).text().trim();
+        
+        const percentage = parseFloat(percentageStr) || 0;
+        holdings.push({ percentage, activity: activityStr });
+      }
+    });
+    
+    if (holdings.length === 0) return 0;
+
+    let score = 50; 
+    let buyers = 0;
+    let sellers = 0;
+    let totalWeight = 0;
+
+    holdings.forEach(h => {
+      totalWeight += h.percentage;
+      if (h.activity.includes('Buy') || h.activity.includes('Add')) {
+        buyers++;
+        score += 2;
+      } else if (h.activity.includes('Sell') || h.activity.includes('Reduce')) {
+        sellers++;
+        score -= 2;
+      }
+    });
+
+    let avgWeight = totalWeight / holdings.length;
+    if (avgWeight > 5) score += 10;
+    else if (avgWeight > 2) score += 5;
+    
+    if (buyers > sellers * 2) score += 15;
+    else if (buyers > sellers) score += 5;
+    else if (sellers > buyers * 2) score -= 15;
+    else if (sellers > buyers) score -= 5;
+    
+    return Math.max(0, Math.min(100, Math.round(score)));
+  } catch (err) {
+    console.error(`Error en getDataromaStockScore para ${ticker}:`, err.message);
+    return 0;
+  }
+};
+
+export { getHoldings, getManagers, getHomeLists, getDataromaStockScore };
+
