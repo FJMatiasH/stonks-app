@@ -1,4 +1,4 @@
-import { getMarketBeatAnalystOpinions, getMarketBeatStockData } from './scrapers/marketbeat-scraper.js';
+import { getMarketBeatAnalystOpinions, getMarketBeatStockData } from '../scrapers/marketbeat-scraper.js';
 
 async function test() {
     try {

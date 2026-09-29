@@ -13,6 +13,19 @@ const PORT = 3000;
 
 app.use(cors());
 
+import { clearCache } from './scrapers/marketbeat-scraper.js';
+
+app.delete('/api/cache', (req, res) => {
+  console.log('Borrando caché...');
+  try {
+    clearCache();
+    res.json({ success: true, message: "Caché borrada correctamente" });
+  } catch (error) {
+    console.error('Error al borrar caché:', error.message);
+    res.status(500).json({ success: false, message: "Error al borrar caché" });
+  }
+});
+
 app.get('/api/cartera/:ticker', async (req, res) => {
   const ticker = req.params.ticker;
   console.log(`Scrapeando datos para cartera del ticker: ${ticker}`);

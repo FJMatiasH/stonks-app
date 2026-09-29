@@ -70,6 +70,10 @@ export class CarteraService {
     return this.http.get<Holding[]>(`${this.carteraUrl}/${ticker}`);
   }
 
+  clearCache(): Observable<any> {
+    return this.http.delete('http://localhost:3000/api/cache');
+  }
+
   getManagers(): Observable<Manager[]> {
     return this.http.get<Manager[]>(this.managersUrl);
   }

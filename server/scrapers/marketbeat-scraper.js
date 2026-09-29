@@ -24,12 +24,16 @@ const cacheFile = path.resolve(__dirname, 'cache.json');
 let cache = new Map();
 if (fs.existsSync(cacheFile)) {
     try {
-        const rawData = fs.readFileSync(cacheFile, 'utf8');
-        const parsedData = JSON.parse(rawData);
-        cache = new Map(Object.entries(parsedData));
-        console.log(`[Cache] Cargados ${cache.size} elementos desde disco.`);
+        const rawData = fs.readFileSync(cacheFile, 'utf8').trim();
+        if (!rawData || rawData === '[]' || rawData === '{}') {
+            console.log('[Cache] Archivo de caché vacío o inicial. Inicializando caché limpia.');
+        } else {
+            const parsedData = JSON.parse(rawData);
+            cache = new Map(Object.entries(parsedData));
+            console.log(`[Cache] Cargados ${cache.size} elementos desde disco.`);
+        }
     } catch (e) {
-        console.error('[Cache] Error al leer el archivo de caché', e);
+        console.log('[Cache] Archivo de caché inválido. Inicializando caché limpia.');
     }
 }
 
@@ -239,4 +243,10 @@ while (attempts < retryCount) {
 }
 };
 
-export { getMarketBeatAnalystOpinions, getMarketBeatStockData };
+export { getMarketBeatAnalystOpinions, getMarketBeatStockData, clearCache };
+
+function clearCache() {
+    cache.clear();
+    fs.writeFileSync(cacheFile, '{}', 'utf8');
+    console.log('[Cache] Caché borrada y archivo reiniciado.');
+}
