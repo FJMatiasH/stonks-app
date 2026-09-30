@@ -92,16 +92,16 @@ interface MetricWeight {
               <tr>
                 <th class="w-8 px-1 py-1.5"></th>
                 <th (click)="sortBy('ticker')" class="w-16 px-2 py-1.5 cursor-pointer hover:text-text-main transition-colors" title="Ticker">
-                  Tick {{ getSortIcon('ticker') }}
+                  Ticker {{ getSortIcon('ticker') }}
                 </th>
                 <th (click)="sortBy('superInvestorScore')" class="w-16 px-2 py-1.5 cursor-pointer hover:text-text-main transition-colors text-center" title="Superinversor Score (0-100)">
-                  S.Inv {{ getSortIcon('superInvestorScore') }}
+                  Sinvestors {{ getSortIcon('superInvestorScore') }}
                 </th>
                 <th (click)="sortBy('price')" class="w-16 px-2 py-1.5 cursor-pointer hover:text-text-main transition-colors text-right" title="Precio">
                   Precio {{ getSortIcon('price') }}
                 </th>
                 <th (click)="sortBy('rating')" class="w-16 px-2 py-1.5 cursor-pointer hover:text-text-main transition-colors text-center" title="Rating">
-                  Rat. {{ getSortIcon('rating') }}
+                  Rating {{ getSortIcon('rating') }}
                 </th>
                 <th (click)="sortBy('compra')" class="w-10 px-1 py-1.5 cursor-pointer hover:text-text-main transition-colors text-center text-emerald-400" title="Comprar">
                   C {{ getSortIcon('compra') }}
@@ -128,10 +128,10 @@ interface MetricWeight {
                   PEG {{ getSortIcon('peg') }}
                 </th>
                 <th (click)="sortBy('potentialUpside')" class="w-16 px-2 py-1.5 cursor-pointer hover:text-text-main transition-colors text-right" title="Potencial Upside">
-                  Up {{ getSortIcon('potentialUpside') }}
+                  Upside {{ getSortIcon('potentialUpside') }}
                 </th>
                 <th (click)="sortBy('netMargins')" class="w-16 px-2 py-1.5 cursor-pointer hover:text-text-main transition-colors text-right" title="Margen Neto">
-                  M. Net {{ getSortIcon('netMargins') }}
+                  M. Neto {{ getSortIcon('netMargins') }}
                 </th>
               </tr>
             </thead>
@@ -186,13 +186,13 @@ interface MetricWeight {
                         <table class="w-full text-[10px] my-2">
                           <thead>
                             <tr class="text-slate-400 font-bold uppercase tracking-wider">
-                              <th class="px-3 py-1 text-center">Ana</th>
-                              <th class="px-3 py-1 text-center">Val</th>
-                              <th class="px-3 py-1 text-center">IC</th>
-                              <th class="px-3 py-1 text-center">Div</th>
-                              <th class="px-3 py-1 text-center">News</th>
-                              <th class="px-3 py-1 text-center">Ins</th>
-                              <th class="px-3 py-1 text-center">D/E</th>
+                              <th class="px-3 py-1 text-center">Analistas</th>
+                              <th class="px-3 py-1 text-center">Valoración</th>
+                              <th class="px-3 py-1 text-center">Desinteres Corto</th>
+                              <th class="px-3 py-1 text-center">Dividendo</th>
+                              <th class="px-3 py-1 text-center">Noticias</th>
+                              <th class="px-3 py-1 text-center">Insiders</th>
+                              <th class="px-3 py-1 text-center">Debt/Equity</th>
                               <th class="px-3 py-1 text-center">P/CF</th>
                               <th class="px-3 py-1 text-center">MB Rating</th>
                             </tr>
