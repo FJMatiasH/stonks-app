@@ -175,6 +175,10 @@ while (attempts < retryCount) {
         netMargins: null,
         debtToEquity: null,
         priceToCashFlow: null,
+        marketCap: null,
+        dividendYield: null,
+        mbRating: null,
+        peg: null,
         marketBeatScores: {
           analystsOpinionScore: null,
           earningsValuationScore: null,
@@ -204,6 +208,32 @@ while (attempts < retryCount) {
     stockData.marketBeatScores.dividendScore = extractScore('questionDividend');
     stockData.marketBeatScores.newsSocialMediaScore = extractScore('questionNewsandSocialMedia');
     stockData.marketBeatScores.companyOwnershipScore = extractScore('questionCompanyOwnership');
+
+    // --- Nuevos campos: marketCap, dividendYield, mbRating, peg ---
+    const parseMarketCap = (str) => {
+        if (!str || str === '-') return null;
+        let num = parseFloat(str.replace(/[^0-9.-]/g, ''));
+        if (isNaN(num)) return null;
+        const upperStr = str.toUpperCase();
+        if (upperStr.includes('T')) num *= 1000;      // Trillions -> Billions
+        else if (upperStr.includes('M')) num /= 1000;  // Millions -> Billions
+        // If 'B' or no suffix, keep as-is (Billions)
+        return num;
+    };
+
+    $('.price-data').each((i, el) => {
+        const dt = $(el).find('dt').text().trim();
+        const dd = $(el).find('dd').text().trim();
+        if (dt.includes('Market Capitalization')) {
+            stockData.marketCap = parseMarketCap(dd);
+        } else if (dt.includes('Dividend Yield')) {
+            stockData.dividendYield = parseNumberStrict(dd);
+        } else if (dt.includes('Rating Score')) {
+            stockData.mbRating = parseNumberStrict(dd);
+        } else if (dt.includes('P/E Growth')) {
+            stockData.peg = parseNumberStrict(dd);
+        }
+    });
 
     $('h2.section-h').each((i, h2) => {
         const title = $(h2).text().trim();

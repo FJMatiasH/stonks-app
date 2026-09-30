@@ -35,6 +35,10 @@ export interface StockData {
   debtToEquity?: number;
   priceToCashFlow?: number;
   price?: number;
+  marketCap?: number;
+  dividendYield?: number;
+  mbRating?: number;
+  peg?: number;
   marketBeatScores?: MarketBeatScores;
 }
 

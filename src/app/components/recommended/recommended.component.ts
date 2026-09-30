@@ -12,6 +12,7 @@ interface MetricWeight {
   id: string;
   name: string;
   weight: number;
+  locked: boolean;
 }
 
 @Component({
@@ -45,11 +46,24 @@ interface MetricWeight {
           </div>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
             @for(m of metrics; track m.id; let i = $index) {
-              <div class="flex items-center gap-3">
-                <label class="w-1/3 text-xs truncate" [title]="m.name">{{ m.name }}</label>
-                <input type="range" min="0" max="100" step="1" [value]="m.weight" (input)="onWeightChange(i, $event)" class="w-1/2 accent-primary">
-                <div class="w-1/6 flex justify-end items-center gap-1">
-                    <input type="number" min="0" max="100" step="1" [value]="m.weight" (input)="onWeightChange(i, $event)" class="w-12 bg-slate-900 border border-slate-700 text-xs text-right p-1 rounded font-mono focus:outline-none focus:border-primary">
+              <div class="flex items-center gap-2">
+                <button (click)="toggleLock(i)"
+                  class="shrink-0 w-10 py-0.5 rounded text-[10px] font-bold border transition-all duration-200"
+                  [ngClass]="m.locked
+                    ? 'bg-[#6366f1] border-[#80DEEA] text-slate-800'
+                    : 'bg-transparent border-slate-600 text-text-muted hover:border-slate-400'">
+                  {{ m.locked ? '🔒' : '🔓' }}
+                </button>
+                <label class="w-1/4 text-xs truncate" [title]="m.name">{{ m.name }}</label>
+                <input type="range" min="0" max="100" step="1" [value]="m.weight"
+                  (input)="onWeightChange(i, $event)"
+                  class="w-1/3 accent-primary"
+                  [class.opacity-40]="m.locked">
+                <div class="w-14 flex justify-end items-center gap-1">
+                    <input type="number" min="0" max="100" step="1" [value]="m.weight"
+                      (input)="onWeightChange(i, $event)"
+                      class="w-12 bg-slate-900 border border-slate-700 text-xs text-right p-1 rounded font-mono focus:outline-none focus:border-primary"
+                      [class.opacity-40]="m.locked">
                     <span class="text-xs font-mono text-text-muted">%</span>
                 </div>
               </div>
@@ -76,6 +90,7 @@ interface MetricWeight {
           <table class="w-full text-left border-collapse text-xs table-fixed">
             <thead class="bg-slate-900/90 text-text-muted text-[10px] md:text-xs font-semibold uppercase tracking-wider border-b border-slate-700 select-none">
               <tr>
+                <th class="w-8 px-1 py-1.5"></th>
                 <th (click)="sortBy('ticker')" class="w-16 px-2 py-1.5 cursor-pointer hover:text-text-main transition-colors" title="Ticker">
                   Tick {{ getSortIcon('ticker') }}
                 </th>
@@ -97,15 +112,11 @@ interface MetricWeight {
                 <th (click)="sortBy('venta')" class="w-10 px-1 py-1.5 cursor-pointer hover:text-text-main transition-colors text-center text-rose-400" title="Vender">
                   V {{ getSortIcon('venta') }}
                 </th>
-                <th class="w-48 px-2 py-1.5 text-center" title="MarketBeat Scores">
-                  <div class="flex flex-wrap justify-center gap-1 text-[9px]">
-                     <span title="Opinión de Analistas">Ana</span>
-                     <span title="Valoración y Ganancias">Val</span>
-                     <span title="Interés Corto">IC</span>
-                     <span title="Rendimiento por Dividendo">Div</span>
-                     <span title="Sentimiento en Noticias">News</span>
-                     <span title="Transacciones Insider">Ins</span>
-                  </div>
+                <th (click)="sortBy('marketCap')" class="w-20 px-2 py-1.5 cursor-pointer hover:text-text-main transition-colors text-right" title="Capitalización (Billions)">
+                  Cap {{ getSortIcon('marketCap') }}
+                </th>
+                <th (click)="sortBy('dividendYield')" class="w-16 px-2 py-1.5 cursor-pointer hover:text-text-main transition-colors text-right" title="Dividend Yield">
+                  Div% {{ getSortIcon('dividendYield') }}
                 </th>
                 <th (click)="sortBy('trailingPE')" class="w-14 px-2 py-1.5 cursor-pointer hover:text-text-main transition-colors text-right" title="Trailing P/E">
                   P/E {{ getSortIcon('trailingPE') }}
@@ -113,11 +124,8 @@ interface MetricWeight {
                 <th (click)="sortBy('forwardPE')" class="w-16 px-2 py-1.5 cursor-pointer hover:text-text-main transition-colors text-right" title="Forward P/E">
                   F. PE {{ getSortIcon('forwardPE') }}
                 </th>
-                <th (click)="sortBy('debtToEquity')" class="w-16 px-2 py-1.5 cursor-pointer hover:text-text-main transition-colors text-right" title="Debt-to-Equity Ratio">
-                  D/E {{ getSortIcon('debtToEquity') }}
-                </th>
-                <th (click)="sortBy('priceToCashFlow')" class="w-16 px-2 py-1.5 cursor-pointer hover:text-text-main transition-colors text-right" title="Price / Cash Flow">
-                  P/CF {{ getSortIcon('priceToCashFlow') }}
+                <th (click)="sortBy('peg')" class="w-14 px-2 py-1.5 cursor-pointer hover:text-text-main transition-colors text-right" title="P/E Growth (PEG)">
+                  PEG {{ getSortIcon('peg') }}
                 </th>
                 <th (click)="sortBy('potentialUpside')" class="w-16 px-2 py-1.5 cursor-pointer hover:text-text-main transition-colors text-right" title="Potencial Upside">
                   Up {{ getSortIcon('potentialUpside') }}
@@ -129,7 +137,10 @@ interface MetricWeight {
             </thead>
             <tbody class="divide-y divide-slate-800 text-text-main font-mono text-[10px] md:text-xs">
               @for (stock of recommendedStocks; track stock.ticker) {
-                <tr class="hover:bg-slate-700/40 transition-colors">
+                <tr class="hover:bg-slate-700/40 transition-colors cursor-pointer" (click)="toggleRow(stock.ticker)">
+                  <td class="px-1 py-1.5 text-center text-text-muted text-xs select-none">
+                    {{ expandedTickers.has(stock.ticker) ? '▼' : '▶' }}
+                  </td>
                   <td class="px-2 py-1.5 font-bold text-bullish truncate">{{ stock.ticker }}</td>
                   <td class="px-2 py-1.5 text-center">
                     <span class="px-1.5 py-0.5 rounded font-bold text-[10px]" [ngClass]="getSuperInvColor(stock.superInvestorScore || 0)">
@@ -145,13 +156,11 @@ interface MetricWeight {
                   <td class="px-1 py-1.5 text-center text-emerald-400 font-semibold">{{ stock.opinions?.compra || 0 }}</td>
                   <td class="px-1 py-1.5 text-center text-amber-400">{{ stock.opinions?.mantener || 0 }}</td>
                   <td class="px-1 py-1.5 text-center text-rose-400 font-semibold">{{ stock.opinions?.venta || 0 }}</td>
-                  <td class="px-2 py-1.5 text-center flex flex-wrap justify-center gap-1">
-                    <span title="Opinión de Analistas" class="text-[9px] bg-slate-800 px-1 rounded">{{ stock.stockData?.marketBeatScores?.analystsOpinionScore ?? '-' }}</span>
-                    <span title="Valoración y Ganancias" class="text-[9px] bg-slate-800 px-1 rounded">{{ stock.stockData?.marketBeatScores?.earningsValuationScore ?? '-' }}</span>
-                    <span title="Interés Corto" class="text-[9px] bg-slate-800 px-1 rounded">{{ stock.stockData?.marketBeatScores?.shortInterestScore ?? '-' }}</span>
-                    <span title="Rendimiento por Dividendo" class="text-[9px] bg-slate-800 px-1 rounded">{{ stock.stockData?.marketBeatScores?.dividendScore ?? '-' }}</span>
-                    <span title="Sentimiento en Noticias" class="text-[9px] bg-slate-800 px-1 rounded">{{ stock.stockData?.marketBeatScores?.newsSocialMediaScore ?? '-' }}</span>
-                    <span title="Transacciones Insider" class="text-[9px] bg-slate-800 px-1 rounded">{{ stock.stockData?.marketBeatScores?.companyOwnershipScore ?? '-' }}</span>
+                  <td class="px-2 py-1.5 text-right text-text-muted">
+                    {{ stock.stockData?.marketCap != null ? (formatMarketCap(stock.stockData!.marketCap!)) : '-' }}
+                  </td>
+                  <td class="px-2 py-1.5 text-right text-text-muted">
+                    {{ stock.stockData?.dividendYield != null ? (stock.stockData!.dividendYield | number:'1.2-2') + '%' : '-' }}
                   </td>
                   <td class="px-2 py-1.5 text-right text-text-muted">
                     {{ stock.stockData?.trailingPE != null ? (stock.stockData!.trailingPE | number:'1.1-1') : '-' }}
@@ -160,10 +169,7 @@ interface MetricWeight {
                     {{ stock.stockData?.forwardPE != null ? (stock.stockData!.forwardPE | number:'1.1-1') : '-' }}
                   </td>
                   <td class="px-2 py-1.5 text-right text-text-muted">
-                    {{ stock.stockData?.debtToEquity != null ? (stock.stockData!.debtToEquity | number:'1.2-2') : '-' }}
-                  </td>
-                  <td class="px-2 py-1.5 text-right text-text-muted">
-                    {{ stock.stockData?.priceToCashFlow != null ? (stock.stockData!.priceToCashFlow | number:'1.2-2') : '-' }}
+                    {{ stock.stockData?.peg != null ? (stock.stockData!.peg | number:'1.2-2') : '-' }}
                   </td>
                   <td class="px-2 py-1.5 text-right font-bold" 
                       [ngClass]="(stock.stockData?.potentialUpside ?? 0) >= 0 ? 'text-bullish' : 'text-bearish'">
@@ -173,6 +179,60 @@ interface MetricWeight {
                     {{ stock.stockData?.netMargins || '-' }}
                   </td>
                 </tr>
+                @if (expandedTickers.has(stock.ticker)) {
+                  <tr class="bg-slate-800/30 border-b border-slate-700/50">
+                    <td [attr.colspan]="15" class="px-4 py-0">
+                      <div class="overflow-hidden">
+                        <table class="w-full text-[10px] my-2">
+                          <thead>
+                            <tr class="text-slate-400 font-bold uppercase tracking-wider">
+                              <th class="px-3 py-1 text-center">Ana</th>
+                              <th class="px-3 py-1 text-center">Val</th>
+                              <th class="px-3 py-1 text-center">IC</th>
+                              <th class="px-3 py-1 text-center">Div</th>
+                              <th class="px-3 py-1 text-center">News</th>
+                              <th class="px-3 py-1 text-center">Ins</th>
+                              <th class="px-3 py-1 text-center">D/E</th>
+                              <th class="px-3 py-1 text-center">P/CF</th>
+                              <th class="px-3 py-1 text-center">MB Rating</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr class="text-text-main">
+                              <td class="px-3 py-1 text-center">
+                                <span class="bg-slate-700/60 px-2 py-0.5 rounded">{{ stock.stockData?.marketBeatScores?.analystsOpinionScore ?? '-' }}</span>
+                              </td>
+                              <td class="px-3 py-1 text-center">
+                                <span class="bg-slate-700/60 px-2 py-0.5 rounded">{{ stock.stockData?.marketBeatScores?.earningsValuationScore ?? '-' }}</span>
+                              </td>
+                              <td class="px-3 py-1 text-center">
+                                <span class="bg-slate-700/60 px-2 py-0.5 rounded">{{ stock.stockData?.marketBeatScores?.shortInterestScore ?? '-' }}</span>
+                              </td>
+                              <td class="px-3 py-1 text-center">
+                                <span class="bg-slate-700/60 px-2 py-0.5 rounded">{{ stock.stockData?.marketBeatScores?.dividendScore ?? '-' }}</span>
+                              </td>
+                              <td class="px-3 py-1 text-center">
+                                <span class="bg-slate-700/60 px-2 py-0.5 rounded">{{ stock.stockData?.marketBeatScores?.newsSocialMediaScore ?? '-' }}</span>
+                              </td>
+                              <td class="px-3 py-1 text-center">
+                                <span class="bg-slate-700/60 px-2 py-0.5 rounded">{{ stock.stockData?.marketBeatScores?.companyOwnershipScore ?? '-' }}</span>
+                              </td>
+                              <td class="px-3 py-1 text-center">
+                                <span class="bg-slate-700/60 px-2 py-0.5 rounded">{{ stock.stockData?.debtToEquity != null ? (stock.stockData!.debtToEquity | number:'1.2-2') : '-' }}</span>
+                              </td>
+                              <td class="px-3 py-1 text-center">
+                                <span class="bg-slate-700/60 px-2 py-0.5 rounded">{{ stock.stockData?.priceToCashFlow != null ? (stock.stockData!.priceToCashFlow | number:'1.2-2') : '-' }}</span>
+                              </td>
+                              <td class="px-3 py-1 text-center">
+                                <span class="bg-slate-700/60 px-2 py-0.5 rounded">{{ stock.stockData?.mbRating != null ? (stock.stockData!.mbRating | number:'1.1-1') + '/4' : '-' }}</span>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </td>
+                  </tr>
+                }
               }
             </tbody>
           </table>
@@ -191,6 +251,7 @@ export class RecommendedStocksComponent implements OnInit, OnDestroy {
   progressText = 'Iniciando conexión...';
   sortEvent: SortEvent = { field: 'rating', direction: 'desc' };
   private streamSub!: Subscription;
+  expandedTickers = new Set<string>();
 
   metrics: MetricWeight[] = [];
 
@@ -210,26 +271,42 @@ export class RecommendedStocksComponent implements OnInit, OnDestroy {
 
   resetMetrics() {
     this.metrics = [
-      { id: 'superInvestor', name: 'Superinversores Dataroma', weight: 0 },
-      { id: 'ana', name: 'Opinión de Analistas (MB)', weight: 50 },
-      { id: 'val', name: 'Valoración y Ganancias (MB)', weight: 0 },
-      { id: 'ic', name: 'Interés Corto (MB)', weight: 0 },
-      { id: 'div', name: 'Rendimiento por Dividendo (MB)', weight: 0 },
-      { id: 'news', name: 'Sentimiento en Noticias (MB)', weight: 0 },
-      { id: 'ins', name: 'Transacciones Insider (MB)', weight: 0 },
-      { id: 'analystRatio', name: 'Consenso de Compra/Venta', weight: 0 },
-      { id: 'upside', name: 'Potencial Upside', weight: 50 },
-      { id: 'trailingPE', name: 'Trailing P/E', weight: 0 },
-      { id: 'forwardPE', name: 'Forward P/E', weight: 0 },
-      { id: 'debtToEquity', name: 'Debt-to-Equity Ratio', weight: 0 },
-      { id: 'priceToCashFlow', name: 'Price / Cash Flow', weight: 0 },
-      { id: 'netMargins', name: 'Margen Neto', weight: 0 }
+      { id: 'superInvestor', name: 'Superinversores Dataroma', weight: 0, locked: true },
+      { id: 'ana', name: 'Opinión de Analistas (MB)', weight: 50, locked: true },
+      { id: 'val', name: 'Valoración y Ganancias (MB)', weight: 0, locked: true },
+      { id: 'ic', name: 'Interés Corto (MB)', weight: 0, locked: true },
+      { id: 'div', name: 'Rendimiento por Dividendo (MB)', weight: 0, locked: true },
+      { id: 'news', name: 'Sentimiento en Noticias (MB)', weight: 0, locked: true },
+      { id: 'ins', name: 'Transacciones Insider (MB)', weight: 0, locked: true },
+      { id: 'analystRatio', name: 'Consenso de Compra/Venta', weight: 0, locked: true },
+      { id: 'upside', name: 'Potencial Upside', weight: 50, locked: true },
+      { id: 'trailingPE', name: 'Trailing P/E', weight: 0, locked: true },
+      { id: 'forwardPE', name: 'Forward P/E', weight: 0, locked: true },
+      { id: 'debtToEquity', name: 'Debt-to-Equity Ratio', weight: 0, locked: true },
+      { id: 'priceToCashFlow', name: 'Price / Cash Flow', weight: 0, locked: true },
+      { id: 'netMargins', name: 'Margen Neto', weight: 0, locked: true },
+      { id: 'marketCap', name: 'Market Cap', weight: 0, locked: true },
+      { id: 'dividendYield', name: 'Dividend Yield', weight: 0, locked: true },
+      { id: 'mbRating', name: 'MarketBeat Rating (0-4)', weight: 0, locked: true },
+      { id: 'peg', name: 'P/E Growth (PEG)', weight: 0, locked: true }
     ];
     this.recalculateRatings();
   }
 
   togglePanel() {
     this.showPanel = !this.showPanel;
+  }
+
+  toggleRow(ticker: string) {
+    if (this.expandedTickers.has(ticker)) {
+      this.expandedTickers.delete(ticker);
+    } else {
+      this.expandedTickers.add(ticker);
+    }
+  }
+
+  toggleLock(index: number) {
+    this.metrics[index].locked = !this.metrics[index].locked;
   }
 
   clearCache() {
@@ -242,7 +319,7 @@ export class RecommendedStocksComponent implements OnInit, OnDestroy {
         this.recommendedStocks = [];
         this.streamData();
       },
-      error: (err) => {
+      error: (err: unknown) => {
         console.error('Error borrando caché:', err);
         this.clearingCache = false;
       }
@@ -253,71 +330,120 @@ export class RecommendedStocksComponent implements OnInit, OnDestroy {
     return this.metrics.reduce((s, m) => s + m.weight, 0);
   }
 
-  onWeightChange(index: number, event: any) {
-    let newVal = parseInt(event.target.value, 10);
-    if(isNaN(newVal)) newVal = 0;
-    if(newVal < 0) newVal = 0;
-    if(newVal > 100) newVal = 100;
-    
+  onWeightChange(index: number, event: Event) {
+    const target = event.target as HTMLInputElement;
+
+    // If locked, revert the input to the current value
+    if (this.metrics[index].locked) {
+      target.value = String(this.metrics[index].weight);
+      return;
+    }
+
+    let newVal = parseInt(target.value, 10);
+    if (isNaN(newVal)) newVal = 0;
+    if (newVal < 0) newVal = 0;
+    if (newVal > 100) newVal = 100;
+
     const oldVal = this.metrics[index].weight;
     const diff = newVal - oldVal;
-    if(diff === 0) return;
-  
+    if (diff === 0) return;
+
+    // Only unlocked sliders (excluding current) participate in redistribution
+    const unlocked = this.metrics
+      .map((m, i) => ({ m, i }))
+      .filter(x => x.i !== index && !x.m.locked);
+
+    if (unlocked.length === 0) {
+      // Can't redistribute — revert
+      target.value = String(oldVal);
+      return;
+    }
+
     this.metrics[index].weight = newVal;
-    
-    const others = this.metrics.map((m, i) => ({m, i})).filter(x => x.i !== index);
-    let otherSum = others.reduce((s, x) => s + x.m.weight, 0);
-    
-    if(otherSum === 0) {
-        const share = -diff / others.length;
-        others.forEach(x => x.m.weight = share);
+    const unlockedSum = unlocked.reduce((s, x) => s + x.m.weight, 0);
+
+    if (unlockedSum === 0) {
+      const share = -diff / unlocked.length;
+      unlocked.forEach(x => { x.m.weight = Math.max(0, x.m.weight + share); });
     } else {
-        others.forEach(x => {
-            x.m.weight -= diff * (x.m.weight / otherSum);
-        });
+      unlocked.forEach(x => {
+        x.m.weight = Math.max(0, x.m.weight - (diff * (x.m.weight / unlockedSum)));
+      });
     }
-  
-    let total = this.metrics.reduce((s, m) => s + m.weight, 0);
-    if(Math.abs(total - 100) > 0.001) {
-      others[0].m.weight += (100 - total);
+
+    // Round and fix residual
+    this.metrics.forEach(m => { m.weight = Math.max(0, Math.round(m.weight)); });
+    const total = this.metrics.reduce((s, m) => s + m.weight, 0);
+    if (Math.abs(total - 100) > 0.001 && unlocked.length > 0) {
+      unlocked[0].m.weight += (100 - total);
+      unlocked[0].m.weight = Math.max(0, unlocked[0].m.weight);
     }
-    
-    // Clean up floats for input display
-    this.metrics.forEach(m => m.weight = Math.round(m.weight));
-  
+
     this.recalculateRatings();
   }
 
-  private normalizePE(pe: number | undefined | null): number {
-      if (pe == null || pe <= 0) return 0;
-      if (pe <= 15) return 100;
-      if (pe >= 80) return 0;
-      return 100 - ((pe - 15) / (80 - 15) * 100);
+  // --- Normalization helpers (Score 0-100) ---
+
+  private normalizePE(pe: number | undefined): number {
+    if (pe == null || pe <= 0) return 0;
+    if (pe <= 15) return 100;
+    if (pe >= 80) return 0;
+    return 100 - ((pe - 15) / (80 - 15) * 100);
   }
 
-  private normalizeDebtToEquity(de: number | undefined | null): number {
-      if (de == null) return 0;
-      if (de <= 0) return 100;
-      if (de >= 3) return 0;
-      return 100 - ((de / 3) * 100);
+  private normalizeDebtToEquity(de: number | undefined): number {
+    if (de == null) return 0;
+    if (de <= 0) return 100;
+    if (de >= 3) return 0;
+    return 100 - ((de / 3) * 100);
   }
 
-  private normalizePriceToCashFlow(pcf: number | undefined | null): number {
-      if (pcf == null || pcf <= 0) return 0;
-      if (pcf <= 10) return 100;
-      if (pcf >= 50) return 0;
-      return 100 - ((pcf - 10) / (50 - 10) * 100);
+  private normalizePriceToCashFlow(pcf: number | undefined): number {
+    if (pcf == null || pcf <= 0) return 0;
+    if (pcf <= 10) return 100;
+    if (pcf >= 50) return 0;
+    return 100 - ((pcf - 10) / (50 - 10) * 100);
   }
 
-  private normalizeMargin(margin: number | undefined | null): number {
-      if (margin == null) return 0;
-      if (margin <= 0) return 0;
-      if (margin >= 40) return 100;
-      return (margin / 40) * 100;
+  private normalizeMargin(margin: number | undefined): number {
+    if (margin == null) return 0;
+    if (margin <= 0) return 0;
+    if (margin >= 40) return 100;
+    return (margin / 40) * 100;
+  }
+
+  /** mbRating 0-4 → 0-100 linearly */
+  private normalizeMBRating(rating: number | undefined): number {
+    if (rating == null) return 0;
+    return Math.min(100, Math.max(0, (rating / 4.0) * 100));
+  }
+
+  /** PEG <= 1 → 100, PEG >= 5 → 0, linear between */
+  private normalizePEG(peg: number | undefined): number {
+    if (peg == null) return 0;
+    if (peg <= 0.0) return 100;
+    if (peg >= 5.0) return 0;
+    return 100 - ((peg - 1.0) / 4.0) * 100;
+  }
+
+  /** Dividend Yield 0% → 0, >=5% → 100 */
+  private normalizeDividendYield(div: number | undefined): number {
+    if (div == null || div <= 0) return 0;
+    if (div >= 5.0) return 100;
+    return (div / 5.0) * 100;
+  }
+
+  /** Market cap in Billions: >=2000B(2T) → 100, logarithmic scale */
+  private normalizeMarketCap(cap: number | undefined): number {
+    if (cap == null || cap <= 0) return 0;
+    // Logarithmic scale: log(cap) / log(2000) * 100, capped at 100
+    const score = (Math.log10(cap) / Math.log10(2000)) * 100;
+    return Math.min(100, Math.max(0, score));
   }
 
   private recalculateRatings() {
-    const m = Object.fromEntries(this.metrics.map(x => [x.id, x.weight / 100]));
+    const m: Record<string, number> = {};
+    this.metrics.forEach(x => { m[x.id] = x.weight / 100; });
     
     this.tempStocks.forEach(s => {
         let score = 0;
@@ -338,21 +464,27 @@ export class RecommendedStocksComponent implements OnInit, OnDestroy {
         const safeAnalyst = Math.max(0, Math.min(analystRatio, 1));
         score += (safeAnalyst * 100) * m['analystRatio'];
         
-        // Upside
+        // Upside — FIXED: 50% upside = 100 pts (was 10%)
         const upsideVal = s.stockData?.potentialUpside ?? 0;
         let upsidePts = 0;
         if (upsideVal > 0) {
-          if (upsideVal <= 10) upsidePts = (upsideVal / 10) * 100;
+          if (upsideVal <= 50) upsidePts = (upsideVal / 50) * 100;
           else upsidePts = 100; 
         }
         score += upsidePts * m['upside'];
 
-        // Advanced Metrics (Normalized)
+        // Advanced Metrics (Normalized to 0-100)
         score += this.normalizePE(s.stockData?.trailingPE) * m['trailingPE'];
         score += this.normalizePE(s.stockData?.forwardPE) * m['forwardPE'];
         score += this.normalizeDebtToEquity(s.stockData?.debtToEquity) * m['debtToEquity'];
         score += this.normalizePriceToCashFlow(s.stockData?.priceToCashFlow) * m['priceToCashFlow'];
         score += this.normalizeMargin(s.stockData?.netMargins) * m['netMargins'];
+
+        // NEW 4 metrics
+        score += this.normalizeMarketCap(s.stockData?.marketCap) * m['marketCap'];
+        score += this.normalizeDividendYield(s.stockData?.dividendYield) * m['dividendYield'];
+        score += this.normalizeMBRating(s.stockData?.mbRating) * m['mbRating'];
+        score += this.normalizePEG(s.stockData?.peg) * m['peg'];
         
         s.rating = score;
     });
@@ -363,51 +495,56 @@ export class RecommendedStocksComponent implements OnInit, OnDestroy {
 
   private streamData(): void {
     this.streamSub = this.carteraService.getFullAnalystsStream().subscribe({
-      next: (event: any) => {
-        if (event.type === 'start') {
+      next: (event: Record<string, unknown>) => {
+        if (event['type'] === 'start') {
           this.loading = true;
-          this.progressText = `Cargando 0 de ${event.total} acciones...`;
-        } else if (event.type === 'data') {
-          this.progressText = `Cargando ${event.completed} de ${event.total} acciones...`;
-          if (event.result && !event.result.error) {
-            this.processNewStock(event.result);
+          this.progressText = `Cargando 0 de ${event['total']} acciones...`;
+        } else if (event['type'] === 'data') {
+          this.progressText = `Cargando ${event['completed']} de ${event['total']} acciones...`;
+          const result = event['result'] as Record<string, unknown> | undefined;
+          if (result && !result['error']) {
+            this.processNewStock(result as unknown as AnalystData);
           }
-        } else if (event.type === 'error') {
-          this.progressText = `Cargando ${event.completed} de ${event.total} acciones... (hubo un error con una acción)`;
-        } else if (event.type === 'done') {
+        } else if (event['type'] === 'error') {
+          this.progressText = `Cargando ${event['completed']} de ${event['total']} acciones... (hubo un error con una acción)`;
+        } else if (event['type'] === 'done') {
           this.loading = false;
           this.recalculateRatings();
         }
       },
-      error: (err) => { 
+      error: (err: unknown) => { 
         console.error('Error en el stream', err);
         this.loading = false; 
       }
     });
   }
 
-  private processNewStock(rawStock: any): void {
-    let s: AnalystData = rawStock;
+  private processNewStock(rawStock: AnalystData): void {
+    const s: AnalystData = rawStock;
 
-    if (s.opinions && (s.opinions as any).opinions) {
-      s.opinions = (s.opinions as any).opinions;
+    if (s.opinions && (s.opinions as Record<string, unknown>)['opinions']) {
+      s.opinions = (s.opinions as Record<string, unknown>)['opinions'] as AnalystData['opinions'];
     }
 
     const { compra = 0, mantener = 0, venta = 0 } = s.opinions || {};
     if ((compra + mantener + venta) < 5) return;
 
     if (s.stockData) {
-      const raw: any = s.stockData;
-      s.stockData.price = this.parseNumber(raw.price);
-      s.stockData.trailingPE = this.parseNumber(raw.trailingPE);
-      s.stockData.forwardPE = this.parseNumber(raw.forwardPE);
-      const avgRaw = raw.averagePriceTarget ?? raw.averageStockPriceTarget;
+      const raw = s.stockData as Record<string, unknown>;
+      s.stockData.price = this.parseNumber(raw['price']);
+      s.stockData.trailingPE = this.parseNumber(raw['trailingPE']);
+      s.stockData.forwardPE = this.parseNumber(raw['forwardPE']);
+      const avgRaw = raw['averagePriceTarget'] ?? raw['averageStockPriceTarget'];
       s.stockData.averagePriceTarget = this.parseNumber(avgRaw);
-      const upRaw = raw.potentialUpside ?? raw.potentialUpsideDownside;
+      const upRaw = raw['potentialUpside'] ?? raw['potentialUpsideDownside'];
       s.stockData.potentialUpside = this.parseNumber(upRaw);
-      s.stockData.netMargins = this.parseNumber(raw.netMargins);
-      s.stockData.debtToEquity = this.parseNumber(raw.debtToEquity);
-      s.stockData.priceToCashFlow = this.parseNumber(raw.priceToCashFlow);
+      s.stockData.netMargins = this.parseNumber(raw['netMargins']);
+      s.stockData.debtToEquity = this.parseNumber(raw['debtToEquity']);
+      s.stockData.priceToCashFlow = this.parseNumber(raw['priceToCashFlow']);
+      s.stockData.marketCap = this.parseNumber(raw['marketCap']);
+      s.stockData.dividendYield = this.parseNumber(raw['dividendYield']);
+      s.stockData.mbRating = this.parseNumber(raw['mbRating']);
+      s.stockData.peg = this.parseNumber(raw['peg']);
     }
 
     const existingIndex = this.tempStocks.findIndex(st => st.ticker === s.ticker);
@@ -471,6 +608,9 @@ export class RecommendedStocksComponent implements OnInit, OnDestroy {
       case 'averagePriceTarget': return stock.stockData?.averagePriceTarget;
       case 'potentialUpside': return stock.stockData?.potentialUpside;
       case 'netMargins': return stock.stockData?.netMargins;
+      case 'marketCap': return stock.stockData?.marketCap;
+      case 'dividendYield': return stock.stockData?.dividendYield;
+      case 'peg': return stock.stockData?.peg;
       default: return undefined;
     }
   }
@@ -481,7 +621,17 @@ export class RecommendedStocksComponent implements OnInit, OnDestroy {
     return 'bg-rose-500/20 text-rose-400';
   }
 
-  private parseNumber(value: any): number | undefined {
+  formatMarketCap(capBillions: number): string {
+    if (capBillions >= 1000) {
+      return (capBillions / 1000).toFixed(2) + 'T';
+    }
+    if (capBillions >= 1) {
+      return capBillions.toFixed(1) + 'B';
+    }
+    return (capBillions * 1000).toFixed(0) + 'M';
+  }
+
+  private parseNumber(value: unknown): number | undefined {
     if (value == null) return undefined;
     const num = parseFloat(String(value).replace(/[^0-9.-]/g, ''));
     return isNaN(num) ? undefined : num;
