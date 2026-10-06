@@ -1,17 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { CarteraService, AnalystData } from '../../services/server.service';
+import { ListsService, CustomList } from '../../services/lists.service';
 import { Subscription } from 'rxjs';
 
 interface SortEvent {
   field: string;
   direction: 'asc' | 'desc';
-}
-
-interface CustomList {
-  id: string;
-  name: string;
-  tickers: string[];
 }
 
 interface MetricWeight {
@@ -24,36 +20,50 @@ interface MetricWeight {
 @Component({
   selector: 'app-recommended',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   template: `
     <div class="bg-card border border-slate-700/60 rounded-2xl p-6 shadow-xl max-w-7xl mx-auto my-8">
       <h1 class="text-xl md:text-2xl font-bold font-mono tracking-tight text-text-main text-center mb-6">
         ACCIONES MÁS RECOMENDADAS
       </h1>
 
-      <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-4">
-        <div class="flex items-center gap-2">
-          <button (click)="clearCache()" [disabled]="clearingCache" class="bg-rose-500/20 hover:bg-rose-500/40 text-rose-400 font-bold py-2 px-4 rounded transition-colors flex items-center gap-2">
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+        <div class="flex flex-wrap items-center gap-3">
+          <!-- Borrar Caché -->
+          <button (click)="clearCache()" [disabled]="clearingCache" 
+            class="h-10 px-4 rounded-lg bg-rose-500/20 hover:bg-rose-500/30 text-rose-400 border border-rose-500/30 font-bold text-xs md:text-sm transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm disabled:opacity-50 disabled:cursor-not-allowed">
             @if(clearingCache) {
               <div class="w-4 h-4 border-2 border-rose-400 border-t-transparent rounded-full animate-spin"></div>
             }
-            Borrar Caché
+            <span>🗑️ Borrar Caché</span>
           </button>
           
-          <div class="flex items-center gap-2 ml-4">
-            <button class="bg-slate-700 hover:bg-slate-600 text-white font-bold py-2 px-4 rounded transition-colors text-sm">
-              Crear
-            </button>
-            <select (change)="onListChange($event)" [value]="selectedListId" class="bg-slate-800 border border-slate-700 text-white text-sm rounded py-2 px-3 focus:outline-none focus:border-primary">
+          <!-- Crear Lista -->
+          <button (click)="openCreateListModal()" 
+            class="h-10 px-4 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 border border-emerald-500/30 font-bold text-xs md:text-sm transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm">
+            <span class="text-base leading-none font-bold">+</span>
+            <span>Crear</span>
+          </button>
+
+          <!-- Menú Desplegable (Select) -->
+          <div class="relative inline-flex items-center">
+            <select (change)="onListChange($event)" [value]="selectedListId" 
+              class="h-10 pl-4 pr-9 rounded-lg bg-slate-800/80 hover:bg-slate-800 text-text-main border border-slate-700 hover:border-slate-600 font-bold text-xs md:text-sm transition-all focus:outline-none focus:border-primary cursor-pointer shadow-sm appearance-none">
+              <option value="all">🌐 Todas</option>
               @for(list of customLists; track list.id) {
-                <option [value]="list.id">{{ list.name }}</option>
+                <option [value]="list.id">
+                  {{ list.id === 'favs' ? '★ ' : (list.id === 'mag10' ? '⚡ ' : '📁 ') }}{{ list.name }} ({{ list.tickers.length }})
+                </option>
               }
             </select>
+            <span class="pointer-events-none absolute right-3 text-slate-400 text-xs">▼</span>
           </div>
         </div>
         
-        <button (click)="togglePanel()" class="bg-primary/20 hover:bg-primary/40 text-primary font-bold py-2 px-4 rounded transition-colors">
-          Configurar Algoritmo
+        <!-- Configurar Algoritmo -->
+        <button (click)="togglePanel()" 
+          class="h-10 px-4 rounded-lg bg-primary/20 hover:bg-primary/30 text-primary border border-primary/30 font-bold text-xs md:text-sm transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm">
+          <span>⚙️ Configurar Algoritmo</span>
         </button>
       </div>
 
@@ -198,54 +208,157 @@ interface MetricWeight {
                 </tr>
                 @if (expandedTickers.has(stock.ticker)) {
                   <tr class="bg-slate-800/30 border-b border-slate-700/50">
-                    <td [attr.colspan]="15" class="px-4 py-0">
-                      <div class="overflow-hidden">
-                        <table class="w-full text-[10px] my-2">
-                          <thead>
-                            <tr class="text-slate-400 font-bold uppercase tracking-wider">
-                              <th class="px-3 py-1 text-center">Analistas</th>
-                              <th class="px-3 py-1 text-center">Valoración</th>
-                              <th class="px-3 py-1 text-center">Desinteres Corto</th>
-                              <th class="px-3 py-1 text-center">Dividendo</th>
-                              <th class="px-3 py-1 text-center">Noticias</th>
-                              <th class="px-3 py-1 text-center">Insiders</th>
-                              <th class="px-3 py-1 text-center">Debt/Equity</th>
-                              <th class="px-3 py-1 text-center">P/CF</th>
-                              <th class="px-3 py-1 text-center">MB Rating</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr class="text-text-main">
-                              <td class="px-3 py-1 text-center">
-                                <span class="bg-slate-700/60 px-2 py-0.5 rounded">{{ stock.stockData?.marketBeatScores?.analystsOpinionScore ?? '-' }}</span>
-                              </td>
-                              <td class="px-3 py-1 text-center">
-                                <span class="bg-slate-700/60 px-2 py-0.5 rounded">{{ stock.stockData?.marketBeatScores?.earningsValuationScore ?? '-' }}</span>
-                              </td>
-                              <td class="px-3 py-1 text-center">
-                                <span class="bg-slate-700/60 px-2 py-0.5 rounded">{{ stock.stockData?.marketBeatScores?.shortInterestScore ?? '-' }}</span>
-                              </td>
-                              <td class="px-3 py-1 text-center">
-                                <span class="bg-slate-700/60 px-2 py-0.5 rounded">{{ stock.stockData?.marketBeatScores?.dividendScore ?? '-' }}</span>
-                              </td>
-                              <td class="px-3 py-1 text-center">
-                                <span class="bg-slate-700/60 px-2 py-0.5 rounded">{{ stock.stockData?.marketBeatScores?.newsSocialMediaScore ?? '-' }}</span>
-                              </td>
-                              <td class="px-3 py-1 text-center">
-                                <span class="bg-slate-700/60 px-2 py-0.5 rounded">{{ stock.stockData?.marketBeatScores?.companyOwnershipScore ?? '-' }}</span>
-                              </td>
-                              <td class="px-3 py-1 text-center">
-                                <span class="bg-slate-700/60 px-2 py-0.5 rounded">{{ stock.stockData?.debtToEquity != null ? (stock.stockData!.debtToEquity | number:'1.2-2') : '-' }}</span>
-                              </td>
-                              <td class="px-3 py-1 text-center">
-                                <span class="bg-slate-700/60 px-2 py-0.5 rounded">{{ stock.stockData?.priceToCashFlow != null ? (stock.stockData!.priceToCashFlow | number:'1.2-2') : '-' }}</span>
-                              </td>
-                              <td class="px-3 py-1 text-center">
-                                <span class="bg-slate-700/60 px-2 py-0.5 rounded">{{ stock.stockData?.mbRating != null ? (stock.stockData!.mbRating | number:'1.1-1') + '/4' : '-' }}</span>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
+                    <td [attr.colspan]="15" class="px-4 py-3 bg-slate-900/40">
+                      <div class="space-y-3">
+                        <!-- 1. DATOS ADICIONALES (Tabla MarketBeat Scores & Ratios) -->
+                        <div>
+                          <div class="flex items-center justify-between mb-1.5 text-xs">
+                            <span class="font-bold text-slate-300 uppercase tracking-wider text-[10px]">
+                              Métricas Avanzadas de {{ stock.ticker }} (MarketBeat & Ratios)
+                            </span>
+                          </div>
+
+                          <table class="w-full text-[10px]">
+                            <thead>
+                              <tr class="text-slate-400 font-bold uppercase tracking-wider">
+                                <th class="px-3 py-1 text-center">Analistas</th>
+                                <th class="px-3 py-1 text-center">Valoración</th>
+                                <th class="px-3 py-1 text-center">Desinteres Corto</th>
+                                <th class="px-3 py-1 text-center">Dividendo</th>
+                                <th class="px-3 py-1 text-center">Noticias</th>
+                                <th class="px-3 py-1 text-center">Insiders</th>
+                                <th class="px-3 py-1 text-center">Debt/Equity</th>
+                                <th class="px-3 py-1 text-center">P/CF</th>
+                                <th class="px-3 py-1 text-center">MB Rating</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr class="text-text-main">
+                                <td class="px-3 py-1 text-center">
+                                  <span class="bg-slate-700/60 px-2 py-0.5 rounded">{{ stock.stockData?.marketBeatScores?.analystsOpinionScore ?? '-' }}</span>
+                                </td>
+                                <td class="px-3 py-1 text-center">
+                                  <span class="bg-slate-700/60 px-2 py-0.5 rounded">{{ stock.stockData?.marketBeatScores?.earningsValuationScore ?? '-' }}</span>
+                                </td>
+                                <td class="px-3 py-1 text-center">
+                                  <span class="bg-slate-700/60 px-2 py-0.5 rounded">{{ stock.stockData?.marketBeatScores?.shortInterestScore ?? '-' }}</span>
+                                </td>
+                                <td class="px-3 py-1 text-center">
+                                  <span class="bg-slate-700/60 px-2 py-0.5 rounded">{{ stock.stockData?.marketBeatScores?.dividendScore ?? '-' }}</span>
+                                </td>
+                                <td class="px-3 py-1 text-center">
+                                  <span class="bg-slate-700/60 px-2 py-0.5 rounded">{{ stock.stockData?.marketBeatScores?.newsSocialMediaScore ?? '-' }}</span>
+                                </td>
+                                <td class="px-3 py-1 text-center">
+                                  <span class="bg-slate-700/60 px-2 py-0.5 rounded">{{ stock.stockData?.marketBeatScores?.companyOwnershipScore ?? '-' }}</span>
+                                </td>
+                                <td class="px-3 py-1 text-center">
+                                  <span class="bg-slate-700/60 px-2 py-0.5 rounded">{{ stock.stockData?.debtToEquity != null ? (stock.stockData!.debtToEquity | number:'1.2-2') : '-' }}</span>
+                                </td>
+                                <td class="px-3 py-1 text-center">
+                                  <span class="bg-slate-700/60 px-2 py-0.5 rounded">{{ stock.stockData?.priceToCashFlow != null ? (stock.stockData!.priceToCashFlow | number:'1.2-2') : '-' }}</span>
+                                </td>
+                                <td class="px-3 py-1 text-center">
+                                  <span class="bg-slate-700/60 px-2 py-0.5 rounded">{{ stock.stockData?.mbRating != null ? (stock.stockData!.mbRating | number:'1.1-1') + '/4' : '-' }}</span>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+
+                        <!-- 2. GESTIÓN DE LISTAS Y FAVORITOS (DEBAJO DE LOS DATOS ADICIONALES) -->
+                        <div class="mt-3 pt-3 border-t border-slate-700/60 space-y-2">
+                          <div class="flex flex-wrap items-center justify-between gap-2 bg-slate-900/80 border border-slate-700/60 rounded-xl p-3">
+                            <div class="flex flex-wrap items-center gap-2.5">
+                              <span class="font-bold text-text-main text-xs uppercase font-mono tracking-wider flex items-center gap-1.5 mr-1">
+                                <span class="w-2 h-2 rounded-full bg-primary inline-block"></span>
+                                {{ stock.ticker }}
+                              </span>
+
+                              <!-- Botón Favorito (★) -->
+                              <button (click)="toggleFavorite(stock.ticker); $event.stopPropagation()"
+                                type="button"
+                                class="h-8 px-3 rounded-lg font-bold text-xs flex items-center gap-1.5 transition-all duration-200 border cursor-pointer select-none"
+                                [ngClass]="isFavorite(stock.ticker)
+                                  ? 'bg-amber-500/20 text-amber-300 border-amber-500/50 hover:bg-amber-500/30 shadow-sm shadow-amber-500/10'
+                                  : 'bg-slate-800 text-slate-400 border-slate-700 hover:text-amber-300 hover:border-slate-500'"
+                                [title]="isFavorite(stock.ticker) ? 'Quitar de Favoritos' : 'Añadir a Favoritos'">
+                                <span class="text-sm leading-none">{{ isFavorite(stock.ticker) ? '★' : '☆' }}</span>
+                                <span>{{ isFavorite(stock.ticker) ? 'En Favoritos' : 'Añadir a Favoritos' }}</span>
+                              </button>
+
+                              <!-- Botón (+) Desplegar/Ocultar Menú de Listas -->
+                              <button (click)="toggleListMenu(stock.ticker); $event.stopPropagation()"
+                                type="button"
+                                class="h-8 px-3 rounded-lg font-bold text-xs flex items-center gap-1.5 transition-all duration-200 border cursor-pointer"
+                                [ngClass]="openListMenuTicker === stock.ticker
+                                  ? 'bg-primary/20 text-primary border-primary/50'
+                                  : 'bg-slate-800 text-text-muted border-slate-700 hover:text-text-main hover:border-slate-500'">
+                                <span class="text-emerald-400 text-sm leading-none font-bold">+</span>
+                                <span>Gestionar en Listas</span>
+                                <span class="text-[9px] ml-0.5">{{ openListMenuTicker === stock.ticker ? '▲' : '▼' }}</span>
+                              </button>
+
+                              <!-- Botón Rápido Nueva Lista -->
+                              <button (click)="openQuickCreateList(stock.ticker); $event.stopPropagation()" 
+                                type="button"
+                                class="h-8 px-3 rounded-lg font-bold text-xs flex items-center gap-1.5 transition-all duration-200 border border-dashed border-slate-700 hover:border-emerald-500/60 bg-slate-800/40 text-slate-400 hover:text-emerald-400 cursor-pointer">
+                                <span class="text-emerald-400 font-bold">+</span>
+                                <span>Nueva Lista</span>
+                              </button>
+                            </div>
+
+                            <!-- Chips de listas activas para este ticker -->
+                            <div class="flex flex-wrap items-center gap-1.5 text-[11px] text-text-muted">
+                              <span class="text-slate-400 text-xs">Incluido en:</span>
+                              @for (list of customLists; track list.id) {
+                                @if (list.id !== 'all' && isStockInList(list.id, stock.ticker)) {
+                                  <span class="px-2 py-0.5 rounded-md bg-slate-800 border border-slate-700 text-slate-200 font-medium flex items-center gap-1 shadow-sm">
+                                    <span>{{ list.id === 'favs' ? '★' : '📁' }}</span>
+                                    <span>{{ list.name }}</span>
+                                  </span>
+                                }
+                              }
+                            </div>
+                          </div>
+
+                          <!-- Panel de Listas Inline (Flujo natural del DOM: NUNCA se corta) -->
+                          @if (openListMenuTicker === stock.ticker) {
+                            <div (click)="$event.stopPropagation()"
+                              class="p-3.5 bg-slate-900 border border-slate-700 rounded-xl shadow-xl space-y-2.5 animate-in fade-in">
+                              <div class="flex items-center justify-between pb-2 border-b border-slate-800 text-xs">
+                                <span class="font-bold text-slate-300">
+                                  Selecciona las listas a las que pertenece <span class="text-primary font-mono">{{ stock.ticker }}</span>:
+                                </span>
+                                <button (click)="closeListMenu($event)" class="text-slate-500 hover:text-slate-300 font-bold text-xs cursor-pointer">
+                                  ✕ Cerrar
+                                </button>
+                              </div>
+
+                              <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 pt-1">
+                                @for (list of customLists; track list.id) {
+                                  @if (list.id !== 'all') {
+                                    <button (click)="toggleStockInList(list.id, stock.ticker)"
+                                      type="button"
+                                      class="px-3 py-2 rounded-lg border text-xs font-semibold flex items-center justify-between gap-2 transition-all cursor-pointer text-left"
+                                      [ngClass]="isStockInList(list.id, stock.ticker)
+                                        ? 'bg-emerald-500/15 border-emerald-500/50 text-emerald-300 shadow-sm'
+                                        : 'bg-slate-800/80 border-slate-700 text-slate-400 hover:text-slate-200 hover:border-slate-500'">
+                                      <span class="truncate flex items-center gap-1.5">
+                                        <span>{{ list.id === 'favs' ? '★' : '📁' }}</span>
+                                        <span class="truncate">{{ list.name }}</span>
+                                      </span>
+                                      <span class="font-mono font-bold text-xs shrink-0"
+                                        [ngClass]="isStockInList(list.id, stock.ticker) ? 'text-emerald-400' : 'text-slate-500'">
+                                        {{ isStockInList(list.id, stock.ticker) ? '✓' : '+' }}
+                                      </span>
+                                    </button>
+                                  }
+                                }
+                              </div>
+                            </div>
+                          }
+                        </div>
                       </div>
                     </td>
                   </tr>
@@ -253,6 +366,44 @@ interface MetricWeight {
               }
             </tbody>
           </table>
+        </div>
+      }
+
+      <!-- Modal para Crear Nueva Lista -->
+      @if (showCreateListModal) {
+        <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4" (click)="closeCreateListModal()">
+          <div class="bg-slate-900 border border-slate-700 rounded-xl p-6 max-w-md w-full shadow-2xl space-y-4" (click)="$event.stopPropagation()">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+              <h3 class="text-base font-bold text-text-main flex items-center gap-2">
+                <span class="text-emerald-400 font-bold">+</span> Crear Nueva Lista
+              </h3>
+              <button (click)="closeCreateListModal()" class="text-slate-400 hover:text-white text-sm font-bold cursor-pointer">✕</button>
+            </div>
+
+            <div class="space-y-3">
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-1">Nombre de la lista</label>
+                <input type="text" [(ngModel)]="newListName" placeholder="Ej. Big Tech, Dividendo Alto, Watchlist..."
+                  class="w-full bg-slate-800 border border-slate-700 rounded px-3 py-2 text-xs md:text-sm text-text-main focus:outline-none focus:border-primary" />
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-1">Tickers iniciales (opcional, separados por coma o espacio)</label>
+                <input type="text" [(ngModel)]="newListTickers" placeholder="Ej. NVDA, MSFT, AMD..."
+                  class="w-full bg-slate-800 border border-slate-700 rounded px-3 py-2 text-xs md:text-sm text-text-main focus:outline-none focus:border-primary font-mono uppercase" />
+              </div>
+            </div>
+
+            <div class="flex justify-end gap-2 pt-2 border-t border-slate-800">
+              <button (click)="closeCreateListModal()" class="h-9 px-4 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs md:text-sm transition-colors cursor-pointer">
+                Cancelar
+              </button>
+              <button (click)="confirmCreateList()" [disabled]="!newListName.trim()"
+                class="h-9 px-4 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 border border-emerald-500/40 font-bold text-xs md:text-sm transition-colors cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed">
+                Crear y Activar
+              </button>
+            </div>
+          </div>
         </div>
       }
     </div>
@@ -268,27 +419,41 @@ export class RecommendedStocksComponent implements OnInit, OnDestroy {
   progressText = 'Iniciando conexión...';
   sortEvent: SortEvent = { field: 'rating', direction: 'desc' };
   private streamSub!: Subscription;
+  private listsSub!: Subscription;
   expandedTickers = new Set<string>();
 
   metrics: MetricWeight[] = [];
 
-  customLists: CustomList[] = [
-    { id: 'all', name: 'Todas', tickers: [] },
-    { id: 'mag10', name: 'MAG10', tickers: ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'META', 'TSLA', 'NVDA', 'TSM', 'AVGO', 'MU'] }
-  ];
+  customLists: CustomList[] = [];
   selectedListId = 'mag10';
 
-  constructor(private carteraService: CarteraService) {
+  openListMenuTicker: string | null = null;
+  showCreateListModal = false;
+  newListName = '';
+  newListTickers = '';
+
+  constructor(
+    private carteraService: CarteraService,
+    private listsService: ListsService
+  ) {
     this.resetMetrics();
   }
 
   ngOnInit(): void {
+    this.customLists = this.listsService.getLists();
+    this.listsSub = this.listsService.lists$.subscribe(lists => {
+      this.customLists = lists;
+      this.recalculateRatings();
+    });
     this.streamData();
   }
 
   ngOnDestroy(): void {
     if (this.streamSub) {
       this.streamSub.unsubscribe();
+    }
+    if (this.listsSub) {
+      this.listsSub.unsubscribe();
     }
   }
 
@@ -320,6 +485,66 @@ export class RecommendedStocksComponent implements OnInit, OnDestroy {
     const target = event.target as HTMLSelectElement;
     this.selectedListId = target.value;
     this.recalculateRatings();
+  }
+
+  toggleFavorite(ticker: string): void {
+    this.listsService.toggleFavorite(ticker);
+  }
+
+  isFavorite(ticker: string): boolean {
+    return this.listsService.isFavorite(ticker);
+  }
+
+  toggleListMenu(ticker: string): void {
+    this.openListMenuTicker = this.openListMenuTicker === ticker ? null : ticker;
+  }
+
+  closeListMenu(event?: Event): void {
+    if (event) {
+      event.stopPropagation();
+    }
+    this.openListMenuTicker = null;
+  }
+
+  isStockInList(listId: string, ticker: string): boolean {
+    return this.listsService.isStockInList(listId, ticker);
+  }
+
+  toggleStockInList(listId: string, ticker: string): void {
+    this.listsService.toggleStockInList(listId, ticker);
+  }
+
+  openCreateListModal(): void {
+    this.newListName = '';
+    this.newListTickers = '';
+    this.showCreateListModal = true;
+    this.openListMenuTicker = null;
+  }
+
+  openQuickCreateList(initialTicker: string): void {
+    this.newListName = '';
+    this.newListTickers = initialTicker;
+    this.showCreateListModal = true;
+    this.openListMenuTicker = null;
+  }
+
+  closeCreateListModal(): void {
+    this.showCreateListModal = false;
+    this.newListName = '';
+    this.newListTickers = '';
+  }
+
+  confirmCreateList(): void {
+    const trimmed = this.newListName.trim();
+    if (!trimmed) return;
+    const tickers = this.newListTickers
+      .split(/[\s,]+/)
+      .map(t => t.trim().toUpperCase())
+      .filter(t => t.length > 0);
+
+    const created = this.listsService.createList(trimmed, tickers);
+    this.selectedListId = created.id;
+    this.closeCreateListModal();
   }
 
   togglePanel() {
@@ -521,8 +746,10 @@ export class RecommendedStocksComponent implements OnInit, OnDestroy {
     let filteredStocks = this.tempStocks;
     if (this.selectedListId !== 'all') {
       const list = this.customLists.find(l => l.id === this.selectedListId);
-      if (list && list.tickers.length > 0) {
+      if (list) {
         filteredStocks = this.tempStocks.filter(s => list.tickers.includes(s.ticker));
+      } else {
+        filteredStocks = [];
       }
     }
     

@@ -1,45 +1,95 @@
-# Especificación de Diseño de Software (SDD) - Listas Personalizadas
+# Especificación de Diseño de Software (SDD) - Sistema de Listas Personalizadas y Favoritos
 
-## 1. Introducción
-Este documento detalla la implementación de la funcionalidad de "Listas Personalizadas" dentro del componente `recommended.component.ts`. Esta característica permite a los usuarios filtrar la tabla de acciones recomendadas basándose en conjuntos predefinidos (y en un futuro, creados por el usuario) de tickers.
+## 1. Introducción y Objetivo
+El Sistema de Listas permite a los usuarios crear, organizar y filtrar colecciones de acciones financieras dentro de **Stonks App**. Proporciona una arquitectura centralizada y reactiva accesible a lo largo de toda la aplicación (cross-app), con sincronización persistente en el navegador y controles interactivos en la vista de recomendaciones.
 
-## 2. Estructura de Datos
-Se ha definido la siguiente interfaz en TypeScript para modelar una lista personalizada:
+---
 
+## 2. Arquitectura de Estado Global (`ListsService`)
+
+El servicio `ListsService` (`src/app/services/lists.service.ts`) actúa como un **Singleton Global** (`providedIn: 'root'`), garantizando una fuente única de verdad (Single Source of Truth) tanto para componentes basados en RxJS como para componentes modernos basados en Angular Signals.
+
+### 2.1 Modelo de Datos (`CustomList`)
 ```typescript
-interface CustomList {
-  id: string;      // Identificador único de la lista
-  name: string;    // Nombre descriptivo a mostrar en la UI
-  tickers: string[]; // Array de símbolos (tickers) que pertenecen a la lista
+export interface CustomList {
+  id: string;          // Identificador único (ej: 'favs', 'mag10', 'list_1712345678')
+  name: string;        // Nombre descriptivo (ej: 'Favoritos', 'MAG10', 'Semiconductores')
+  tickers: string[];   // Lista de símbolos en mayúsculas (ej: ['AAPL', 'MSFT'])
+  isSystem?: boolean;  // Indica si es una lista protegida del sistema
+  description?: string;// Descripción opcional de la lista
 }
 ```
 
-## 3. Estado Inicial y Valores por Defecto
-El componente inicializa el estado con dos listas por defecto:
-1. **Todas**: Muestra todas las acciones disponibles sin filtro (`id: 'all'`).
-2. **MAG10**: Una lista predefinida con las 10 empresas tecnológicas más importantes.
+### 2.2 Reactividad Dual (Signals + RxJS)
+- **Signal**: `public readonly lists = signal<CustomList[]>([...])`
+- **Computed Signals**: `favoriteList`, `favoriteTickers`
+- **Observable**: `public readonly lists$: Observable<CustomList[]>` mediante `BehaviorSubject`
 
-```typescript
-customLists: CustomList[] = [
-  { id: 'all', name: 'Todas', tickers: [] },
-  { id: 'mag10', name: 'MAG10', tickers: ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'META', 'TSLA', 'NVDA', 'TSM', 'AVGO', 'MU'] }
-];
-selectedListId = 'mag10'; // Lista seleccionada por defecto al cargar
-```
+### 2.3 Persistencia en `localStorage`
+- Clave de almacenamiento: `'stonks_custom_lists'`
+- Al arrancar la aplicación, se intenta hidratar el estado desde el almacenamiento local.
+- Si no existe estado previo o hay datos corruptos, se cargan de forma segura las listas por defecto.
+- Cada mutación (`createList`, `addStockToList`, `removeStockFromList`, `toggleFavorite`) ejecuta `persistLists()`, sincronizando simultáneamente `localStorage`, el signal y el stream Observable.
 
-## 4. UI/UX
-Se han añadido los controles en la parte superior izquierda, junto al botón de "Borrar Caché":
-- **Botón "Crear"**: Un botón de acción preparado para integrar un modal o formulario de creación de nuevas listas en el futuro.
-- **Dropdown (Select)**: Un menú desplegable enlazado bidireccionalmente a `selectedListId`. Muestra las listas disponibles y permite al usuario cambiar el filtro activo.
+### 2.4 Listas Predeterminadas del Sistema
+1. **"Favoritos" (`favs`)**:
+   - `isSystem: true`
+   - Inicialmente vacía (`tickers: []`).
+   - Se gestiona directamente a través de accesos directos (ej. botón de estrella ★).
+2. **"MAG10" (`mag10`)**:
+   - `isSystem: true`
+   - Compuesta por los *Magnificent 7* más 3 líderes en semiconductores:
+     `AAPL, MSFT, GOOGL, AMZN, META, TSLA, NVDA, TSM, AVGO, MU`.
+   - Seleccionada por defecto al inicializar `recommended.component.ts`.
 
-## 5. Lógica de Filtrado
-El proceso de filtrado es reactivo y ocurre después de calcular las puntuaciones del algoritmo en la función `recalculateRatings()`:
+---
 
-1. Se toman las acciones cacheadas en memoria (`tempStocks`).
-2. Si el `selectedListId` es distinto a `'all'`, se busca la lista correspondiente.
-3. Se filtra el array de acciones, comprobando si cada `ticker` está incluido (`.includes()`) en el array de la lista.
-4. El resultado final se asigna a `recommendedStocks` y se le aplica el ordenamiento (`applySort()`).
+## 3. Métodos y API Pública de `ListsService`
 
-## 6. Siguientes Pasos
-- Implementar la persistencia de listas en `localStorage` o en base de datos.
-- Desarrollar la vista/modal de creación para el botón "Crear", permitiendo agregar/eliminar tickers dinámicamente.
+| Método | Retorno | Descripción |
+| :--- | :--- | :--- |
+| `getLists()` | `CustomList[]` | Retorna el listado actual de listas. |
+| `getListById(id: string)` | `CustomList \| undefined` | Busca una lista por su identificador. |
+| `createList(name: string, tickers?: string[])` | `CustomList` | Crea y persiste una nueva lista personalizada con sanitización de tickers. |
+| `deleteList(id: string)` | `boolean` | Elimina una lista personalizada (las del sistema están protegidas). |
+| `addStockToList(listId: string, ticker: string)` | `void` | Añade un ticker a una lista si no está ya presente. |
+| `removeStockFromList(listId: string, ticker: string)` | `void` | Elimina un ticker de una lista específica. |
+| `toggleStockInList(listId: string, ticker: string)` | `boolean` | Conmuta la presencia de un ticker en la lista indicada. |
+| `isStockInList(listId: string, ticker: string)` | `boolean` | Comprueba si un ticker pertenece a una lista. |
+| `toggleFavorite(ticker: string)` | `boolean` | Conmuta el ticker en la lista 'favs'. |
+| `isFavorite(ticker: string)` | `boolean` | Comprueba si el ticker está marcado como favorito. |
+
+---
+
+## 4. Experiencia de Usuario y Flujos de UI (`recommended.component.ts`)
+
+### 4.1 Barra de Controles Unificada
+Ubicada en la cabecera superior sobre la tabla:
+- **Borrar Caché**: Estilo `bg-rose-500/20 text-rose-400`.
+- **Crear**: Botón de acción con estilo `bg-emerald-500/20 text-emerald-400` que abre el modal de creación de lista.
+- **Selector Desplegable (Select)**: Dropdown estilizado con indicador de tipo y conteo de tickers (ej: `⚡ MAG10 (10)` o `★ Favoritos (3)`).
+- **Configurar Algoritmo**: Estilo `bg-primary/20 text-primary`.
+- **Unificación Visual Estricta**: Los 4 controles comparten idéntica altura (`h-10`), padding horizontal (`px-4`), border-radius (`rounded-lg`), tipografía (`font-bold text-sm`) y bordes semitransparentes, alineados de forma fluida y responsiva.
+
+### 4.2 Modal de Creación de Lista
+- Modal centrado con fondo desenfocado (`backdrop-blur-sm`).
+- Permite ingresar el nombre de la lista y tickers iniciales separados por coma o espacio.
+- Al confirmar, la nueva lista se persiste inmediatamente en `ListsService` y pasa a ser la lista activa en el selector.
+
+### 4.3 Acciones en la Fila Desplegable (Debajo de los Datos Adicionales)
+Al pulsar sobre cualquier fila de la tabla se abre el detalle expandido:
+1. **Datos Adicionales**: En la parte superior del detalle se renderiza la tabla de métricas avanzadas (MarketBeat Scores y ratios financieros).
+2. **Barra de Gestión de Listas y Favoritos (Debajo)**:
+   - **Botón Estrella (★) - Favoritos**: Conmuta instantáneamente la pertenencia a la lista `favs`, con estado visual destacado en ámbar (`★ En Favoritos`) o neutro (`☆ Añadir a Favoritos`).
+   - **Botón (+) Gestionar en Listas**: Abre/cierra de forma fluida un **panel inline** en el flujo natural del DOM (evitando `position: absolute` y `overflow-hidden` para que ninguna lista resulte recortada).
+   - **Panel Inline de Listas**: Muestra una cuadrícula responsive (`grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5`) con todas las listas disponibles (Favoritos, MAG10, y listas del usuario), con checkmarks (`✓` / `+`) para conmutar pertenencia en tiempo real.
+   - **Botón Rápido "+ Nueva Lista"**: Acceso directo para registrar una nueva lista asociando el ticker actual.
+   - **Chips Informativos**: Muestra etiquetas visibles de las listas en las que ya está incluido el ticker.
+
+---
+
+## 5. Lógica de Filtrado Reactivo
+- En `RecommendedStocksComponent`, `recalculateRatings()` filtra reactivamente `tempStocks`:
+  - Si `selectedListId === 'all'`, se muestran todas las acciones disponibles.
+  - Si `selectedListId` es una lista específica, se muestran exclusivamente aquellas con `ticker` incluido en `list.tickers`. Si la lista está vacía, la tabla muestra el estado vacío ("No se encontraron datos para mostrar").
+- Cualquier mutación emitida por `ListsService.lists$` dispara automáticamente `recalculateRatings()`, actualizando la vista al instante.
