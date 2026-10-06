@@ -74,7 +74,7 @@ app.get('/api/full-analysts-stream', (req, res) => {
     new Map(combinedList.map(stock => [stock.ticker, stock])).values()
   );
 
-  const limit = pLimit(3);
+  const limit = pLimit(5);
   let completed = 0;
   const total = stocksToScrape.length;
 
