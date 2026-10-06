@@ -56,10 +56,10 @@ import { CarteraService, Holding, Manager } from '../../services/server.service'
       </div>
 
       <!-- Tabla de Datos Financieros -->
-      @if ((selectedHomeList && homeLists[selectedHomeList]?.length) || (!selectedHomeList && holdings?.length)) {
+      @if ((selectedHomeList && homeLists[selectedHomeList]?.length) || (!selectedHomeList && holdings.length)) {
         <div class="overflow-x-auto rounded-xl border border-slate-700/80 shadow-lg">
           <table class="w-full text-left border-collapse">
-            @if (!selectedHomeList && holdings?.length) {
+            @if (!selectedHomeList && holdings.length) {
               <thead class="bg-slate-900/90 text-text-muted text-xs font-semibold uppercase tracking-wider border-b border-slate-700">
                 <tr>
                   <th class="px-5 py-3.5">Stock</th>            
