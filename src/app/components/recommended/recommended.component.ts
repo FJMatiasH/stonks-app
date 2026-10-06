@@ -8,6 +8,12 @@ interface SortEvent {
   direction: 'asc' | 'desc';
 }
 
+interface CustomList {
+  id: string;
+  name: string;
+  tickers: string[];
+}
+
 interface MetricWeight {
   id: string;
   name: string;
@@ -25,13 +31,26 @@ interface MetricWeight {
         ACCIONES MÁS RECOMENDADAS
       </h1>
 
-      <div class="flex justify-between items-center mb-4">
-        <button (click)="clearCache()" [disabled]="clearingCache" class="bg-rose-500/20 hover:bg-rose-500/40 text-rose-400 font-bold py-2 px-4 rounded transition-colors flex items-center gap-2">
-          @if(clearingCache) {
-            <div class="w-4 h-4 border-2 border-rose-400 border-t-transparent rounded-full animate-spin"></div>
-          }
-          Borrar Caché
-        </button>
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-4">
+        <div class="flex items-center gap-2">
+          <button (click)="clearCache()" [disabled]="clearingCache" class="bg-rose-500/20 hover:bg-rose-500/40 text-rose-400 font-bold py-2 px-4 rounded transition-colors flex items-center gap-2">
+            @if(clearingCache) {
+              <div class="w-4 h-4 border-2 border-rose-400 border-t-transparent rounded-full animate-spin"></div>
+            }
+            Borrar Caché
+          </button>
+          
+          <div class="flex items-center gap-2 ml-4">
+            <button class="bg-slate-700 hover:bg-slate-600 text-white font-bold py-2 px-4 rounded transition-colors text-sm">
+              Crear
+            </button>
+            <select (change)="onListChange($event)" [value]="selectedListId" class="bg-slate-800 border border-slate-700 text-white text-sm rounded py-2 px-3 focus:outline-none focus:border-primary">
+              @for(list of customLists; track list.id) {
+                <option [value]="list.id">{{ list.name }}</option>
+              }
+            </select>
+          </div>
+        </div>
         
         <button (click)="togglePanel()" class="bg-primary/20 hover:bg-primary/40 text-primary font-bold py-2 px-4 rounded transition-colors">
           Configurar Algoritmo
@@ -44,7 +63,7 @@ interface MetricWeight {
             <h3 class="font-bold text-text-main">Ponderación del Algoritmo (Suma: {{ getTotalWeight() | number:'1.0-0' }}%)</h3>
             <button (click)="resetMetrics()" class="text-xs text-text-muted hover:text-text-main underline">Restablecer por defecto</button>
           </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-4">
             @for(m of metrics; track m.id; let i = $index) {
               <div class="flex items-center gap-2">
                 <button (click)="toggleLock(i)"
@@ -91,6 +110,9 @@ interface MetricWeight {
             <thead class="bg-slate-900/90 text-text-muted text-[10px] md:text-xs font-semibold uppercase tracking-wider border-b border-slate-700 select-none">
               <tr>
                 <th class="w-8 px-1 py-1.5"></th>
+                <th (click)="sortBy('rating')" class="w-16 px-2 py-1.5 cursor-pointer hover:text-text-main transition-colors text-center" title="Rating">
+                  Rating {{ getSortIcon('rating') }}
+                </th>
                 <th (click)="sortBy('ticker')" class="w-16 px-2 py-1.5 cursor-pointer hover:text-text-main transition-colors" title="Ticker">
                   Ticker {{ getSortIcon('ticker') }}
                 </th>
@@ -99,9 +121,6 @@ interface MetricWeight {
                 </th>
                 <th (click)="sortBy('price')" class="w-16 px-2 py-1.5 cursor-pointer hover:text-text-main transition-colors text-right" title="Precio">
                   Precio {{ getSortIcon('price') }}
-                </th>
-                <th (click)="sortBy('rating')" class="w-16 px-2 py-1.5 cursor-pointer hover:text-text-main transition-colors text-center" title="Rating">
-                  Rating {{ getSortIcon('rating') }}
                 </th>
                 <th (click)="sortBy('compra')" class="w-10 px-1 py-1.5 cursor-pointer hover:text-text-main transition-colors text-center text-emerald-400" title="Comprar">
                   C {{ getSortIcon('compra') }}
@@ -141,17 +160,15 @@ interface MetricWeight {
                   <td class="px-1 py-1.5 text-center text-text-muted text-xs select-none">
                     {{ expandedTickers.has(stock.ticker) ? '▼' : '▶' }}
                   </td>
+                  <td class="px-2 py-1.5 text-center font-bold" [ngClass]="getRatingColor(stock.rating)">
+                    {{ stock.rating | number:'1.0-1' }}
+                  </td>
                   <td class="px-2 py-1.5 font-bold text-bullish truncate">{{ stock.ticker }}</td>
-                  <td class="px-2 py-1.5 text-center">
-                    <span class="px-1.5 py-0.5 rounded font-bold text-[10px]" [ngClass]="getSuperInvColor(stock.superInvestorScore || 0)">
-                      {{ stock.superInvestorScore || 0 }}
-                    </span>
+                  <td class="px-2 py-1.5 text-center text-text-main">
+                    {{ stock.superInvestorScore || 0 }}
                   </td>
                   <td class="px-2 py-1.5 text-right">
                     {{ stock.stockData?.price != null ? (stock.stockData!.price | number:'1.2-2') : '-' }}
-                  </td>
-                  <td class="px-2 py-1.5 text-center font-bold text-primary">
-                    {{ stock.rating | number:'1.0-1' }}
                   </td>
                   <td class="px-1 py-1.5 text-center text-emerald-400 font-semibold">{{ stock.opinions?.compra || 0 }}</td>
                   <td class="px-1 py-1.5 text-center text-amber-400">{{ stock.opinions?.mantener || 0 }}</td>
@@ -255,6 +272,12 @@ export class RecommendedStocksComponent implements OnInit, OnDestroy {
 
   metrics: MetricWeight[] = [];
 
+  customLists: CustomList[] = [
+    { id: 'all', name: 'Todas', tickers: [] },
+    { id: 'mag10', name: 'MAG10', tickers: ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'META', 'TSLA', 'NVDA', 'TSM', 'AVGO', 'MU'] }
+  ];
+  selectedListId = 'mag10';
+
   constructor(private carteraService: CarteraService) {
     this.resetMetrics();
   }
@@ -271,25 +294,31 @@ export class RecommendedStocksComponent implements OnInit, OnDestroy {
 
   resetMetrics() {
     this.metrics = [
+      { id: 'peg', name: 'P/E Growth (PEG)', weight: 30, locked: true },
+      { id: 'val', name: 'Valoración y Ganancias (MB)', weight: 18, locked: true },
+      { id: 'upside', name: 'Potencial Upside', weight: 17, locked: true },
+      { id: 'analystRatio', name: 'Consenso de Compra/Venta', weight: 15, locked: true },
+      { id: 'ana', name: 'Opinión de Analistas (MB)', weight: 10, locked: true },
+      { id: 'forwardPE', name: 'Forward P/E', weight: 5, locked: true },
+      { id: 'mbRating', name: 'MarketBeat Rating (0-4)', weight: 5, locked: true },
       { id: 'superInvestor', name: 'Superinversores Dataroma', weight: 0, locked: true },
-      { id: 'ana', name: 'Opinión de Analistas (MB)', weight: 50, locked: true },
-      { id: 'val', name: 'Valoración y Ganancias (MB)', weight: 0, locked: true },
+      { id: 'trailingPE', name: 'Trailing P/E', weight: 0, locked: true },
+      { id: 'netMargins', name: 'Margen Neto', weight: 0, locked: true },
+      { id: 'debtToEquity', name: 'Debt-to-Equity Ratio', weight: 0, locked: true },
+      { id: 'dividendYield', name: 'Dividend Yield', weight: 0, locked: true },
+      { id: 'priceToCashFlow', name: 'Price / Cash Flow', weight: 0, locked: true },
+      { id: 'marketCap', name: 'Market Cap', weight: 0, locked: true },
       { id: 'ic', name: 'Interés Corto (MB)', weight: 0, locked: true },
       { id: 'div', name: 'Rendimiento por Dividendo (MB)', weight: 0, locked: true },
       { id: 'news', name: 'Sentimiento en Noticias (MB)', weight: 0, locked: true },
-      { id: 'ins', name: 'Transacciones Insider (MB)', weight: 0, locked: true },
-      { id: 'analystRatio', name: 'Consenso de Compra/Venta', weight: 0, locked: true },
-      { id: 'upside', name: 'Potencial Upside', weight: 50, locked: true },
-      { id: 'trailingPE', name: 'Trailing P/E', weight: 0, locked: true },
-      { id: 'forwardPE', name: 'Forward P/E', weight: 0, locked: true },
-      { id: 'debtToEquity', name: 'Debt-to-Equity Ratio', weight: 0, locked: true },
-      { id: 'priceToCashFlow', name: 'Price / Cash Flow', weight: 0, locked: true },
-      { id: 'netMargins', name: 'Margen Neto', weight: 0, locked: true },
-      { id: 'marketCap', name: 'Market Cap', weight: 0, locked: true },
-      { id: 'dividendYield', name: 'Dividend Yield', weight: 0, locked: true },
-      { id: 'mbRating', name: 'MarketBeat Rating (0-4)', weight: 0, locked: true },
-      { id: 'peg', name: 'P/E Growth (PEG)', weight: 0, locked: true }
+      { id: 'ins', name: 'Transacciones Insider (MB)', weight: 0, locked: true }
     ];
+    this.recalculateRatings();
+  }
+
+  onListChange(event: Event) {
+    const target = event.target as HTMLSelectElement;
+    this.selectedListId = target.value;
     this.recalculateRatings();
   }
 
@@ -489,7 +518,15 @@ export class RecommendedStocksComponent implements OnInit, OnDestroy {
         s.rating = score;
     });
     
-    this.recommendedStocks = [...this.tempStocks];
+    let filteredStocks = this.tempStocks;
+    if (this.selectedListId !== 'all') {
+      const list = this.customLists.find(l => l.id === this.selectedListId);
+      if (list && list.tickers.length > 0) {
+        filteredStocks = this.tempStocks.filter(s => list.tickers.includes(s.ticker));
+      }
+    }
+    
+    this.recommendedStocks = [...filteredStocks];
     this.applySort();
   }
 
@@ -615,10 +652,11 @@ export class RecommendedStocksComponent implements OnInit, OnDestroy {
     }
   }
 
-  getSuperInvColor(score: number): string {
-    if (score >= 70) return 'bg-emerald-500/20 text-emerald-400';
-    if (score >= 40) return 'bg-amber-500/20 text-amber-400';
-    return 'bg-rose-500/20 text-rose-400';
+  getRatingColor(score: number | undefined): string {
+    if (score == null) return 'text-text-muted';
+    if (score >= 80) return 'text-emerald-400';
+    if (score >= 60) return 'text-amber-400';
+    return 'text-rose-400';
   }
 
   formatMarketCap(capBillions: number): string {
